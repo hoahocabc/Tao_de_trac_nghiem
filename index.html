@@ -81,28 +81,23 @@
 
     <!-- Popup Google Form (Chống tràn màn hình) -->
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <!-- Đặt max-h-[90vh] và flex flex-col để chia các khối hợp lý -->
         <div class="modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
             
-            <!-- Phần Header (Cố định) -->
             <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-slate-100 shrink-0">
                 <h2 class="text-lg sm:text-2xl font-bold text-slate-900 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 sm:w-7 sm:h-7 text-green-500"></i> Cấu hình Google Form</h2>
                 <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-2 rounded-xl active:scale-90"><i data-lucide="x" class="w-5 h-5"></i></button>
             </div>
             
-            <!-- Phần Hướng dẫn (Cố định) -->
             <div class="bg-blue-50 text-blue-800 text-xs sm:text-sm p-3 sm:p-4 rounded-xl mb-4 flex gap-2 sm:gap-3 border-2 border-blue-100 font-medium shrink-0">
                 <i data-lucide="info" class="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5"></i>
                 <p>Dán link Form vào ô bên dưới. Phần mềm sẽ tự quét và cấu hình gửi điểm.</p>
             </div>
 
-            <!-- Phần Nhập Link (Cố định) -->
             <div class="flex flex-col sm:flex-row gap-3 mb-4 shrink-0">
                 <input type="text" id="gfUrlInput" class="form-input flex-1 text-sm sm:text-base py-2 sm:py-3" placeholder="Dán link Form vào đây (Ctrl + V)...">
                 <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()"><i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>Phân tích</button>
             </div>
 
-            <!-- Phần Bảng (Cho phép cuộn, thu nhỏ min-h) -->
             <div class="flex-1 overflow-y-auto min-h-0 border-2 border-slate-200 rounded-xl mb-4 bg-slate-50 shadow-inner p-1 sm:p-2">
                 <table class="w-full text-xs sm:text-sm text-left">
                     <thead class="bg-white sticky top-0 z-10 shadow-sm rounded-lg">
@@ -117,7 +112,6 @@
                 </table>
             </div>
 
-            <!-- Phần Nút bấm (Cố định bên dưới cùng) -->
             <div class="flex justify-end gap-3 pt-3 border-t-2 border-slate-100 shrink-0">
                 <button class="btn btn-outline py-2 px-4" onclick="app.closeModal('gfModal')">Hủy bỏ</button>
                 <button class="btn btn-primary py-2 px-6 sm:px-8" onclick="app.saveGFConfig()">Lưu thông tin</button>
@@ -127,6 +121,6 @@
     </div>
 
     <input type="file" id="fileLoader" class="hidden">
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>
