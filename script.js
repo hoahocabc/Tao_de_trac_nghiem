@@ -28,7 +28,7 @@ const GUIDES = {
         example: "##\nNước sôi ở =(1)= độ C và hóa rắn ở =(2)= độ C.\nĐáp án:\n=(1)=\n# 100\n=(2)=\n# 0\n# không"
     },
     5: {
-        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Dòng tiếp theo ghi tiêu đề.<br>• Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.<br>• Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.<br>• Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu <b>#</b> ở đ���u.",
+        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Dòng tiếp theo ghi tiêu đề.<br>• Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.<br>• Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.<br>• Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu <b>#</b> ở đầu.",
         example: "##\nGhép các chất với trạng thái tương ứng:\nCột I:\n1. Nước\n2. Sắt\n3. Oxy\nCột II:\nA. Rắn\nB. Lỏng\nC. Khí\n# 1=B, 2=A, 3=C"
     },
     6: {
@@ -129,38 +129,31 @@ const app = {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
         
-        let html = '';
-        
-        // Symbols Hóa học
+        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-sm gap-1 items-center">';
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-xs" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-xs" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
-        // Kí tự đặc biệt
-        extra_symbols.forEach(sym => {
-            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
-        });
-
-        // Divider
-        html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
-
-        // Format
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-black transition-all active:scale-90 shadow-sm shrink-0" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] italic font-black transition-all active:scale-90 shadow-sm shrink-0" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
-
-        // Divider
-        html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
-
-        // Media
-        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[11px] font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
-        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[11px] font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
-
+        let dropdownOpts = `<option value="">Ký hiệu ▾</option>`;
+        extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
+        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-xs font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
+        
+        html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
+                 <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-sm gap-1">
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90 text-xs" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90 text-xs" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
+                 </div>
+                 <div class="flex gap-2 ml-auto">
+                    <button class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 shadow-sm rounded-lg text-xs font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3.5 h-3.5 mr-1.5"></i> Video</button>
+                    <button class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 shadow-sm rounded-lg text-xs font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3.5 h-3.5 mr-1.5"></i> Ảnh</button>
+                 </div>`;
+                 
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -841,7 +834,7 @@ const app = {
                 else if(ptype===6) {
                     let [qtext, clues, keyword, sol] = this.parseQuestionLines(lines, ptype);
                     let encodedSol = encodeURIComponent(sol).replace(/'/g, "%27");
-                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
+                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ��ng)</i></div>`);
                     sectionsHTML.push(`<div class='cw-container' id='cw_${qid}'><div class='cw-grid'>`);
                     
                     let alignedGrid = [];
@@ -1550,14 +1543,4 @@ const app = {
       }
   </script>
 </body>
-</html>`;
-
-        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/\s+/g,'_') + ".html";
-        a.click();
-    }
-};
-
-document.addEventListener('DOMContentLoaded', () => app.init());
+</html>
