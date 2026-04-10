@@ -21,7 +21,8 @@ const GUIDES = {
 
 const chem_symbols = [
     {t: "+"}, {t: "-"}, {t: "×"}, {t: "÷"}, {t: "±"}, {t: "⇌"}, {t: "→"}, {t: "↑"}, {t: "↓"}, {t: "Δ"},
-    {t: "xⁿ", s: "<sup>", e: "</sup>"}, {t: "xₙ", s: "<sub>", e: "</sub>"}
+    {t: "xⁿ", s: "<sup>", e: "</sup>"}, {t: "xₙ", s: "<sub>", e: "</sub>"},
+    {t: "→ (chữ)", action: "arrow_right"}, {t: "⇌ (chữ)", action: "arrow_eq"}
 ];
 
 const extra_symbols = [
@@ -39,12 +40,14 @@ const app = {
         gf_config: { url: "", fields: [] }
     },
     activeTab: 1,
+    editingIndex: -1,
 
     init() {
         if (typeof lucide !== 'undefined') lucide.createIcons();
         this.renderThemes();
         this.renderTabs();
-        this.renderToolbar();
+        this.renderToolbar('editorToolbar', 'qInput');
+        this.renderToolbar('editorToolbarEdit', 'qInputEdit');
         this.switchTab(1);
         this.setupEventListeners();
     },
@@ -92,29 +95,36 @@ const app = {
 
     showGuide() { alert(GUIDES[this.activeTab]); },
 
-    renderToolbar() {
-        const tb = document.getElementById('editorToolbar');
+    renderToolbar(toolbarId, inputId) {
+        const tb = document.getElementById(toolbarId);
+        if(!tb) return;
         let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1 items-center">';
         chem_symbols.forEach(sym => {
-            html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
+            if(sym.action === 'arrow_right') {
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+            } else if(sym.action === 'arrow_eq') {
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+            } else {
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+            }
         });
         
-        let dropdownOpts = `<option value="">Ký hiệu khác ▾</option>`;
+        let dropdownOpts = `<option value="">Ký hiệu ▾</option>`;
         extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
-        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 focus:border-blue-500 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value); this.selectedIndex=0; }">${dropdownOpts}</select>`;
+        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
         
         html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
                  <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>')">I</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
                  </div>
-                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage()"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
+                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
-    insertText(t, startTag, endTag) {
-        const el = document.getElementById('qInput');
+    insertText(t, startTag, endTag, inputId = 'qInput') {
+        const el = document.getElementById(inputId);
         const s = el.selectionStart, e = el.selectionEnd;
         if(startTag || endTag) {
             const r = startTag + el.value.substring(s, e) + endTag;
@@ -127,16 +137,28 @@ const app = {
         el.focus();
     },
 
-    insertImage() {
+    insertArrow(type, inputId = 'qInput') {
+        const el = document.getElementById(inputId);
+        const s = el.selectionStart;
+        let text = type === 'right' ? '$\\xrightarrow[\\text{Ghi_chữ_bên_dưới}]{\\text{Ghi_chữ_bên_trên}}$' : '$\\xrightleftharpoons[\\text{Ghi_chữ_bên_dưới}]{\\text{Ghi_chữ_bên_trên}}$';
+        el.value = el.value.substring(0, s) + text + el.value.substring(el.selectionEnd);
+        const focusStart = s + text.indexOf('Ghi_chữ_bên_trên');
+        const focusEnd = focusStart + 16;
+        el.setSelectionRange(focusStart, focusEnd);
+        el.focus();
+    },
+
+    insertImage(inputId = 'qInput') {
         const f = document.getElementById('fileLoader');
         f.onchange = e => {
             const file = e.target.files[0];
             if(!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '');
+                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
             };
             reader.readAsDataURL(file);
+            f.value = ''; // Reset
         };
         f.click();
     },
@@ -157,13 +179,36 @@ const app = {
         }
     },
 
+    editQuestion(idx) {
+        this.editingIndex = idx;
+        const modal = document.getElementById('editModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+        
+        document.getElementById('qInputEdit').value = this.data['part'+this.activeTab][idx];
+    },
+
+    saveEditQuestion() {
+        if(this.editingIndex === -1) return;
+        const val = document.getElementById('qInputEdit').value.trim();
+        if(!val) return alert("Nội dung không được để trống!");
+        this.data['part'+this.activeTab][this.editingIndex] = val;
+        this.closeModal('editModal');
+        this.renderQList();
+    },
+
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-10 sm:pr-14 cursor-default transform hover:-translate-y-1">
+            <div class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1">
                 <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2"><span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span></div>
                 <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
-                <button class="absolute top-2 sm:top-4 right-2 sm:right-4 p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
+                    <button class="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border-2 border-blue-100 hover:border-blue-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                    <button class="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                </div>
             </div>
         `).join('');
         
@@ -225,13 +270,13 @@ const app = {
                 document.getElementById('publishScore').checked = p.publish_score === true;
                 
                 let loadedGF = p.gf_config;
-                // BẢO LƯU THÔNG TIN GOOGLE FORM: Nếu file không có GF Config, giữ lại GF config đang có sẵn.
+                // BẢO LƯU THÔNG TIN GOOGLE FORM
                 if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) {
                     loadedGF = this.data.gf_config; 
                 } else {
                     loadedGF.fields.forEach(field => {
                         if(field.type && (!field.type.includes("Tự") && !field.type.includes("tự"))) {
-                            field.type = field.type.includes("tự điền") ? "Học sinh tự điền" : "Điểm đạt được (Tự động)";
+                            field.type = field.type.includes("tự điền") ? "Tự nhập" : "Tự động";
                         }
                     });
                 }
@@ -240,6 +285,7 @@ const app = {
                 this.switchTab(1);
             };
             reader.readAsText(file);
+            f.value = ''; // Reset
         };
         f.click();
     },
@@ -308,11 +354,11 @@ const app = {
                 if(q[4] && q[4][0]) {
                     let title = q[1] || "";
                     let t = title.toLowerCase();
-                    let type = "Học sinh tự điền";
-                    if(t.includes('điểm') && t.includes('tối đa')) type = "Điểm tối đa (Tự động)";
-                    else if(t.includes('điểm') || t.includes('score')) type = "Điểm đạt được (Tự động)";
-                    else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Báo cáo vi phạm (Tự động)";
-                    
+                    // Loại dữ liệu chỉ có "Tự nhập" và "Tự động"
+                    let type = "Tự nhập";
+                    if(t.includes('điểm') || t.includes('score') || t.includes('tối đa') || t.includes('vi phạm') || t.includes('gian lận') || t.includes('thống kê') || t.includes('tổng')) {
+                        type = "Tự động";
+                    }
                     fields.push({ id: q[4][0][0].toString(), title: title, type: type, required: q[4][0][2] == 1 });
                 }
             });
@@ -344,10 +390,8 @@ const app = {
                 <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 sm:py-2 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-2 sm:p-3">
                     <select class="form-select py-1.5 sm:py-2 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
-                        <option value="Học sinh tự điền" ${f.type==="Học sinh tự điền"?"selected":""}>Học sinh tự điền</option>
-                        <option value="Điểm đạt được (Tự động)" ${f.type==="Điểm đạt được (Tự động)"?"selected":""}>Điểm đạt được (Tự động)</option>
-                        <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
-                        <option value="Báo cáo vi phạm (Tự động)" ${f.type==="Báo cáo vi phạm (Tự động)"?"selected":""}>Báo cáo vi phạm (Tự động)</option>
+                        <option value="Tự nhập" ${f.type==="Tự nhập"?"selected":""}>Tự nhập</option>
+                        <option value="Tự động" ${f.type==="Tự động"?"selected":""}>Tự động</option>
                     </select>
                 </td>
                 <td class="p-2 sm:p-3 text-center">
@@ -501,7 +545,7 @@ const app = {
             let sId = `field_${f.id}`;
             let safeTitle = f.title.replace(/"/g, '\\"');
             
-            if (f.type.includes("tự điền") || f.type.includes("Học sinh")) {
+            if (f.type === "Tự nhập") {
                 hasStudentInputs = true;
                 let reqStr = f.required ? "required" : "";
                 let reqStar = f.required ? " <span style='color:#ef4444;'>*</span>" : "";
@@ -515,9 +559,16 @@ const app = {
                 jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}").value.trim() || "Chưa điền");`);
                 if (f.required) jsValid.push(`if(!document.getElementById("${sId}").value.trim()) missing_fields.push("${safeTitle}");`);
             } 
-            else if (f.type.includes("Điểm đạt")) jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
-            else if (f.type.includes("tối đa")) jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
-            else if (f.type.includes("vi phạm")) jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
+            else if (f.type === "Tự động") {
+                let t = f.title.toLowerCase();
+                if (t.includes("tối đa") || t.includes("max")) {
+                    jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
+                } else if (t.includes("vi phạm") || t.includes("gian lận")) {
+                    jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
+                } else {
+                    jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
+                }
+            }
         });
 
         let sectionsHTML = [];
@@ -606,7 +657,7 @@ const app = {
                 }
                 else if(ptype===6) {
                     let [qtext, clues, keyword, sol] = this.parseQuestionLines(lines, ptype);
-                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi �� tương ứng)</i></div>`);
+                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
                     sectionsHTML.push(`<div class='cw-container' id='cw_${qid}'><div class='cw-grid'>`);
                     
                     let alignedGrid = [];
