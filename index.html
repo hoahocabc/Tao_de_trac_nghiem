@@ -43,7 +43,7 @@
     </header>
 
     <main class="flex-1 max-w-[1400px] mx-auto w-full px-4 lg:px-6 py-6 flex flex-col gap-6">
-        <section class="bg-white p-5 lg:p-6 rounded-2xl shadow-sm border border-slate-200">
+        <section class="bg-white p-5 lg:p-6 rounded-2xl shadow-sm border border-slate-200 shrink-0">
             <h2 class="form-label mb-4 flex items-center gap-2 text-blue-700 text-sm"><i data-lucide="settings-2" class="w-4 h-4"></i> Cấu hình đề thi</h2>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-5 lg:gap-6">
                 <div class="flex flex-col gap-4">
@@ -77,7 +77,7 @@
                             <span class="text-sm font-semibold text-slate-700">Chống gian lận (Chuyển tab/Mất focus)</span>
                         </label>
                         <label class="flex items-center gap-3 cursor-pointer">
-                            <input type="checkbox" id="publishScore" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer" checked>
+                            <input type="checkbox" id="publishScore" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
                             <span class="text-sm font-semibold text-slate-700">Công bố điểm & đáp án sau khi nộp</span>
                         </label>
                     </div>
@@ -85,28 +85,37 @@
             </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
-            <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-20 lg:top-24 h-[60vh] lg:h-[calc(100vh-11rem)]">
-                <div class="bg-slate-100 p-3 lg:p-4 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3" id="tabsContainer"></div>
-                <div class="p-4 lg:p-6 flex-1 flex flex-col bg-slate-50">
-                    <div class="flex justify-between items-center mb-3 lg:mb-4">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-1 min-h-0 pb-10">
+            <!-- Cột soạn thảo -->
+            <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col sticky top-20 max-h-[calc(100vh-6rem)] overflow-hidden">
+                <div class="bg-slate-100 p-3 lg:p-4 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3 shrink-0" id="tabsContainer"></div>
+                
+                <div class="p-4 lg:p-6 flex-1 flex flex-col bg-slate-50 min-h-0 overflow-y-auto">
+                    <div class="flex justify-between items-center mb-3 lg:mb-4 shrink-0">
                         <h2 class="text-lg lg:text-xl font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
                         <button class="btn btn-outline py-1.5 px-3 lg:py-2 text-xs lg:text-sm" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> HD nhập</button>
                     </div>
-                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
-                        <div class="bg-slate-100 p-2 border-b-2 border-slate-200" id="editorToolbar"></div>
-                        <textarea id="qInput" class="w-full p-4 font-mono text-sm flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed" placeholder="Nhập câu hỏi tại đây..."></textarea>
+                    
+                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm min-h-[300px] overflow-hidden">
+                        <div class="bg-slate-100 p-2 border-b-2 border-slate-200 shrink-0" id="editorToolbar"></div>
+                        <textarea id="qInput" class="w-full p-4 font-mono text-sm flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[150px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
-                    <div class="mt-4 lg:mt-6 flex justify-end"><button class="btn btn-primary w-full sm:w-auto" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách</button></div>
+                    
+                    <div class="mt-4 lg:mt-6 flex justify-end shrink-0">
+                        <button class="btn btn-primary w-full sm:w-auto py-3 text-base" onclick="app.addQuestion()">
+                            <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col h-[50vh] lg:h-[calc(100vh-11rem)]">
+            <!-- Cột danh sách -->
+            <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col sticky top-20 max-h-[calc(100vh-6rem)] overflow-hidden">
                 <div class="p-4 lg:p-5 border-b border-slate-200 bg-slate-50 rounded-t-2xl flex justify-between items-center shrink-0">
                     <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base lg:text-lg"><i data-lucide="list-checks" class="w-5 h-5 lg:w-6 lg:h-6 text-emerald-600"></i> Danh sách câu hỏi</h3>
                     <span id="qCountBadge" class="bg-emerald-100 text-emerald-800 text-xs lg:text-sm font-bold px-3 py-1 rounded-full shadow-[0_2px_0_0_#a7f3d0]">0 câu</span>
                 </div>
-                <div id="qList" class="p-4 lg:p-5 space-y-4 overflow-y-auto flex-1 bg-slate-50/50"></div>
+                <div id="qList" class="p-4 lg:p-5 space-y-4 overflow-y-auto flex-1 min-h-0 bg-slate-50/50"></div>
             </div>
         </section>
     </main>
@@ -145,11 +154,13 @@
 
     <!-- Edit Modal -->
     <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 w-full max-w-3xl transform transition-all duration-300 scale-95 translate-y-4">
-            <h2 class="text-xl font-bold mb-4">Chỉnh sửa câu hỏi</h2>
-            <div class="bg-slate-100 p-2 border-b-2 border-slate-200" id="editorToolbarEdit"></div>
-            <textarea id="qInputEdit" class="w-full p-4 font-mono text-sm h-64 border-2 border-slate-200 outline-none focus:border-blue-500 rounded-b-xl"></textarea>
-            <div class="flex justify-end gap-3 mt-4">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 w-full max-w-4xl flex flex-col transform transition-all duration-300 scale-95 translate-y-4 max-h-[90vh]">
+            <h2 class="text-xl font-bold mb-4 shrink-0 text-slate-800">Chỉnh sửa câu hỏi</h2>
+            <div class="flex-1 flex flex-col border-2 border-slate-200 rounded-xl min-h-0 overflow-hidden">
+                <div class="bg-slate-100 p-2 border-b-2 border-slate-200 shrink-0" id="editorToolbarEdit"></div>
+                <textarea id="qInputEdit" class="w-full flex-1 p-4 font-mono text-sm outline-none focus:bg-slate-50 transition-colors resize-none"></textarea>
+            </div>
+            <div class="flex justify-end gap-3 mt-4 shrink-0">
                 <button class="btn btn-outline" onclick="app.closeModal('editModal')">Hủy</button>
                 <button class="btn btn-primary" onclick="app.saveEditQuestion()">Lưu thay đổi</button>
             </div>
