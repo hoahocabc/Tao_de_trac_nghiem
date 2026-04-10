@@ -164,12 +164,13 @@ const app = {
     },
 
     newProject() {
-        if(confirm("Tạo dự án mới s��� xóa toàn bộ dữ liệu hiện tại. Bạn có chắc chắn?")) {
+        if(confirm("Tạo dự án mới sẽ xóa toàn bộ dữ liệu hiện tại. Bạn có chắc chắn?")) {
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config:{url:"", fields:[]} };
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
             document.getElementById('startTime').value = "";
             document.getElementById('endTime').value = "";
+            document.getElementById('antiCheat').checked = true;
             this.switchTab(1);
         }
     },
@@ -180,6 +181,7 @@ const app = {
             theme: document.getElementById('themeSelect').value,
             start_time: document.getElementById('startTime').value,
             end_time: document.getElementById('endTime').value,
+            anti_cheat: document.getElementById('antiCheat').checked,
             ...this.data
         };
         const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json"});
@@ -201,6 +203,9 @@ const app = {
                 document.getElementById('themeSelect').value = p.theme || '';
                 document.getElementById('startTime').value = p.start_time || '';
                 document.getElementById('endTime').value = p.end_time || '';
+                
+                // Mặc định bật nếu file cũ không có trường này
+                document.getElementById('antiCheat').checked = p.anti_cheat !== undefined ? p.anti_cheat : true;
                 
                 if(p.gf_config && p.gf_config.fields) {
                     p.gf_config.fields.forEach(field => {
@@ -339,9 +344,6 @@ const app = {
         alert("✅ Đã lưu cấu hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
-    // ============================================
-    // PHÂN TÍCH CÂU HỎI (TƯƠNG ĐƯƠNG PYTHON GỐC)
-    // ============================================
     parseQuestionLines(lines, partType) {
         let qLines = [], sLines = [], solMode = false;
         
@@ -468,6 +470,7 @@ const app = {
         const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
+        const isAntiCheat = document.getElementById('antiCheat').checked;
         
         let jsBuilder=[], jsValid=[], studentInputsHtml=[];
         let hasStudentInputs = false;
@@ -768,6 +771,7 @@ const app = {
       const END_TIME_STR = "${endTime}";
       const EXAM_ID = "${examUUID}";
       const GF_URL = "${this.data.gf_config.url}";
+      const IS_ANTI_CHEAT = ${isAntiCheat};
 
       function parseDateVN(dateStr) {
           if (!dateStr || dateStr.trim() === "") return null;
@@ -783,7 +787,7 @@ const app = {
       const END_TIME = parseDateVN(END_TIME_STR);
 
       function lockExam(reason) {
-          localStorage.setItem(EXAM_ID + "_LOCKED", reason);
+          if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
           document.documentElement.innerHTML = \`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
               <h1 style="font-size:3rem; margin-bottom:10px;">⛔ TRUY CẬP BỊ TỪ CHỐI</h1>
               <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\${reason}</h3>
@@ -792,8 +796,8 @@ const app = {
       }
 
       let nowInit = new Date().getTime();
-      if (localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
-      else if (localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
+      if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
+      else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
       else if (END_TIME && nowInit >= END_TIME) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
       else if (START_TIME && nowInit < START_TIME) {
           document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
@@ -817,6 +821,7 @@ const app = {
 
       window.violationCount = 0; window.violationDetails = []; window.isForceSubmit = false; let isHandlingViolation = false;
       function handleViolation(reason) {
+          if (!IS_ANTI_CHEAT) return;
           if (isHandlingViolation || localStorage.getItem(EXAM_ID + "_SUBMITTED")) return;
           isHandlingViolation = true; setTimeout(() => { isHandlingViolation = false; }, 1500);
           if (document.getElementById('submitBtn') && document.getElementById('submitBtn').style.display !== 'none') {
@@ -831,6 +836,7 @@ const app = {
       }
       
       document.addEventListener('DOMContentLoaded', () => {
+          if (!IS_ANTI_CHEAT) return;
           document.body.style.userSelect = 'none'; document.body.style.webkitUserSelect = 'none';
           document.addEventListener('contextmenu', e => e.preventDefault());
           ['copy', 'cut', 'paste'].forEach(evt => document.addEventListener(evt, e => { e.preventDefault(); navigator.clipboard.writeText(''); alert("⚠️ Cảnh báo: Tính năng sao chép bị vô hiệu hóa!"); }));
@@ -1102,7 +1108,7 @@ const app = {
          });
          
          await sendToGoogleForm(totalScore, maxPossibleScore);
-         localStorage.setItem(EXAM_ID + "_SUBMITTED", "true");
+         if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_SUBMITTED", "true");
          overlay.style.display = 'none';
          
          let summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
