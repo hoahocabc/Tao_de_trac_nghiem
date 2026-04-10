@@ -162,6 +162,8 @@ const app = {
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config:{url:"", fields:[]} };
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
+            document.getElementById('startTime').value = "";
+            document.getElementById('endTime').value = "";
             this.switchTab(1);
         }
     },
@@ -191,6 +193,8 @@ const app = {
                 document.getElementById('quizTitle').value = p.title || '';
                 document.getElementById('creatorName').value = p.creator || '';
                 document.getElementById('themeSelect').value = p.theme || '';
+                document.getElementById('startTime').value = p.start_time || '';
+                document.getElementById('endTime').value = p.end_time || '';
                 
                 if(p.gf_config && p.gf_config.fields) {
                     p.gf_config.fields.forEach(field => {
@@ -256,7 +260,6 @@ const app = {
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        // Đổi nhãn thành Đang phân tích...
         btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang phân tích...';
         btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
         
@@ -273,7 +276,6 @@ const app = {
                 if(q[4] && q[4][0]) {
                     let type = "Tự nhập";
                     let t = (q[1] || "").toLowerCase();
-                    // NHẬN DIỆN THÔNG MINH TẤT CẢ CÁC TỪ KHÓA
                     if(t.includes('điểm') || t.includes('score') || t.includes('tự động') || t.includes('tổng') || t.includes('thống kê')) {
                         type = "Tự động";
                     }
@@ -323,30 +325,33 @@ const app = {
     },
 
     saveGFConfig() {
-        // Chỉ lưu ngầm vào biến bộ nhớ (this.data), đóng cửa sổ và báo thành công. Không tự động tải file .json nữa.
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        alert("✅ Đã lưu thông tin Google Form vào bộ nhớ. Bạn có thể tiếp tục soạn đề và bấm XUẤT HTML!");
+        alert("✅ Đã lưu cấu hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
     parsePart12(lines) {
         let qLines=[], oLines=[], sLines=[], solMode=false;
         lines.forEach(l => {
             let cl = l.trimRight();
-            if(cl.trimLeft().startsWith("Lời giải:")) { solMode=true; sLines.push(cl.trimLeft().substring(9)); return;}
+            if(cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode=true; sLines.push(cl.trimLeft().substring(9)); return;}
             if(solMode) sLines.push(cl);
             else if(/^\s*#?\s*[A-Ea-e]\.\s/.test(cl)) oLines.push(cl);
             else qLines.push(cl);
         });
         return [qLines.join('<br>'), oLines, sLines.join('<br>')];
     },
-    parsePart3(lines) {
+    
+    parseGenericText(lines) {
         let qLines=[], aLines=[], sLines=[], solMode=false;
         lines.forEach(l => {
             let cl = l.trimRight();
-            if(cl.trimLeft().startsWith("Lời giải:")) { solMode=true; sLines.push(cl.trimLeft().substring(9)); return;}
+            if(cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode=true; sLines.push(cl.trimLeft().substring(9)); return;}
             if(solMode) sLines.push(cl);
-            else if(cl.trimLeft().startsWith("#")) { let ans=cl.trimLeft().substring(1).trim(); if(ans) aLines.push(ans);}
+            else if(cl.trimLeft().startsWith("#")) { 
+                let ans = cl.trimLeft().substring(1).trim(); 
+                if(ans) aLines.push(ans);
+            }
             else qLines.push(cl);
         });
         return [qLines.join('<br>'), aLines.join('||'), sLines.join('<br>')];
@@ -360,7 +365,6 @@ const app = {
         let jsBuilder=[], jsValid=[], formHtml=[];
         let hasStudentInputs = false;
         
-        // Khi xuất HTML, app sẽ tự động quét thông tin GF từ bộ nhớ này và tạo Form ẩn
         this.data.gf_config.fields.forEach(f => {
             let sId = `field_${f.id}`;
             if(f.type === "Tự nhập") {
@@ -381,7 +385,7 @@ const app = {
         let sectionsHTML = [];
         let partCounter = 1;
         
-        [1,2,3].forEach(ptype => {
+        [1,2,3,4,5,6].forEach(ptype => {
             if(this.data['part'+ptype].length === 0) return;
             sectionsHTML.push(`<div class='section' id='part${partCounter}' data-parttype='${ptype}' data-title='Phần ${ptype}'>`);
             sectionsHTML.push(`<div class='section-title'>Phần ${ptype}</div><div class='score-note'><i>Mỗi câu đúng được 1 điểm.</i></div>`);
@@ -408,12 +412,15 @@ const app = {
                             <div class='explanation' id='${qid}_result' data-answer='${letCorrect.join(',')}' data-solution='${encodeURIComponent(sol)}'></div>
                         </div>
                     `);
-                } else if(ptype===3) {
-                    let [qtext, ans, sol] = this.parsePart3(lines);
+                } else {
+                    let [qtext, ans, sol] = this.parseGenericText(lines);
                     sectionsHTML.push(`
                         <div class='question' id='${qid}'>
                             <div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div>
-                            <div class='blank-container'>Đáp án: <input type='text' id='${qid}_input' style="border-bottom: 2px solid var(--primary); border-top: none; border-left: none; border-right: none; background: transparent; outline:none; text-align:center; font-weight:bold;"></div>
+                            <div class='blank-container' style='margin-top:15px;'>
+                                <div style='margin-bottom: 5px; font-weight: 600; color: var(--primary);'>Nhập đáp án của bạn:</div>
+                                <input type='text' id='${qid}_input' style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; outline:none; font-weight:bold; background: var(--bg);">
+                            </div>
                             <div class='explanation' id='${qid}_result' data-answer='${ans}' data-solution='${encodeURIComponent(sol)}'></div>
                         </div>
                     `);
@@ -422,6 +429,13 @@ const app = {
             sectionsHTML.push('</div>');
             partCounter++;
         });
+
+        let studentInputHTML = hasStudentInputs ? `
+            <div style="background:var(--card); padding:30px; border-radius:16px; border:3px solid var(--primary); margin-bottom:40px; box-shadow: 0 6px 0 0 var(--primary-hover);">
+                <h3 style="margin-top:0; color: var(--primary); border-bottom: 2px solid var(--border); padding-bottom:10px;">📝 ĐIỀN THÔNG TIN CỦA BẠN</h3>
+                ${formHtml.join('')}
+            </div>
+        ` : '';
 
         const fullHTML = `<!DOCTYPE html>
 <html lang="vi">
@@ -456,7 +470,7 @@ const app = {
             <h1 style="text-align:center; color:var(--text); font-size: 2rem; font-weight: 900; margin-bottom: 5px;">${title}</h1>
             ${creator ? `<p style="text-align:center; color:var(--text-muted); font-weight: 600; margin-bottom: 30px;">Biên soạn: ${creator}</p>` : '<div style="margin-bottom:30px;"></div>'}
             
-            ${hasStudentInputs ? `<div style="background:var(--card); padding:30px; border-radius:16px; border:3px solid var(--primary); margin-bottom:40px; box-shadow: 0 6px 0 0 var(--primary-hover);">${formHtml.join('')}</div>` : ''}
+            ${studentInputHTML}
             
             ${sectionsHTML.join('')}
             
@@ -486,19 +500,22 @@ const app = {
 
             let totalScore = 0, maxScore = 0;
             document.querySelectorAll('.section').forEach(sec => {
-                let pt = sec.getAttribute('data-parttype');
+                let pt = parseInt(sec.getAttribute('data-parttype'));
                 sec.querySelectorAll('.question').forEach(q => {
                     maxScore++; let qScore=0; let fb="";
-                    if(pt == "1" || pt == "2") {
+                    if(pt === 1 || pt === 2) {
                         let sel = Array.from(q.querySelectorAll('input:checked')).map(e=>e.value).sort().join(',');
                         let cor = q.querySelector('.explanation').getAttribute('data-answer').split(',').sort().join(',');
                         if(sel===cor && sel!=="") { qScore=1; fb="<span style='color:#059669; font-weight:900; font-size:1.1rem;'>✓ TRẢ LỜI ĐÚNG!</span>"; }
                         else { fb="<span style='color:#dc2626; font-weight:900; font-size:1.1rem;'>✗ SAI. ĐÁP ÁN: " + cor + "</span>"; }
-                    } else if(pt == "3") {
-                        let sel = q.querySelector('input[type=text]').value.trim();
-                        let cor = q.querySelector('.explanation').getAttribute('data-answer').split('||');
-                        if(cor.includes(sel)) { qScore=1; fb="<span style='color:#059669; font-weight:900; font-size:1.1rem;'>✓ TRẢ LỜI ĐÚNG!</span>"; }
-                        else { fb="<span style='color:#dc2626; font-weight:900; font-size:1.1rem;'>✗ SAI. ĐÁP ÁN: " + cor.join(' hoặc ') + "</span>"; }
+                    } else if(pt >= 3) {
+                        let sel = q.querySelector('input[type=text]').value.trim().toLowerCase();
+                        let corArr = q.querySelector('.explanation').getAttribute('data-answer').split('||').map(c => c.toLowerCase());
+                        
+                        let isCorrect = corArr.some(c => c === sel);
+                        
+                        if(isCorrect && sel !== "") { qScore=1; fb="<span style='color:#059669; font-weight:900; font-size:1.1rem;'>✓ TRẢ LỜI ĐÚNG!</span>"; }
+                        else { fb="<span style='color:#dc2626; font-weight:900; font-size:1.1rem;'>✗ SAI. ĐÁP ÁN: " + q.querySelector('.explanation').getAttribute('data-answer').split('||').join(' hoặc ') + "</span>"; }
                     }
                     totalScore += qScore;
                     let expl = q.querySelector('.explanation');
