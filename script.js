@@ -5,10 +5,10 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Nhập câu trắc nghiệm 1 lựa chọn. Bắt đầu câu bằng ##. Đáp án đúng có dấu # ở đầu.\nVí dụ:\n##\nThủ đô của VN?\n# A. Hà Nội\nB. Huế\nLời giải:\nGiải thích...",
-    2: "Nhập câu trắc nghiệm nhiều lựa chọn. Bắt đầu bằng ##. Đáp án đúng có dấu #.\nVí dụ:\n##\nChất khí?\n# A. O2\nB. NaCl\n# C. H2",
-    3: "Nhập câu trả lời ngắn. Bắt đầu bằng ##. Đáp án sau dấu # (mỗi dòng 1 đáp án chấp nhận).\nVí dụ:\n##\n1+1=?\n# 2\n# hai",
-    4: "Nhập điền khuyết. Vị trí khuyết =(n)=.\nVí dụ:\n##\nNước có CT là =(1)=\nĐáp án:\n=(1)=\n# H2O",
+    1: "Nhập câu trắc nghiệm 1 lựa chọn. Bắt đầu câu bằng ##. Đáp án đúng có dấu # ở đầu.\nVí dụ:\n##\nThủ đô của VN?\n# A. Hà Nội\nB. Huế",
+    2: "Nhập câu trắc nghiệm nhiều lựa chọn. Bắt đầu bằng ##. Đáp án đúng có dấu #.",
+    3: "Nhập câu trả lời ngắn. Bắt đầu bằng ##. Đáp án sau dấu #.",
+    4: "Nhập điền khuyết. Vị trí khuyết =(n)=.",
     5: "Ghép đôi. Định dạng: Cột I:, Cột II:, Đáp án nối: # 1=A, 2=B",
     6: "Giải ô chữ. Gợi ý hàng ngang: 1. ... # ĐÁP ÁN. Từ khóa dọc: Từ khóa: # KEY"
 };
@@ -39,9 +39,7 @@ const app = {
         if (gfInput) {
             gfInput.addEventListener('paste', (e) => {
                 setTimeout(() => {
-                    if (gfInput.value.includes('google.com/forms')) {
-                        this.autoAnalyzeGF();
-                    }
+                    if (gfInput.value.includes('google.com/forms')) this.autoAnalyzeGF();
                 }, 100);
             });
         }
@@ -55,19 +53,14 @@ const app = {
     renderTabs() {
         const c = document.getElementById('tabsContainer');
         const titles = [
-            {icon: 'circle-dot', text: '1 lựa chọn'},
-            {icon: 'check-square', text: 'Nhiều lựa chọn'},
-            {icon: 'pen-line', text: 'Trả lời ngắn'},
-            {icon: 'form-input', text: 'Điền khuyết'},
-            {icon: 'arrow-right-left', text: 'Ghép đôi'},
-            {icon: 'grid-3x3', text: 'Ô chữ'}
+            {icon: 'circle-dot', text: '1 lựa chọn'}, {icon: 'check-square', text: 'Nhiều lựa chọn'},
+            {icon: 'pen-line', text: 'Trả lời ngắn'}, {icon: 'form-input', text: 'Điền khuyết'},
+            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: 'Ô chữ'}
         ];
-        
         c.innerHTML = titles.map((t, i) => `
-            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" 
-                    onclick="app.switchTab(${i+1})">
-                <i data-lucide="${t.icon}" class="w-6 h-6 mb-2 ${this.activeTab === i+1 ? 'text-blue-600' : 'text-slate-400'}"></i>
-                <span class="text-center w-full truncate text-sm">Phần ${i+1}</span>
+            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-3" onclick="app.switchTab(${i+1})">
+                <i data-lucide="${t.icon}" class="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2 ${this.activeTab === i+1 ? 'text-blue-600' : 'text-slate-400'}"></i>
+                <span class="text-center w-full truncate text-[10px] sm:text-sm">Phần ${i+1}</span>
             </button>
         `).join('');
         lucide.createIcons();
@@ -86,16 +79,16 @@ const app = {
 
     renderToolbar() {
         const tb = document.getElementById('editorToolbar');
-        let html = '<div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">';
+        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">';
         chem_symbols.forEach(sym => {
-            html += `<button class="px-2.5 py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
+            html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
         });
-        html += `</div><div class="w-px h-6 bg-slate-300 mx-2"></div>
+        html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
                  <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
-                    <button class="px-3 py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
-                    <button class="px-3 py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>')">I</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>')">I</button>
                  </div>
-                 <button class="ml-auto px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage()"><i data-lucide="image" class="w-4 h-4 mr-2"></i> Chèn ảnh</button>`;
+                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage()"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
         tb.innerHTML = html;
         lucide.createIcons();
     },
@@ -104,8 +97,7 @@ const app = {
         const el = document.getElementById('qInput');
         const s = el.selectionStart, e = el.selectionEnd;
         if(startTag || endTag) {
-            const sel = el.value.substring(s, e);
-            const r = startTag + sel + endTag;
+            const r = startTag + el.value.substring(s, e) + endTag;
             el.value = el.value.substring(0, s) + r + el.value.substring(e);
             el.setSelectionRange(s, s + r.length);
         } else {
@@ -122,8 +114,7 @@ const app = {
             if(!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                const b64 = ev.target.result;
-                this.insertText('', `<img src="${b64}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '');
+                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '');
             };
             reader.readAsDataURL(file);
         };
@@ -134,9 +125,7 @@ const app = {
         const val = document.getElementById('qInput').value.trim();
         if(!val) return alert("Vui lòng nhập nội dung câu hỏi!");
         const chunks = val.includes("##") ? val.split("##").filter(x => x.trim()) : [val];
-        chunks.forEach(c => {
-            if(c.split('\n').length >= 2) this.data['part'+this.activeTab].push(c.trim());
-        });
+        chunks.forEach(c => { if(c.split('\n').length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
         document.getElementById('qInput').value = '';
         this.renderQList();
     },
@@ -151,23 +140,18 @@ const app = {
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div class="p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-14 cursor-default transform hover:-translate-y-1">
-                <div class="flex items-center gap-2 mb-3 border-b-2 border-slate-100 pb-2">
-                    <span class="bg-blue-100 text-blue-700 text-xs font-black px-3 py-1.5 rounded-lg">Câu ${i+1}</span>
-                </div>
-                <div class="text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
-                <button class="absolute top-4 right-4 p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all opacity-0 group-hover:opacity-100 active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa câu hỏi">
-                    <i data-lucide="trash-2" class="w-4 h-4"></i>
-                </button>
+            <div class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-10 sm:pr-14 cursor-default transform hover:-translate-y-1">
+                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2"><span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span></div>
+                <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
+                <button class="absolute top-2 sm:top-4 right-2 sm:right-4 p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all sm:opacity-0 sm:group-hover:opacity-100 active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
             </div>
         `).join('');
         
         document.getElementById('qList').innerHTML = html || `
             <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-4 py-12">
-                <div class="bg-slate-100 p-5 rounded-2xl shadow-inner"><i data-lucide="inbox" class="w-12 h-12 text-slate-300"></i></div>
-                <p class="text-sm font-bold text-slate-400">Chưa có câu hỏi nào</p>
+                <div class="bg-slate-100 p-4 sm:p-5 rounded-2xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300"></i></div>
+                <p class="text-xs sm:text-sm font-bold text-slate-400">Chưa có câu hỏi nào</p>
             </div>`;
-        
         const badge = document.getElementById('qCountBadge');
         if(badge) badge.innerText = `${arr.length} câu`;
         lucide.createIcons();
@@ -176,8 +160,8 @@ const app = {
     newProject() {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ dữ liệu hiện tại. Bạn có chắc chắn?")) {
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config:{url:"", fields:[]} };
-            document.querySelectorAll('input[type="text"]').forEach(e => e.value='');
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
+            document.getElementById('creatorName').value = "";
             this.switchTab(1);
         }
     },
@@ -207,11 +191,17 @@ const app = {
                 document.getElementById('quizTitle').value = p.title || '';
                 document.getElementById('creatorName').value = p.creator || '';
                 document.getElementById('themeSelect').value = p.theme || '';
-                document.getElementById('startTime').value = p.start_time || '';
-                document.getElementById('endTime').value = p.end_time || '';
+                
+                if(p.gf_config && p.gf_config.fields) {
+                    p.gf_config.fields.forEach(field => {
+                        if(field.type !== "Tự nhập" && field.type !== "Tự động") {
+                            field.type = field.type.includes("tự điền") ? "Tự nhập" : "Tự động";
+                        }
+                    });
+                }
+
                 this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: p.gf_config||{url:"", fields:[]} };
                 this.switchTab(1);
-                alert("Tải dự án thành công!");
             };
             reader.readAsText(file);
         };
@@ -226,14 +216,9 @@ const app = {
         content.classList.add('scale-100', 'translate-y-0');
 
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
-        if(this.data.gf_config.fields.length > 0) {
-            this.renderGFFields();
-        } else {
-            document.getElementById('gfFieldsTable').innerHTML = `
-                <tr><td colspan="4" class="text-center py-10 text-slate-400 font-medium italic">
-                    <i data-lucide="link" class="w-10 h-10 mx-auto mb-2 text-slate-300"></i>
-                    Dán link Form vào ô phía trên để bắt đầu phân tích
-                </td></tr>`;
+        if(this.data.gf_config.fields.length > 0) this.renderGFFields();
+        else {
+            document.getElementById('gfFieldsTable').innerHTML = `<tr><td colspan="4" class="text-center py-6 sm:py-10 text-slate-400 font-medium italic"><i data-lucide="link" class="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 text-slate-300"></i>Dán link Form vào ô phía trên để bắt đầu phân tích</td></tr>`;
             lucide.createIcons();
         }
     },
@@ -251,46 +236,33 @@ const app = {
             { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' },
             { url: `https://corsproxy.io/?${encodeURIComponent(url)}`, type: 'text' }
         ];
-
         for (const proxy of proxies) {
             try {
                 const response = await fetch(proxy.url, { cache: "no-store" });
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                
                 if (proxy.type === 'json') {
                     const data = await response.json();
                     if (data.contents) return data.contents;
-                } else {
-                    return await response.text();
-                }
-            } catch (err) {
-                console.warn(`Proxy failed (${proxy.url}):`, err);
-                continue; 
-            }
+                } else return await response.text();
+            } catch (err) { continue; }
         }
-        throw new Error("Không thể kết nối đến Google Form qua các Proxy. Vui lòng kiểm tra lại mạng hoặc thử tắt trình chặn quảng cáo (AdBlock).");
+        throw new Error("Không thể kết nối đến Google Form qua các Proxy. Vui lòng kiểm tra mạng.");
     },
 
     async autoAnalyzeGF() {
         let url = document.getElementById('gfUrlInput').value.trim();
         if(!url) return alert("Vui lòng nhập link Form!");
-        
-        if(url.includes("forms.gle")) {
-            alert("⚠��� Chú ý: Phần mềm cần Link Form dạng dài (docs.google.com/forms/...) để phân tích.\nVui lòng mở link rút gọn bằng trình duyệt, copy đường link dài rồi dán lại vào đây.");
-            return;
-        }
+        if(url.includes("forms.gle")) return alert("⚠️ Vui lòng mở link rút gọn bằng trình duyệt, copy đường link dài rồi dán lại vào đây.");
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Đang tải...';
-        btn.disabled = true;
-        document.getElementById('gfUrlInput').disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang tải...';
+        btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
         
         try {
             const html = await this.fetchHtmlWithCors(url);
-            
             const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
-            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai' (Bất kỳ ai cũng có thể xem).");
+            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai'.");
             
             const jsonData = JSON.parse(match[1]);
             const qs = jsonData[1][1];
@@ -298,11 +270,10 @@ const app = {
             
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
-                    // Logic chỉ thiết lập mặc định "Tự động" nếu từ khóa khớp
                     let type = "Tự nhập";
                     let t = (q[1] || "").toLowerCase();
-                    
-                    if(t.includes('điểm') || t.includes('score') || t.includes('tự động')) {
+                    // NHẬN DIỆN THÔNG MINH TẤT CẢ CÁC TỪ KHÓA ĐIỂM, THỐNG KÊ LÀ "TỰ ĐỘNG"
+                    if(t.includes('điểm') || t.includes('score') || t.includes('tự động') || t.includes('tổng') || t.includes('thống kê')) {
                         type = "Tự động";
                     }
                     
@@ -317,41 +288,34 @@ const app = {
             document.getElementById('gfUrlInput').value = this.data.gf_config.url;
             this.renderGFFields();
             
-            btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Thành công!';
+            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-2"></i>Xong!';
             btn.classList.replace('from-emerald-500', 'from-blue-500');
-            setTimeout(() => {
-                btn.innerHTML = oldHtml;
-                btn.classList.replace('from-blue-500', 'from-emerald-500');
-                lucide.createIcons();
-            }, 2000);
+            setTimeout(() => { btn.innerHTML = oldHtml; btn.classList.replace('from-blue-500', 'from-emerald-500'); lucide.createIcons(); }, 2000);
 
         } catch(e) {
             alert("❌ Lỗi: " + e.message);
             btn.innerHTML = oldHtml;
         } finally {
-            btn.disabled = false;
-            document.getElementById('gfUrlInput').disabled = false;
-            lucide.createIcons();
+            btn.disabled = false; document.getElementById('gfUrlInput').disabled = false; lucide.createIcons();
         }
     },
 
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
         
-        // Menu thả xuống chỉ có chính xác 2 dòng chữ "Tự nhập" và "Tự động"
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
-            <tr class="hover:bg-blue-50/50 transition-colors">
-                <td class="p-3"><input type="text" class="form-input py-2 font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-3"><input type="text" class="form-input py-2 bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
-                <td class="p-3">
-                    <select class="form-select py-2 font-bold text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+            <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
+                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 sm:py-2 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 sm:py-2 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-3">
+                    <select class="form-select py-1.5 sm:py-2 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option value="Tự nhập" ${f.type==="Tự nhập"?"selected":""}>Tự nhập</option>
                         <option value="Tự động" ${f.type==="Tự động"?"selected":""}>Tự động</option>
                     </select>
                 </td>
-                <td class="p-3 text-center">
+                <td class="p-2 sm:p-3 text-center">
                     <div class="flex justify-center items-center h-full">
-                        <input type="checkbox" class="w-6 h-6 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                        <input type="checkbox" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
                     </div>
                 </td>
             </tr>
@@ -359,10 +323,9 @@ const app = {
     },
 
     saveGFConfig() {
-        // Hàm ghi thông tin URL và trạng thái fields hiện tại
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        alert("✅ Đã lưu thông tin Google Form vào dữ liệu đề thi hiện tại!");
+        this.saveProject();
     },
 
     parsePart12(lines) {
@@ -398,7 +361,6 @@ const app = {
         
         this.data.gf_config.fields.forEach(f => {
             let sId = `field_${f.id}`;
-            // Xử lý riêng biệt theo tùy chọn Tự nhập / Tự động
             if(f.type === "Tự nhập") {
                 hasStudentInputs = true;
                 formHtml.push(`
@@ -410,7 +372,6 @@ const app = {
                 jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}").value.trim() || "Chưa điền");`);
                 if(f.required) jsValid.push(`if(!document.getElementById("${sId}").value.trim()) missing_fields.push("${f.title}");`);
             } else if(f.type === "Tự động") {
-                // Tự động đẩy điểm số
                 jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
             }
         });
