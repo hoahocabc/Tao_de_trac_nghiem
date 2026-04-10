@@ -43,13 +43,39 @@
     </header>
 
     <main class="flex-1 max-w-[1400px] mx-auto w-full px-4 lg:px-6 py-6 flex flex-col gap-6">
+        <!-- KHU VỰC CẤU HÌNH ĐỀ THI ĐÃ ĐƯỢC CHIA 3 CỘT -->
         <section class="bg-white p-5 lg:p-6 rounded-2xl shadow-sm border border-slate-200">
             <h2 class="form-label mb-4 flex items-center gap-2"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-5">
-                <div class="lg:col-span-2"><label class="form-label">Tên bài kiểm tra</label><input type="text" id="quizTitle" class="form-input" value="BÀI TẬP TRẮC NGHIỆM"></div>
-                <div><label class="form-label">Người tạo</label><input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A"></div>
-                <div><label class="form-label">Giao diện (Theme)</label><select id="themeSelect" class="form-select"></select></div>
-                <div><label class="form-label">Hạn nộp bài</label><input type="text" id="endTime" class="form-input" placeholder="HH:MM DD/MM/YYYY"><input type="hidden" id="startTime" value=""></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+                <!-- Cột 1 -->
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <label class="form-label">Tên bài kiểm tra</label>
+                        <input type="text" id="quizTitle" class="form-input" value="BÀI TẬP TRẮC NGHIỆM">
+                    </div>
+                    <div>
+                        <label class="form-label">Người tạo</label>
+                        <input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A">
+                    </div>
+                </div>
+                <!-- Cột 2 -->
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <label class="form-label">Giờ bắt đầu</label>
+                        <input type="text" id="startTime" class="form-input" placeholder="Bỏ trống nếu thi ngay">
+                    </div>
+                    <div>
+                        <label class="form-label">Giờ kết thúc</label>
+                        <input type="text" id="endTime" class="form-input" placeholder="Bỏ trống nếu không giới hạn">
+                    </div>
+                </div>
+                <!-- Cột 3 -->
+                <div class="flex flex-col gap-4">
+                    <div>
+                        <label class="form-label">Giao diện (Theme)</label>
+                        <select id="themeSelect" class="form-select"></select>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -79,7 +105,7 @@
         </section>
     </main>
 
-    <!-- Popup Google Form (Chống tràn màn hình) -->
+    <!-- Popup Google Form -->
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
             
@@ -121,6 +147,6 @@
     </div>
 
     <input type="file" id="fileLoader" class="hidden">
-    <script src="script.js?v=4"></script>
+    <script src="script.js?v=6"></script>
 </body>
 </html>
