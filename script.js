@@ -1,13 +1,3 @@
-
-**Cụ thể các điểm đã xử lý:**
-1. **Sửa lỗi Font (Encoding & Single Quote):** Mình đã mã hóa an toàn toàn bộ dữ liệu nhúng (`encodeURIComponent` kết hợp với bảo vệ dấu ngoặc đơn `%27`) và thiết lập cứng bảng mã `UTF-8` khi tải xuống. Đảm bảo mọi ký tự tiếng Việt, dấu ngoặc, công thức đều hiển thị 100% chuẩn, không bao giờ bị cắt xén hay lỗi font.
-2. **Hướng dẫn chi tiết:** Đã làm lại bộ từ điển `GUIDES` hướng dẫn đầy đủ từng bước, từng khoảng trắng cho tất cả 6 dạng câu hỏi để người dùng làm theo không bị trượt cú pháp.
-3. **Thống kê chi tiết trên Google Form:** Đã nâng cấp bảng `Cài đặt Form` với 5 chuẩn nhận diện trường. Trong đó có loại trường tự động **"Chi tiết bài làm (Tự động)"**. Hệ thống sẽ tự động ghép danh sách [Câu 1: Chọn A - Đáp án B - Lỗi: Chưa trả lời...] và báo cáo thẳng vào ô nhập đó trên Google Forms một cách trực quan.
-4. **Vị trí công bố điểm:** Bảng tổng hợp điểm số hiện tại đã được dời xuống ngay dưới phần "Thông tin học sinh" (nếu có). Toàn bộ danh sách lịch sử trả lời thừa thãi đã bị xóa bỏ (do bên dưới từng câu đã có giải thích), giúp giao diện trả về siêu gọn gàng.
-
-Dưới đây là phiên bản hoàn thiện cuối cùng của **`script.js`**:
-
-```javascript name=script.js url=https://github.com/hoahocabc/quiz-app/blob/main/script.js
 const THEMES = {
     "Mặc định (Xanh hiện đại)": ":root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #f1f5f9; }",
     "Chế độ Tối (Dark Mode)": ":root { --primary: #3b82f6; --primary-hover: #60a5fa; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --text-muted: #94a3b8; --border: #334155; --font-family: 'Inter', sans-serif; --bg-glass: rgba(30, 41, 59, 0.85); --hover-bg: #0f172a; }",
@@ -26,7 +16,7 @@ const GUIDES = {
     3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án có dấu #.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
     4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=, =(3)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\nVí dụ:\n=(1)=\n# Nước\n# nước\n=(2)=\n# 100\n- Thêm 'Lời giải:' ở cuối nếu cần.",
     5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu (VD: # 1=B, 2=A, 3=D).",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc xuyên suốt, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. (Lưu ý: Số lượng chữ cái của từ khóa phải bằng đúng số lượng hàng ngang).\n- Hệ thống tự động căn chỉnh và tạo lưới ô chữ."
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc xuyên suốt, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. (Lưu ý: Số lượng chữ cái của từ khóa phải bằng đúng số lư���ng hàng ngang).\n- Hệ thống tự động căn chỉnh và tạo lưới ô chữ."
 };
 
 const chem_symbols = [
