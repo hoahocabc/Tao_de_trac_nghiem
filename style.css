@@ -1,7 +1,7 @@
 /* Tùy chỉnh thanh cuộn (Scrollbar) cho toàn trang */
 ::-webkit-scrollbar { 
-    width: 6px; 
-    height: 6px; 
+    width: 8px; 
+    height: 8px; 
 }
 ::-webkit-scrollbar-track { 
     background: transparent; 
@@ -14,7 +14,6 @@
     background: #94a3b8; 
 }
 
-/* Ẩn scrollbar nhưng vẫn cho phép cuộn */
 .no-scrollbar::-webkit-scrollbar { 
     display: none; 
 }
