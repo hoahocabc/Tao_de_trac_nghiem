@@ -11,17 +11,30 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi ti���t.\n\nVí dụ mẫu:\n##\nChất nào sau đây là kim loại kiềm?\nA. Sắt\n# B. Natri\nC. Đồng\nD. Nhôm\nLời giải: Natri thuộc nhóm IA nên là kim loại kiềm.",
-    
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n\nVí dụ mẫu:\n##\nCác khí nào sau đây nhẹ hơn không khí?\n# A. H2\nB. CO2\n# C. N2\nD. SO2",
-    
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ mẫu:\n##\nCông thức hóa học của Axit sunfuric là gì?\n# H2SO4\n# h2so4",
-    
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ mẫu:\n##\nNước sôi ở =(1)= độ C và hóa rắn ở =(2)= độ C.\nĐáp án:\n=(1)=\n# 100\n=(2)=\n# 0\n# không",
-    
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ mẫu:\n##\nGhép các chất với trạng thái tương ứng:\nCột I:\n1. Nước\n2. Sắt\n3. Oxy\nCột II:\nA. Rắn\nB. Lỏng\nC. Khí\n# 1=B, 2=A, 3=C",
-    
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ mẫu:\n##\nGiải ô chữ hóa học sau:\nKhí duy trì sự cháy # OXY\nKim loại lỏng ở điều kiện thường # THUYNGAN\nTừ khóa: # ON"
+    1: {
+        rules: "• Bắt buộc bắt đầu mỗi câu bằng kí hiệu: <b>##</b><br>• Nội dung câu hỏi nằm ngay dưới.<br>• Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.<br>• Đặt dấu <b>#</b> và 1 dấu cách ở đầu phương án đúng nhất.<br>• Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích.",
+        example: "##\nChất nào sau đây là kim loại kiềm?\nA. Sắt\n# B. Natri\nC. Đồng\nD. Nhôm\nLời giải: Natri thuộc nhóm IA nên là kim loại kiềm."
+    },
+    2: {
+        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Nội dung câu hỏi nằm ở dòng dưới.<br>• Đặt dấu <b>#</b> và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.<br>• Các phương án không có dấu # sẽ được tính là phương án sai.",
+        example: "##\nCác khí nào sau đây nhẹ hơn không khí?\n# A. H2\nB. CO2\n# C. N2\nD. SO2"
+    },
+    3: {
+        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Nhập nội dung câu hỏi.<br>• Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu <b>#</b> ở đầu.",
+        example: "##\nCông thức hóa học của Axit sunfuric là gì?\n# H2SO4\n# h2so4"
+    },
+    4: {
+        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: <b>=(1)=, =(2)=...</b><br>• Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.",
+        example: "##\nNước sôi ở =(1)= độ C và hóa rắn ở =(2)= độ C.\nĐáp án:\n=(1)=\n# 100\n=(2)=\n# 0\n# không"
+    },
+    5: {
+        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Dòng tiếp theo ghi tiêu đề.<br>• Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.<br>• Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.<br>• Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu <b>#</b> ở đ���u.",
+        example: "##\nGhép các chất với trạng thái tương ứng:\nCột I:\n1. Nước\n2. Sắt\n3. Oxy\nCột II:\nA. Rắn\nB. Lỏng\nC. Khí\n# 1=B, 2=A, 3=C"
+    },
+    6: {
+        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Nhập tiêu đề câu hỏi.<br>• Ghi lần lượt các gợi ý hàng ngang theo cú pháp: <b>[Nội dung gợi ý] # [ĐÁP ÁN]</b>.<br>• Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.",
+        example: "##\nGiải ô chữ hóa học sau:\nKhí duy trì sự cháy # OXY\nKim loại lỏng ở điều kiện thường # THUYNGAN\nTừ khóa: # ON"
+    }
 };
 
 const chem_symbols = [
@@ -76,18 +89,12 @@ const app = {
 
     renderTabs() {
         const c = document.getElementById('tabsContainer');
-        const titles = [
-            {icon: 'circle-dot', text: '1 lựa chọn'}, {icon: 'check-square', text: 'Nhiều lựa chọn'},
-            {icon: 'pen-line', text: 'Trả lời ngắn'}, {icon: 'form-input', text: 'Điền khuyết'},
-            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: 'Ô chữ'}
-        ];
+        const titles = ["1 lựa chọn", "Nhiều lựa chọn", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Ô chữ"];
         c.innerHTML = titles.map((t, i) => `
-            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-3" onclick="app.switchTab(${i+1})">
-                <i data-lucide="${t.icon}" class="w-5 h-5 sm:w-6 sm:h-6 mb-1 sm:mb-2 ${this.activeTab === i+1 ? 'text-blue-600' : 'text-slate-400'}"></i>
-                <span class="text-center w-full truncate text-[10px] sm:text-sm">Phần ${i+1}</span>
+            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i+1})">
+                <span class="text-center w-full truncate">Phần ${i+1}: ${t}</span>
             </button>
         `).join('');
-        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     switchTab(tab) {
@@ -99,7 +106,24 @@ const app = {
         document.getElementById('qInput').value = '';
     },
 
-    showGuide() { alert(GUIDES[this.activeTab]); },
+    showGuide() {
+        const modal = document.getElementById('guideModal');
+        const content = modal.querySelector('.modal-content');
+        
+        document.getElementById('guideRules').innerHTML = GUIDES[this.activeTab].rules;
+        document.getElementById('guideExample').innerText = GUIDES[this.activeTab].example;
+        
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+    },
+    
+    insertExample() {
+        const val = document.getElementById('qInput').value;
+        const prefix = val.trim() !== "" ? "\n\n" : "";
+        this.insertText(prefix + GUIDES[this.activeTab].example, '', '', 'qInput');
+        this.closeModal('guideModal');
+    },
 
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
@@ -110,32 +134,32 @@ const app = {
         // Symbols Hóa học
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
         // Kí tự đặc biệt
         extra_symbols.forEach(sym => {
-            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
+            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
         });
 
         // Divider
         html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
 
         // Format
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-black transition-all active:scale-90 shadow-sm shrink-0" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs italic font-black transition-all active:scale-90 shadow-sm shrink-0" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] font-black transition-all active:scale-90 shadow-sm shrink-0" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-[11px] italic font-black transition-all active:scale-90 shadow-sm shrink-0" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
 
         // Divider
         html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
 
         // Media
-        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-md text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
-        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-md text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[11px] font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[11px] font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
 
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -168,15 +192,15 @@ const app = {
                 </h3>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
+                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
+                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
                 </div>
                 <div class="flex justify-end gap-2 mt-2">
-                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors text-sm">Hủy</button>
-                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition-colors text-sm shadow-[0_3px_0_0_#1d4ed8] active:translate-y-1 active:shadow-none">Chèn vào</button>
+                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg hover:bg-slate-200 transition-colors text-sm">Hủy</button>
+                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-colors text-sm shadow-sm active:translate-y-1">Chèn vào</button>
                 </div>
             </div>
         `;
@@ -230,7 +254,7 @@ const app = {
             if(!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
+                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:1px solid #e2e8f0; margin:10px 0;">`, '', inputId);
             };
             reader.readAsDataURL(file);
             f.value = ''; 
@@ -256,7 +280,7 @@ const app = {
                 alert("Không thể nhận diện ID YouTube từ đường link này!"); return;
             }
         } else if (url.toLowerCase().endsWith(".mp4") || url.toLowerCase().includes(".mp4?")) {
-            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
+            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:1px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
         } else {
             alert("Vui lòng nhập link YouTube hoặc link file .mp4 hợp lệ!"); return;
         }
@@ -272,7 +296,6 @@ const app = {
         document.getElementById('qInput').value = '';
         this.renderQList();
         
-        // Scroll to bottom of list smoothly
         setTimeout(() => {
             const listEl = document.getElementById('qList');
             if(listEl) listEl.scrollTo({ top: listEl.scrollHeight, behavior: 'smooth' });
@@ -337,24 +360,24 @@ const app = {
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1 mb-4">
-                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2">
+            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border border-slate-200 rounded-xl bg-white shadow-sm hover:border-blue-400 hover:shadow-md transition-all group relative pr-16 cursor-default transform hover:-translate-y-0.5">
+                <div class="flex items-center gap-2 mb-2 border-b border-slate-100 pb-2">
                     <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
-                        <i data-lucide="grip-vertical" class="w-4 h-4"></i>
+                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5"></i>
                     </div>
-                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span>
+                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 rounded-md">Câu ${i+1}</span>
                 </div>
                 <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
-                <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
-                    <button class="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border-2 border-blue-100 hover:border-blue-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
-                    <button class="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                <div class="absolute top-2 sm:top-3 right-2 sm:right-3 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
+                    <button class="p-1.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-md transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
+                    <button class="p-1.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-md transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>
             </div>
         `).join('');
         
         document.getElementById('qList').innerHTML = html || `
-            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-4 py-12">
-                <div class="bg-slate-100 p-4 sm:p-5 rounded-2xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300"></i></div>
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10">
+                <div class="bg-slate-100 p-4 rounded-xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 text-slate-300"></i></div>
                 <p class="text-xs sm:text-sm font-bold text-slate-400">Chưa có câu hỏi nào</p>
             </div>`;
         const badge = document.getElementById('qCountBadge');
@@ -485,7 +508,7 @@ const app = {
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang phân tích...';
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-1.5 animate-spin"></i> Đang phân tích...';
         btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
         
         try {
@@ -518,7 +541,7 @@ const app = {
             document.getElementById('gfUrlInput').value = this.data.gf_config.url;
             this.renderGFFields();
             
-            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-2"></i>Xong!';
+            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-1.5"></i>Xong!';
             btn.classList.replace('from-emerald-500', 'from-blue-500');
             setTimeout(() => { btn.innerHTML = oldHtml; btn.classList.replace('from-blue-500', 'from-emerald-500'); if (typeof lucide !== 'undefined') lucide.createIcons(); }, 2000);
 
@@ -534,10 +557,10 @@ const app = {
         const tb = document.getElementById('gfFieldsTable');
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
-                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 sm:py-2 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 sm:py-2 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-2 sm:p-3">
-                    <select class="form-select py-1.5 sm:py-2 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                    <select class="form-select py-1.5 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option value="Học sinh tự nhập" ${f.type==="Học sinh tự nhập"||f.type==="Tự nhập"?"selected":""}>Học sinh tự nhập</option>
                         <option value="Điểm số (Tự động)" ${f.type==="Điểm số (Tự động)"?"selected":""}>Điểm số (Tự động)</option>
                         <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
@@ -548,7 +571,7 @@ const app = {
                 </td>
                 <td class="p-2 sm:p-3 text-center">
                     <div class="flex justify-center items-center h-full">
-                        <input type="checkbox" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                        <input type="checkbox" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
                     </div>
                 </td>
             </tr>
