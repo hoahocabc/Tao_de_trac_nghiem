@@ -20,8 +20,17 @@ const GUIDES = {
 };
 
 const chem_symbols = [
-    {t: "+"}, {t: "-"}, {t: "×"}, {t: "÷"}, {t: "±"}, {t: "⇌"}, {t: "→"}, {t: "↑"}, {t: "↓"},
+    {t: "+"}, {t: "-"}, {t: "×"}, {t: "÷"}, {t: "±"}, {t: "⇌"}, {t: "→"}, {t: "↑"}, {t: "↓"}, {t: "Δ"},
     {t: "xⁿ", s: "<sup>", e: "</sup>"}, {t: "xₙ", s: "<sub>", e: "</sub>"}
+];
+
+const extra_symbols = [
+    "α","β","γ","π","μ","ρ","σ","ω",
+    "≈","≠","≤","≥","∞","∑","∫","√",
+    "°C","e⁻",
+    "⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹",
+    "₀","₁","₂","₃","₄","₅","₆","₇","₈","₉",
+    "⟶","⟷","⟹","⟺"
 ];
 
 const app = {
@@ -85,10 +94,15 @@ const app = {
 
     renderToolbar() {
         const tb = document.getElementById('editorToolbar');
-        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">';
+        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1 items-center">';
         chem_symbols.forEach(sym => {
             html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
         });
+        
+        let dropdownOpts = `<option value="">Ký hiệu khác ▾</option>`;
+        extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
+        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 focus:border-blue-500 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value); this.selectedIndex=0; }">${dropdownOpts}</select>`;
+        
         html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
                  <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
                     <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-blue-50 hover:text-blue-700 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
@@ -164,13 +178,15 @@ const app = {
     },
 
     newProject() {
-        if(confirm("Tạo dự án mới sẽ xóa toàn bộ dữ liệu hiện tại. Bạn có chắc chắn?")) {
-            this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config:{url:"", fields:[]} };
+        if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
+            const savedGF = this.data.gf_config; // Bảo lưu cấu hình form
+            this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
             document.getElementById('startTime').value = "";
             document.getElementById('endTime').value = "";
-            document.getElementById('antiCheat').checked = true;
+            document.getElementById('antiCheat').checked = false;
+            document.getElementById('publishScore').checked = false;
             this.switchTab(1);
         }
     },
@@ -182,6 +198,7 @@ const app = {
             start_time: document.getElementById('startTime').value,
             end_time: document.getElementById('endTime').value,
             anti_cheat: document.getElementById('antiCheat').checked,
+            publish_score: document.getElementById('publishScore').checked,
             ...this.data
         };
         const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json"});
@@ -204,7 +221,8 @@ const app = {
                 document.getElementById('startTime').value = p.start_time || '';
                 document.getElementById('endTime').value = p.end_time || '';
                 
-                document.getElementById('antiCheat').checked = p.anti_cheat !== undefined ? p.anti_cheat : true;
+                document.getElementById('antiCheat').checked = p.anti_cheat === true;
+                document.getElementById('publishScore').checked = p.publish_score === true;
                 
                 if(p.gf_config && p.gf_config.fields) {
                     p.gf_config.fields.forEach(field => {
@@ -470,6 +488,7 @@ const app = {
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
         const isAntiCheat = document.getElementById('antiCheat').checked;
+        const isPublishScore = document.getElementById('publishScore').checked;
         
         let jsBuilder=[], jsValid=[], studentInputsHtml=[];
         let hasStudentInputs = false;
@@ -771,6 +790,7 @@ const app = {
       const EXAM_ID = "${examUUID}";
       const GF_URL = "${this.data.gf_config.url}";
       const IS_ANTI_CHEAT = ${isAntiCheat};
+      const IS_PUBLISH_SCORE = ${isPublishScore};
 
       function parseDateVN(dateStr) {
           if (!dateStr || dateStr.trim() === "") return null;
@@ -835,20 +855,14 @@ const app = {
       }
       
       document.addEventListener('DOMContentLoaded', () => {
-          // LUÔN chặn copy, paste, click chuột phải và bôi đen để bảo vệ đề
           document.body.style.userSelect = 'none'; 
           document.body.style.webkitUserSelect = 'none';
           document.addEventListener('contextmenu', e => e.preventDefault());
           
           ['copy', 'cut', 'paste'].forEach(evt => document.addEventListener(evt, e => { 
-              e.preventDefault(); 
-              navigator.clipboard.writeText(''); 
-              
-              if (IS_ANTI_CHEAT) {
-                  handleViolation("Hành vi sao chép/dán dữ liệu");
-              } else {
-                  alert("⚠️ Tính năng sao chép và dán đã bị vô hiệu hóa!"); 
-              }
+              e.preventDefault(); navigator.clipboard.writeText(''); 
+              if (IS_ANTI_CHEAT) handleViolation("Hành vi sao chép/dán dữ liệu");
+              else alert("⚠️ Tính năng sao chép và dán đã bị vô hiệu hóa!"); 
           }));
           
           document.addEventListener('keydown', function(e) {
@@ -860,7 +874,6 @@ const app = {
               }
           });
           
-          // Chuyển tab / Mở cửa sổ khác CHỈ phạt nếu bật Chống gian lận
           document.addEventListener('visibilitychange', () => { 
               if (document.hidden && IS_ANTI_CHEAT) handleViolation("Chuyển Tab hoặc Thu nhỏ Trình duyệt"); 
           });
@@ -1120,12 +1133,15 @@ const app = {
              }
              
              partStats[partTitle].score += qScore; partStats[partTitle].max += qMax; totalScore += qScore; maxPossibleScore += qMax;
-             let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\s*\\/?>/gi, '').trim();
-             expl.innerHTML = \`<div style="margin-bottom: 8px;">\${feedback}</div>\`;
-             if (cleanedSolution !== "") expl.innerHTML += \`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\${solution}</div>\`; 
-             expl.style.display = "block";
-             if (partType === "6") q.style.borderLeftColor = qScore === qMax ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444'); 
-             else q.style.borderLeftColor = qScore > 0 ? '#10b981' : '#ef4444'; 
+             
+             if (IS_PUBLISH_SCORE) {
+                 let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\s*\\/?>/gi, '').trim();
+                 expl.innerHTML = \`<div style="margin-bottom: 8px;">\${feedback}</div>\`;
+                 if (cleanedSolution !== "") expl.innerHTML += \`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\${solution}</div>\`; 
+                 expl.style.display = "block";
+                 if (partType === "6") q.style.borderLeftColor = qScore === qMax ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444'); 
+                 else q.style.borderLeftColor = qScore > 0 ? '#10b981' : '#ef4444'; 
+             }
            });
          });
          
@@ -1133,14 +1149,21 @@ const app = {
          if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_SUBMITTED", "true");
          overlay.style.display = 'none';
          
-         let summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
-         for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
-         summaryHtml += \`</table></div>\`;
-         
          let container = document.querySelector('.container'); let header = container.querySelector('.header'); let existingSummary = document.getElementById('resultSummary');
          if(existingSummary) existingSummary.remove();
-         header.insertAdjacentHTML('afterend', summaryHtml);
-         document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
+         
+         if (IS_PUBLISH_SCORE) {
+             let summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
+             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
+             summaryHtml += \`</table></div>\`;
+             header.insertAdjacentHTML('afterend', summaryHtml);
+             document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
+         } else {
+             let successHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div></div>\`;
+             header.insertAdjacentHTML('afterend', successHtml);
+             document.getElementById('scoreDisplay').innerHTML = 'Đã nộp bài';
+         }
+         
          document.querySelectorAll('input:not(.cw-cell), select').forEach(function(inp) { inp.disabled = true; });
          let sb = document.getElementById('submitBtn'); if(sb) sb.style.display = 'none';
          MathJax.typesetPromise(); window.scrollTo({top: 0, behavior: 'smooth'});
