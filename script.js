@@ -31,6 +31,21 @@ const app = {
         this.renderTabs();
         this.renderToolbar();
         this.switchTab(1);
+        this.setupEventListeners();
+    },
+
+    setupEventListeners() {
+        // Tự động phân tích khi người dùng DÁN link vào ô nhập
+        const gfInput = document.getElementById('gfUrlInput');
+        if (gfInput) {
+            gfInput.addEventListener('paste', (e) => {
+                setTimeout(() => {
+                    if (gfInput.value.includes('google.com/forms')) {
+                        this.autoAnalyzeGF();
+                    }
+                }, 100);
+            });
+        }
     },
 
     renderThemes() {
@@ -212,7 +227,17 @@ const app = {
         content.classList.add('scale-100', 'translate-y-0');
 
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
-        this.renderGFFields();
+        if(this.data.gf_config.fields.length > 0) {
+            this.renderGFFields();
+        } else {
+            // Trạng thái trống ban đầu
+            document.getElementById('gfFieldsTable').innerHTML = `
+                <tr><td colspan="4" class="text-center py-10 text-slate-400 font-medium italic">
+                    <i data-lucide="link" class="w-10 h-10 mx-auto mb-2 text-slate-300"></i>
+                    Dán link Form vào ô phía trên để bắt đầu phân tích
+                </td></tr>`;
+            lucide.createIcons();
+        }
     },
     closeModal(id) { 
         const modal = document.getElementById(id);
@@ -221,53 +246,77 @@ const app = {
         content.classList.remove('scale-100', 'translate-y-0');
         content.classList.add('scale-95', 'translate-y-4');
     },
+
     async autoAnalyzeGF() {
-        const url = document.getElementById('gfUrlInput').value.trim();
+        let url = document.getElementById('gfUrlInput').value.trim();
         if(!url) return alert("Vui lòng nhập link Form!");
         
+        // Nhận diện link rút gọn
+        if(url.includes("forms.gle")) {
+            alert("⚠️ Chú ý: Phần mềm cần Link Form dạng dài (docs.google.com/forms/...) để phân tích.\nVui lòng mở link rút gọn bằng trình duyệt, copy đường link dài rồi dán lại vào đây.");
+            return;
+        }
+
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Đang phân tích...';
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Đang tải...';
         btn.disabled = true;
         document.getElementById('gfUrlInput').disabled = true;
         
         try {
+            // Bypassing CORS sử dụng AllOrigins
             const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
             const data = await res.json();
             const html = data.contents;
             const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
-            if(!match) throw new Error("Không tìm thấy cấu trúc dữ liệu. Đảm bảo Form đang mở công khai (Public).");
+            
+            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai' (Bất kỳ ai cũng có thể xem).");
             
             const jsonData = JSON.parse(match[1]);
             const qs = jsonData[1][1];
             let fields = [];
+            
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
                     let type = "Học sinh tự điền";
-                    let t = q[1].toLowerCase();
+                    let t = (q[1] || "").toLowerCase();
+                    
+                    // Logic nhận diện thông minh
                     if(t.includes('điểm') && t.includes('tối đa')) type = "Điểm tối đa (Tự động)";
                     else if(t.includes('điểm') || t.includes('score')) type = "Điểm đạt được (Tự động)";
-                    else if(t.includes('vi phạm')) type = "Báo cáo vi phạm (Tự động)";
+                    else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Báo cáo vi phạm (Tự động)";
+                    
                     fields.push({ id: q[4][0][0].toString(), title: q[1], type: type, required: q[4][0][2] == 1 });
                 }
             });
+
             this.data.gf_config.fields = fields;
             this.data.gf_config.url = url.split('?')[0].replace('/edit', '/formResponse').replace('/viewform', '/formResponse');
             if(!this.data.gf_config.url.endsWith('/formResponse')) this.data.gf_config.url += '/formResponse';
             
             document.getElementById('gfUrlInput').value = this.data.gf_config.url;
             this.renderGFFields();
-            lucide.createIcons();
-            alert("Phân tích dữ liệu Form thành công!");
+            
+            // Thông báo thành công nhỏ góc màn hình thay vì alert
+            const btnText = document.createElement('span');
+            btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Thành công!';
+            btn.classList.replace('from-emerald-500', 'from-blue-500');
+            setTimeout(() => {
+                btn.innerHTML = oldHtml;
+                btn.classList.replace('from-blue-500', 'from-emerald-500');
+                lucide.createIcons();
+            }, 2000);
+
         } catch(e) {
-            alert("Lỗi: " + e.message);
-        } finally {
+            alert("❌ Lỗi: " + e.message);
             btn.innerHTML = oldHtml;
+        } finally {
             btn.disabled = false;
             document.getElementById('gfUrlInput').disabled = false;
             lucide.createIcons();
         }
     },
+
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
         
@@ -291,11 +340,13 @@ const app = {
             </tr>
         `).join('');
     },
+
     saveGFConfig() {
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
     },
 
+    // Parser functions mimicking Python
     parsePart12(lines) {
         let qLines=[], oLines=[], sLines=[], solMode=false;
         lines.forEach(l => {
@@ -319,6 +370,7 @@ const app = {
         return [qLines.join('<br>'), aLines.join('||'), sLines.join('<br>')];
     },
 
+    // Massive HTML Exporter
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
