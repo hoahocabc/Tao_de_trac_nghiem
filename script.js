@@ -41,22 +41,23 @@ const app = {
     renderTabs() {
         const c = document.getElementById('tabsContainer');
         const titles = [
-            {icon: 'circle-dot', text: '1. Một lựa chọn'},
-            {icon: 'check-square', text: '2. Nhiều lựa chọn'},
-            {icon: 'pen-line', text: '3. Trả lời ngắn'},
-            {icon: 'form-input', text: '4. Điền khuyết'},
-            {icon: 'arrow-right-left', text: '5. Ghép đôi'},
-            {icon: 'grid-3x3', text: '6. Ô chữ'}
+            {icon: 'circle-dot', text: '1 lựa chọn'},
+            {icon: 'check-square', text: 'Nhiều lựa chọn'},
+            {icon: 'pen-line', text: 'Trả lời ngắn'},
+            {icon: 'form-input', text: 'Điền khuyết'},
+            {icon: 'arrow-right-left', text: 'Ghép đôi'},
+            {icon: 'grid-3x3', text: 'Ô chữ'}
         ];
         
-        // Sử dụng CSS Grid để hiển thị 6 tab cực đẹp
-        c.className = "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 bg-slate-100 p-3 rounded-t-2xl";
-        
+        const baseClasses = "w-full flex flex-col items-center justify-center px-2 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-300 border-2 active:scale-95";
+        const activeClasses = "bg-white text-blue-700 border-blue-500 shadow-md transform -translate-y-1";
+        const inactiveClasses = "bg-slate-50 text-slate-500 border-transparent hover:bg-slate-200 hover:text-slate-800";
+
         c.innerHTML = titles.map((t, i) => `
-            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" 
+            <button class="${baseClasses} ${this.activeTab === i+1 ? activeClasses : inactiveClasses}" 
                     onclick="app.switchTab(${i+1})">
-                <i data-lucide="${t.icon}" class="w-5 h-5 mb-1 ${this.activeTab === i+1 ? 'text-blue-600' : 'text-slate-400'}"></i>
-                <span>${t.text}</span>
+                <i data-lucide="${t.icon}" class="w-6 h-6 mb-1.5 ${this.activeTab === i+1 ? 'text-blue-600' : 'text-slate-400'}"></i>
+                <span class="text-center w-full truncate">Phần ${i+1}</span>
             </button>
         `).join('');
         lucide.createIcons();
@@ -140,12 +141,12 @@ const app = {
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div class="p-4 border-2 border-slate-200 rounded-xl bg-white shadow-sm hover:border-blue-400 hover:shadow-md transition-all group relative pr-12 cursor-default">
+            <div class="p-4 border-2 border-slate-200 rounded-xl bg-white shadow-sm hover:border-blue-400 hover:shadow-md transition-all group relative pr-14 cursor-default">
                 <div class="flex items-center gap-2 mb-2">
                     <span class="bg-blue-100 text-blue-700 text-xs font-black px-2 py-1 rounded-md">Câu ${i+1}</span>
                 </div>
                 <div class="text-sm text-slate-700 line-clamp-3 leading-relaxed">${q.replace(/</g,'&lt;')}</div>
-                <button class="absolute top-4 right-4 p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 rounded-lg transition-all opacity-0 group-hover:opacity-100 active:scale-90" onclick="app.removeQuestion(${i})" title="Xóa câu hỏi">
+                <button class="absolute top-4 right-4 p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 rounded-lg transition-all opacity-0 group-hover:opacity-100 active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa câu hỏi">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -162,7 +163,6 @@ const app = {
         lucide.createIcons();
     },
 
-    // Project Management
     newProject() {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ dữ liệu hiện tại. Bạn có chắc chắn?")) {
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config:{url:"", fields:[]} };
@@ -208,18 +208,28 @@ const app = {
         f.click();
     },
 
-    // Google Form Auto Analyzer
     openGFSettings() {
-        document.getElementById('gfModal').classList.remove('hidden');
+        const modal = document.getElementById('gfModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
         this.renderGFFields();
     },
-    closeModal(id) { document.getElementById(id).classList.add('hidden'); },
+    closeModal(id) { 
+        const modal = document.getElementById(id);
+        const content = modal.querySelector('.modal-content');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-100', 'translate-y-0');
+        content.classList.add('scale-95', 'translate-y-4');
+    },
     async autoAnalyzeGF() {
         const url = document.getElementById('gfUrlInput').value.trim();
         if(!url) return alert("Vui lòng nhập link Form!");
         
-        const btn = document.querySelector('#gfModal .btn-green');
+        const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
         btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Đang phân tích...';
         btn.disabled = true;
@@ -264,20 +274,22 @@ const app = {
     },
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
+        const inputClass = "w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2 text-sm outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20";
+        
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors">
-                <td class="p-3"><input type="text" class="form-input py-2" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-3"><input type="text" class="form-input py-2 bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-3"><input type="text" class="${inputClass}" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-3"><input type="text" class="${inputClass} bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-3">
-                    <select class="form-select py-2 font-medium text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                    <select class="${inputClass} font-medium text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option ${f.type==="Học sinh tự điền"?"selected":""}>✍️ Học sinh tự điền</option>
-                        <option ${f.type==="Điểm đạt được (Tự động)"?"selected":""}>✅ Điểm đạt được (Tự động)</option>
-                        <option ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>🌟 Điểm tối đa (Tự động)</option>
-                        <option ${f.type==="Báo cáo vi phạm (Tự động)"?"selected":""}>⛔ Báo cáo vi phạm (Tự động)</option>
+                        <option ${f.type==="Điểm đạt được (Tự động)"?"selected":""}>✅ Điểm đạt được</option>
+                        <option ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>🌟 Điểm tối đa</option>
+                        <option ${f.type==="Báo cáo vi phạm (Tự động)"?"selected":""}>⛔ Báo cáo vi phạm</option>
                     </select>
                 </td>
                 <td class="p-3 text-center">
-                    <input type="checkbox" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                    <input type="checkbox" class="w-5 h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
                 </td>
             </tr>
         `).join('');
@@ -287,7 +299,6 @@ const app = {
         this.closeModal('gfModal');
     },
 
-    // Parser functions mimicking Python
     parsePart12(lines) {
         let qLines=[], oLines=[], sLines=[], solMode=false;
         lines.forEach(l => {
@@ -311,7 +322,6 @@ const app = {
         return [qLines.join('<br>'), aLines.join('||'), sLines.join('<br>')];
     },
 
-    // Massive HTML Exporter
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
