@@ -224,7 +224,7 @@ const app = {
 
     newProject() {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
-            const savedGF = this.data.gf_config; // BẢO LƯU THÔNG TIN GOOGLE FORM KHI TẠO ĐỀ MỚI
+            const savedGF = this.data.gf_config; 
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
@@ -270,7 +270,6 @@ const app = {
                 document.getElementById('publishScore').checked = p.publish_score === true;
                 
                 let loadedGF = p.gf_config;
-                // BẢO LƯU THÔNG TIN GOOGLE FORM
                 if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) {
                     loadedGF = this.data.gf_config; 
                 } else {
@@ -354,7 +353,6 @@ const app = {
                 if(q[4] && q[4][0]) {
                     let title = q[1] || "";
                     let t = title.toLowerCase();
-                    // Loại dữ liệu chỉ có "Tự nhập" và "Tự động"
                     let type = "Tự nhập";
                     if(t.includes('điểm') || t.includes('score') || t.includes('tối đa') || t.includes('vi phạm') || t.includes('gian lận') || t.includes('thống kê') || t.includes('tổng')) {
                         type = "Tự động";
@@ -799,6 +797,20 @@ const app = {
   </style>
 </head>
 <body>
+  <div id="antiCheatOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fef2f2; z-index:99999; justify-content:center; align-items:center; flex-direction:column; font-family:sans-serif; padding: 20px; box-sizing:border-box; text-align:center;">
+      <h1 style="color:#dc2626; margin-bottom:10px;">⚠️ NỘI QUY THI NGHIÊM NGẶT</h1>
+      <div style="background:white; border:2px solid #fca5a5; border-radius:12px; padding:20px; max-width:600px; text-align:left; line-height:1.6; font-size:1.1rem; box-shadow:0 4px 6px rgba(0,0,0,0.05); margin-bottom:20px; color:#0f172a;">
+          Hệ thống đã bật chế độ <b>chống gian lận</b>. Bạn sẽ bị <b style="color:#dc2626;">tự động nộp bài và khóa thi vĩnh viễn</b> nếu vi phạm quá 3 lần một trong các lỗi sau:
+          <ul style="color:#ef4444; font-weight:bold; margin-top:10px; margin-bottom:0;">
+              <li>Chuyển sang tab hoặc cửa sổ ứng dụng khác.</li>
+              <li>Thu nhỏ trình duyệt hoặc rời khỏi màn hình thi.</li>
+              <li>Sử dụng các phím tắt bị cấm (F12, Copy, Paste, PrintScreen...).</li>
+          </ul>
+      </div>
+      <button id="btnAcceptRules" disabled style="background:#94a3b8; color:white; border:none; padding:12px 24px; border-radius:8px; font-size:1.2rem; font-weight:bold; cursor:not-allowed; transition: background 0.2s;">
+          Tôi đã hiểu và đồng ý (10s)
+      </button>
+  </div>
   <div id="quizApp" style="display:none;">
       <div id="loadingOverlay"><div class="spinner"></div><h3 style="color:var(--primary); margin-top:20px;">Đang chấm và gửi điểm...</h3></div>
       <div class='navbar'>
@@ -877,6 +889,7 @@ const app = {
           document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
               <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
               <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
+              \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
               <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
               <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
           </body>\`;
@@ -891,7 +904,32 @@ const app = {
               }
           }, 1000);
           throw new Error("Waiting for start time");
-      } else { document.getElementById('quizApp').style.display = 'block'; }
+      } else { 
+          if (IS_ANTI_CHEAT && !sessionStorage.getItem(EXAM_ID + "_ACCEPTED")) {
+              document.getElementById('antiCheatOverlay').style.display = 'flex';
+              let warningWait = 10;
+              let warningInterval = setInterval(() => {
+                  warningWait--;
+                  let btn = document.getElementById('btnAcceptRules');
+                  if (warningWait <= 0) {
+                      clearInterval(warningInterval);
+                      btn.innerText = "Bắt đầu làm bài";
+                      btn.style.background = "#2563eb";
+                      btn.style.cursor = "pointer";
+                      btn.disabled = false;
+                      btn.onclick = () => {
+                          sessionStorage.setItem(EXAM_ID + "_ACCEPTED", "true");
+                          document.getElementById('antiCheatOverlay').style.display = 'none';
+                          document.getElementById('quizApp').style.display = 'block';
+                      };
+                  } else {
+                      btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
+                  }
+              }, 1000);
+          } else {
+              document.getElementById('quizApp').style.display = 'block'; 
+          }
+      }
 
       window.violationCount = 0; window.violationDetails = []; window.isForceSubmit = false; let isHandlingViolation = false;
       function handleViolation(reason) {
@@ -1052,6 +1090,22 @@ const app = {
           });
       }
 
+      function playBeep() {
+          try {
+              let ctx = new (window.AudioContext || window.webkitAudioContext)();
+              let osc = ctx.createOscillator();
+              let gain = ctx.createGain();
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.type = "sine";
+              osc.frequency.value = 800; 
+              gain.gain.setValueAtTime(1, ctx.currentTime);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+              osc.start(ctx.currentTime);
+              osc.stop(ctx.currentTime + 0.5);
+          } catch(e) {}
+      }
+
       let timerInterval; let seconds = 0;
       function startTimer() {
         document.getElementById('btnStartTimer').style.display = 'none';
@@ -1069,6 +1123,7 @@ const app = {
                     let h = Math.floor(remain / 3600).toString().padStart(2, '0'); let m = Math.floor((remain % 3600) / 60).toString().padStart(2, '0'); let s = (remain % 60).toString().padStart(2, '0');
                     displayStr = (h !== "00" ? h + ":" : "") + m + ":" + s;
                     if (remain <= 300) { document.querySelector('.timer').style.backgroundColor = '#ef4444'; document.querySelector('.timer').style.color = '#ffffff'; }
+                    if (remain === 60) { playBeep(); setTimeout(playBeep, 500); }
                 }
             } else {
                 seconds++; let h = Math.floor(seconds / 3600).toString().padStart(2, '0'); let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0'); let s = (seconds % 60).toString().padStart(2, '0');
