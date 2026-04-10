@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Cấu hình hiệu ứng NỔI (3D) cho toàn bộ ứng dụng bằng Tailwind -->
     <style type="text/tailwindcss">
         @layer components {
             .btn {
@@ -177,7 +176,8 @@
 
             <div class="flex justify-end gap-4 pt-4 border-t-2 border-slate-100">
                 <button class="btn btn-outline" onclick="app.closeModal('gfModal')">Hủy bỏ</button>
-                <button class="btn btn-primary px-8" onclick="app.saveGFConfig()">Lưu cấu hình</button>
+                <!-- Đổi tên nút thành Lưu dữ liệu -->
+                <button class="btn btn-primary px-8" onclick="app.saveGFConfig()">Lưu dữ liệu</button>
             </div>
         </div>
     </div>
