@@ -62,8 +62,8 @@
                         <input type="text" id="startTime" class="form-input" placeholder="VD: 08:00 20/11/2026">
                     </div>
                     <div>
-                        <label class="form-label">Giờ kết thúc / Thời gian thi</label>
-                        <input type="text" id="endTime" class="form-input" placeholder="VD: 09:00 20/11/2026 hoặc 45 (phút)">
+                        <label class="form-label">Giờ kết thúc</label>
+                        <input type="text" id="endTime" class="form-input" placeholder="VD: 09:00 20/11/2026">
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 md:col-span-2">
@@ -93,11 +93,12 @@
                 <div class="p-4 lg:p-6 flex-1 flex flex-col bg-slate-50 min-h-0 overflow-y-auto">
                     <div class="flex justify-between items-center mb-3 lg:mb-4 shrink-0">
                         <h2 class="text-lg lg:text-xl font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
-                        <button class="btn btn-outline py-1.5 px-3 lg:py-2 text-xs lg:text-sm" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> HD nhập</button>
+                        <button class="btn btn-outline py-1.5 px-3 lg:py-2 text-xs lg:text-sm" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> Xem Hướng dẫn & Ví dụ</button>
                     </div>
                     
                     <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm min-h-[300px] overflow-hidden">
-                        <div class="bg-slate-100 p-2 border-b-2 border-slate-200 shrink-0" id="editorToolbar"></div>
+                        <!-- Thanh công cụ thu gọn 1 dòng -->
+                        <div class="bg-slate-50 p-1.5 border-b-2 border-slate-200 shrink-0 flex items-center gap-1 overflow-x-auto no-scrollbar w-full" id="editorToolbar"></div>
                         <textarea id="qInput" class="w-full p-4 font-mono text-sm flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[150px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
                     
@@ -157,7 +158,7 @@
         <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 w-full max-w-4xl flex flex-col transform transition-all duration-300 scale-95 translate-y-4 max-h-[90vh]">
             <h2 class="text-xl font-bold mb-4 shrink-0 text-slate-800">Chỉnh sửa câu hỏi</h2>
             <div class="flex-1 flex flex-col border-2 border-slate-200 rounded-xl min-h-0 overflow-hidden">
-                <div class="bg-slate-100 p-2 border-b-2 border-slate-200 shrink-0" id="editorToolbarEdit"></div>
+                <div class="bg-slate-50 p-1.5 border-b-2 border-slate-200 shrink-0 flex items-center gap-1 overflow-x-auto no-scrollbar w-full" id="editorToolbarEdit"></div>
                 <textarea id="qInputEdit" class="w-full flex-1 p-4 font-mono text-sm outline-none focus:bg-slate-50 transition-colors resize-none"></textarea>
             </div>
             <div class="flex justify-end gap-3 mt-4 shrink-0">
