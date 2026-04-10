@@ -1,12 +1,12 @@
 const THEMES = {
-    "Mặc định (Xanh hiện đại)": ":root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #f1f5f9; }",
-    "Chế độ Tối (Dark Mode)": ":root { --primary: #3b82f6; --primary-hover: #60a5fa; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --text-muted: #94a3b8; --border: #334155; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(30, 41, 59, 0.85); --hover-bg: #0f172a; }",
-    "Trắng tinh khiết (Clean White)": ":root { --primary: #000000; --primary-hover: #333333; --bg: #ffffff; --card: #ffffff; --text: #000000; --text-muted: #666666; --border: #e5e5e5; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.95); --hover-bg: #f5f5f5; }",
-    "Xanh thiên nhiên (Nature)": ":root { --primary: #16a34a; --primary-hover: #15803d; --bg: #f0fdf4; --card: #ffffff; --text: #14532d; --text-muted: #166534; --border: #bbf7d0; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #f0fdf4; }",
-    "Tím thanh lịch (Elegant)": ":root { --primary: #7c3aed; --primary-hover: #6d28d9; --bg: #faf5ff; --card: #ffffff; --text: #4c1d95; --text-muted: #5b21b6; --border: #e9d5ff; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #faf5ff; }",
-    "Hoàng hôn (Warm Autumn)": ":root { --primary: #ea580c; --primary-hover: #c2410c; --bg: #fff7ed; --card: #ffffff; --text: #7c2d12; --text-muted: #9a3412; --border: #ffedd5; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #fff7ed; }",
-    "Đại dương sâu (Ocean)": ":root { --primary: #0891b2; --primary-hover: #0e7490; --bg: #ecfeff; --card: #ffffff; --text: #164e63; --text-muted: #155e75; --border: #cffafe; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #ecfeff; }",
-    "Hồng Pastel (Soft Pink)": ":root { --primary: #db2777; --primary-hover: #be185d; --bg: #fdf2f8; --card: #ffffff; --text: #831843; --text-muted: #9d174d; --border: #fbcfe8; --font-family: 'Inter', Arial, sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #fdf2f8; }",
+    "Mặc định (Xanh hiện đại)": ":root { --primary: #2563eb; --primary-hover: #1d4ed8; --bg: #f8fafc; --card: #ffffff; --text: #0f172a; --text-muted: #64748b; --border: #e2e8f0; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #f1f5f9; }",
+    "Chế độ Tối (Dark Mode)": ":root { --primary: #3b82f6; --primary-hover: #60a5fa; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --text-muted: #94a3b8; --border: #334155; --font-family: 'Inter', sans-serif; --bg-glass: rgba(30, 41, 59, 0.85); --hover-bg: #0f172a; }",
+    "Trắng tinh khiết (Clean White)": ":root { --primary: #000000; --primary-hover: #333333; --bg: #ffffff; --card: #ffffff; --text: #000000; --text-muted: #666666; --border: #e5e5e5; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.95); --hover-bg: #f5f5f5; }",
+    "Xanh thiên nhiên (Nature)": ":root { --primary: #16a34a; --primary-hover: #15803d; --bg: #f0fdf4; --card: #ffffff; --text: #14532d; --text-muted: #166534; --border: #bbf7d0; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #f0fdf4; }",
+    "Tím thanh lịch (Elegant)": ":root { --primary: #7c3aed; --primary-hover: #6d28d9; --bg: #faf5ff; --card: #ffffff; --text: #4c1d95; --text-muted: #5b21b6; --border: #e9d5ff; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #faf5ff; }",
+    "Hoàng hôn (Warm Autumn)": ":root { --primary: #ea580c; --primary-hover: #c2410c; --bg: #fff7ed; --card: #ffffff; --text: #7c2d12; --text-muted: #9a3412; --border: #ffedd5; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #fff7ed; }",
+    "Đại dương sâu (Ocean)": ":root { --primary: #0891b2; --primary-hover: #0e7490; --bg: #ecfeff; --card: #ffffff; --text: #164e63; --text-muted: #155e75; --border: #cffafe; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #ecfeff; }",
+    "Hồng Pastel (Soft Pink)": ":root { --primary: #db2777; --primary-hover: #be185d; --bg: #fdf2f8; --card: #ffffff; --text: #831843; --text-muted: #9d174d; --border: #fbcfe8; --font-family: 'Inter', sans-serif; --bg-glass: rgba(255, 255, 255, 0.85); --hover-bg: #fdf2f8; }",
     "Cổ điển (Classic Serif)": ":root { --primary: #78350f; --primary-hover: #451a03; --bg: #fef3c7; --card: #ffedd5; --text: #451a03; --text-muted: #78350f; --border: #fdba74; --font-family: 'Merriweather', 'Times New Roman', serif; --bg-glass: rgba(255, 237, 213, 0.85); --hover-bg: #fef3c7; }"
 };
 
@@ -128,32 +128,28 @@ const app = {
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
-        
-        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-sm gap-1 items-center">';
+        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1 items-center">';
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-xs" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-xs" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
         let dropdownOpts = `<option value="">Ký hiệu ▾</option>`;
         extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
-        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-xs font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
+        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
         
         html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
-                 <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-sm gap-1">
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90 text-xs" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90 text-xs" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
+                 <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
+                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
                  </div>
-                 <div class="flex gap-2 ml-auto">
-                    <button class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 shadow-sm rounded-lg text-xs font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3.5 h-3.5 mr-1.5"></i> Video</button>
-                    <button class="px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 shadow-sm rounded-lg text-xs font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3.5 h-3.5 mr-1.5"></i> Ảnh</button>
-                 </div>`;
-                 
+                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200 shadow-[0_2px_0_0_#fecaca] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none mr-2" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn video</button>
+                 <button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -185,15 +181,15 @@ const app = {
                 </h3>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
+                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
                 </div>
                 <div>
                     <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
+                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
                 </div>
                 <div class="flex justify-end gap-2 mt-2">
-                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg hover:bg-slate-200 transition-colors text-sm">Hủy</button>
-                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-colors text-sm shadow-sm active:translate-y-1">Chèn vào</button>
+                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors text-sm">Hủy</button>
+                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition-colors text-sm shadow-[0_3px_0_0_#1d4ed8] active:translate-y-1 active:shadow-none">Chèn vào</button>
                 </div>
             </div>
         `;
@@ -247,7 +243,7 @@ const app = {
             if(!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:1px solid #e2e8f0; margin:10px 0;">`, '', inputId);
+                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
             };
             reader.readAsDataURL(file);
             f.value = ''; 
@@ -273,7 +269,7 @@ const app = {
                 alert("Không thể nhận diện ID YouTube từ đường link này!"); return;
             }
         } else if (url.toLowerCase().endsWith(".mp4") || url.toLowerCase().includes(".mp4?")) {
-            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:1px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
+            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
         } else {
             alert("Vui lòng nhập link YouTube hoặc link file .mp4 hợp lệ!"); return;
         }
@@ -353,24 +349,24 @@ const app = {
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border border-slate-200 rounded-xl bg-white shadow-sm hover:border-blue-400 hover:shadow-md transition-all group relative pr-16 cursor-default transform hover:-translate-y-0.5">
-                <div class="flex items-center gap-2 mb-2 border-b border-slate-100 pb-2">
+            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1 mb-4">
+                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2">
                     <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
-                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5"></i>
+                        <i data-lucide="grip-vertical" class="w-4 h-4"></i>
                     </div>
-                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 rounded-md">Câu ${i+1}</span>
+                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span>
                 </div>
                 <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
-                <div class="absolute top-2 sm:top-3 right-2 sm:right-3 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
-                    <button class="p-1.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-md transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
-                    <button class="p-1.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-md transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
+                <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
+                    <button class="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border-2 border-blue-100 hover:border-blue-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                    <button class="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
                 </div>
             </div>
         `).join('');
         
         document.getElementById('qList').innerHTML = html || `
-            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10">
-                <div class="bg-slate-100 p-4 rounded-xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 text-slate-300"></i></div>
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-4 py-12">
+                <div class="bg-slate-100 p-4 sm:p-5 rounded-2xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300"></i></div>
                 <p class="text-xs sm:text-sm font-bold text-slate-400">Chưa có câu hỏi nào</p>
             </div>`;
         const badge = document.getElementById('qCountBadge');
@@ -834,7 +830,7 @@ const app = {
                 else if(ptype===6) {
                     let [qtext, clues, keyword, sol] = this.parseQuestionLines(lines, ptype);
                     let encodedSol = encodeURIComponent(sol).replace(/'/g, "%27");
-                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ��ng)</i></div>`);
+                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
                     sectionsHTML.push(`<div class='cw-container' id='cw_${qid}'><div class='cw-grid'>`);
                     
                     let alignedGrid = [];
