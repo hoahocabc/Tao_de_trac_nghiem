@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Nhập câu hỏi trắc nghiệm nhiều lựa chọn (có 1 phương án đúng). Mỗi câu bắt đầu bằng dấu ##. Phương án đúng được thêm dấu # ở đầu.\nVí dụ:\n##\nThủ đô của VN?\n# A. Hà Nội\nB. Huế\nLời giải:\nGiải thích...",
-    2: "Nhập câu trắc nghiệm (có thể có nhiều đáp án đúng). Bắt đầu bằng ##. Đáp án đúng có dấu #.\nVí dụ:\n##\nHạt trong hạt nhân?\n# A. Proton\nB. Electron\n# C. Neutron",
-    3: "Nhập câu trả lời ngắn. Bắt đầu bằng ##. Đáp án sau dấu #, nếu có nhiều cách ghi thì mỗi dòng 1 dấu #.\nVí dụ:\n##\nKhối lượng của Cl?\n# 35.5\n# 35,5",
-    4: "Nhập điền khuyết. Các vị trí khuyết ghi =(n)=. Đáp án ghi sau chữ 'Đáp án:'.\nVí dụ:\n##\nHình vuông có =(1)= cạnh.\nĐáp án:\n=(1)=\n# 4\n# bốn",
-    5: "Ghép đôi. Định dạng: Cột I:, Cột II:, Đáp án ghép nối ghi sau dấu #.\nVí dụ:\n##\nCột I:\n1. Gà\n2. Chó\nCột II:\nA. 4 chân\nB. 2 chân\n# 1=B, 2=A",
-    6: "Giải ô chữ. Gợi ý hàng ngang: 1. ... # ĐÁP ÁN. Từ khóa dọc: Từ khóa: # KEY.\nVí dụ:\n##\n1. Hạt mang điện dương # PROTON\nTừ khóa: # ON"
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Mỗi câu phải bắt đầu bằng cú pháp: ##\n- Các phương án đánh A, B, C, D...\n- Đặt dấu # ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối nếu cần giải thích chi tiết.\n\nVí dụ:\n##\nThủ đô của Việt Nam là gì?\n# A. Hà Nội\nB. Huế\nC. Đà Nẵng\nLời giải:\nHà Nội là thủ đô của VN từ năm 1945.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Mỗi câu bắt đầu bằng cú pháp: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n\nVí dụ:\n##\nNhững hạt nào nằm trong hạt nhân nguyên tử?\n# A. Proton\nB. Electron\n# C. Neutron\nLời giải:\nHạt nhân gồm n và p.",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt đầu bằng: ##\n- Học sinh sẽ tự gõ đáp án vào ô trống.\n- Ghi các đáp án được chấp nhận sau dấu #. (Nếu có nhiều cách ghi, mỗi cách ghi 1 dòng có dấu # phía trước).\n\nVí dụ:\n##\nKhối lượng nguyên tử của Clo là bao nhiêu?\n# 35.5\n# 35,5\n# 35.5 amu",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt đầu bằng: ##\n- Đặt chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Xuống dòng ghi 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ:\n##\nHình vuông có =(1)= cạnh và =(2)= góc vuông.\nĐáp án:\n=(1)=\n# 4\n# bốn\n=(2)=\n# 4\n# bốn",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và 'Cột II:' (dùng chữ A. B. C.).\n- Ghi đáp án ghép nối ở cuối cùng ngay sau dấu # (VD: 1=B, 2=A).\n\nVí dụ:\n##\nHãy ghép nối cho phù hợp:\nCột I:\n1. Gà\n2. Chó\nCột II:\nA. 4 chân\nB. 2 chân\n# 1=B, 2=A",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang và đáp án tương ứng theo cú pháp: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. Hệ thống sẽ tự động gióng cột.\n\nVí dụ:\n##\n1. Hạt mang điện tích dương # PROTON\n2. Hạt mang điện tích âm # ELECTRON\n3. Hạt không mang điện # NEUTRON\nTừ khóa: # PEN"
 };
 
 const chem_symbols = [
@@ -41,6 +41,7 @@ const app = {
     },
     activeTab: 1,
     editingIndex: -1,
+    draggedItemIndex: null,
 
     init() {
         if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -118,7 +119,8 @@ const app = {
                     <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
                     <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
                  </div>
-                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
+                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200 shadow-[0_2px_0_0_#fecaca] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none mr-2" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn video</button>
+                 <button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -139,12 +141,25 @@ const app = {
 
     insertArrow(type, inputId = 'qInput') {
         const el = document.getElementById(inputId);
-        const s = el.selectionStart;
-        let text = type === 'right' ? '$\\xrightarrow[\\text{Ghi_chữ_bên_dưới}]{\\text{Ghi_chữ_bên_trên}}$' : '$\\xrightleftharpoons[\\text{Ghi_chữ_bên_dưới}]{\\text{Ghi_chữ_bên_trên}}$';
-        el.value = el.value.substring(0, s) + text + el.value.substring(el.selectionEnd);
-        const focusStart = s + text.indexOf('Ghi_chữ_bên_trên');
-        const focusEnd = focusStart + 16;
-        el.setSelectionRange(focusStart, focusEnd);
+        const s = el.selectionStart, e = el.selectionEnd;
+        
+        let topText = prompt("Nhập chữ xuất hiện phía TRÊN mũi tên (Để trống nếu không có):", "");
+        if (topText === null) return; 
+        
+        let bottomText = prompt("Nhập chữ xuất hiện phía DƯỚI mũi tên (Để trống nếu không có):", "");
+        if (bottomText === null) return;
+
+        topText = topText.trim();
+        bottomText = bottomText.trim();
+        
+        let arrowBase = type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons';
+        let bottomPart = bottomText ? `[\\text{${bottomText}}]` : "";
+        let topPart = topText ? `{\\text{${topText}}}` : "{}";
+        
+        let text = `$${arrowBase}${bottomPart}${topPart}$`;
+        
+        el.value = el.value.substring(0, s) + text + el.value.substring(e);
+        el.setSelectionRange(s + text.length, s + text.length);
         el.focus();
     },
 
@@ -158,9 +173,35 @@ const app = {
                 this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
             };
             reader.readAsDataURL(file);
-            f.value = ''; // Reset
+            f.value = ''; 
         };
         f.click();
+    },
+
+    insertVideo(inputId = 'qInput') {
+        const url = prompt("Nhập đường link Video (Hỗ trợ link YouTube hoặc đường link file .mp4 trực tiếp):", "");
+        if (!url) return;
+        
+        let embedHtml = "";
+        if (url.includes("youtube.com") || url.includes("youtu.be")) {
+            let videoId = "";
+            if (url.includes("youtu.be/")) {
+                videoId = url.split("youtu.be/")[1].split("?")[0];
+            } else if (url.includes("watch?v=")) {
+                videoId = url.split("watch?v=")[1].split("&")[0];
+            }
+            if (videoId) {
+                embedHtml = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:10px 0;"><iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
+            } else {
+                alert("Không thể nhận diện ID YouTube từ đường link này!"); return;
+            }
+        } else if (url.toLowerCase().endsWith(".mp4") || url.toLowerCase().includes(".mp4?")) {
+            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
+        } else {
+            alert("Vui lòng nhập link YouTube hoặc link file .mp4 hợp lệ!"); return;
+        }
+        
+        this.insertText('', embedHtml, '', inputId);
     },
 
     addQuestion() {
@@ -199,11 +240,44 @@ const app = {
         this.renderQList();
     },
 
+    handleDragStart(e, index) {
+        this.draggedItemIndex = index;
+        e.target.style.opacity = '0.5';
+        e.dataTransfer.effectAllowed = 'move';
+    },
+
+    handleDragOver(e) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    },
+
+    handleDrop(e, dropIndex) {
+        e.stopPropagation();
+        if (this.draggedItemIndex !== null && this.draggedItemIndex !== dropIndex) {
+            const list = this.data['part' + this.activeTab];
+            const item = list.splice(this.draggedItemIndex, 1)[0];
+            list.splice(dropIndex, 0, item);
+            this.renderQList();
+        }
+        return false;
+    },
+
+    handleDragEnd(e) {
+        e.target.style.opacity = '1';
+        this.draggedItemIndex = null;
+    },
+
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1">
-                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2"><span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span></div>
+            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1 mb-4">
+                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2">
+                    <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
+                        <i data-lucide="grip-vertical" class="w-4 h-4"></i>
+                    </div>
+                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span>
+                </div>
                 <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
                 <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
                     <button class="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border-2 border-blue-100 hover:border-blue-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
@@ -859,6 +933,21 @@ const app = {
       const IS_ANTI_CHEAT = ${isAntiCheat};
       const IS_PUBLISH_SCORE = ${isPublishScore};
 
+      window.isSystemAlert = false;
+      const originalAlert = window.alert;
+      window.alert = function(msg) {
+          window.isSystemAlert = true;
+          originalAlert(msg);
+          setTimeout(() => { window.isSystemAlert = false; }, 500);
+      };
+      const originalConfirm = window.confirm;
+      window.confirm = function(msg) {
+          window.isSystemAlert = true;
+          let result = originalConfirm(msg);
+          setTimeout(() => { window.isSystemAlert = false; }, 500);
+          return result;
+      };
+
       function parseDateVN(dateStr) {
           if (!dateStr || dateStr.trim() === "") return null;
           try {
@@ -933,7 +1022,7 @@ const app = {
 
       window.violationCount = 0; window.violationDetails = []; window.isForceSubmit = false; let isHandlingViolation = false;
       function handleViolation(reason) {
-          if (!IS_ANTI_CHEAT) return;
+          if (!IS_ANTI_CHEAT || window.isSystemAlert) return;
           if (isHandlingViolation || localStorage.getItem(EXAM_ID + "_SUBMITTED")) return;
           isHandlingViolation = true; setTimeout(() => { isHandlingViolation = false; }, 1500);
           if (document.getElementById('submitBtn') && document.getElementById('submitBtn').style.display !== 'none') {
@@ -968,11 +1057,11 @@ const app = {
           });
           
           document.addEventListener('visibilitychange', () => { 
-              if (document.hidden && IS_ANTI_CHEAT) handleViolation("Chuyển Tab hoặc Thu nhỏ Trình duyệt"); 
+              if (document.hidden && IS_ANTI_CHEAT && !window.isSystemAlert) handleViolation("Chuyển Tab hoặc Thu nhỏ Trình duyệt"); 
           });
           
           window.addEventListener('blur', () => { 
-              if (document.activeElement instanceof HTMLIFrameElement) return; 
+              if (document.activeElement instanceof HTMLIFrameElement || window.isSystemAlert) return; 
               if (IS_ANTI_CHEAT) handleViolation("Mở ứng dụng khác / Rời khỏi cửa sổ thi"); 
           });
       });
