@@ -1,0 +1,26 @@
+.btn {
+    @apply px-3 py-1.5 rounded inline-flex items-center justify-center transition-colors text-sm;
+}
+.btn-blue { @apply bg-blue-600 text-white hover:bg-blue-700; }
+.btn-green { @apply bg-green-600 text-white hover:bg-green-700; }
+.btn-red { @apply bg-red-600 text-white hover:bg-red-700; }
+
+.input-full {
+    @apply w-full border border-gray-300 rounded px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+}
+
+.modal-overlay {
+    @apply fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4;
+}
+.modal-content {
+    @apply bg-white rounded-lg shadow-xl p-6;
+}
+
+.tab-active { @apply border-b-2 border-blue-600 text-blue-600 font-bold bg-white; }
+.tab-inactive { @apply text-gray-600 hover:bg-gray-50; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
