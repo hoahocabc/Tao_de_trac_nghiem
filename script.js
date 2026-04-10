@@ -99,28 +99,39 @@ const app = {
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
-        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1 items-center">';
+        
+        let html = '<div class="flex flex-wrap gap-1.5 items-center bg-transparent rounded pb-1">';
+        
+        // Symbols
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
-        let dropdownOpts = `<option value="">Ký hiệu ▾</option>`;
-        extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
-        html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
-        
-        html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
-                 <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
-                 </div>
-                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200 shadow-[0_2px_0_0_#fecaca] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none mr-2" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn video</button>
-                 <button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
+        extra_symbols.forEach(sym => {
+            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
+        });
+
+        // Divider
+        html += `<div class="w-px h-5 bg-slate-300 mx-1 hidden sm:block"></div>`;
+
+        // Format
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-black transition-all active:scale-90 shadow-sm" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs italic font-black transition-all active:scale-90 shadow-sm" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+
+        // Divider
+        html += `<div class="w-px h-5 bg-slate-300 mx-1 hidden sm:block"></div>`;
+
+        // Media
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
+
+        html += '</div>';
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -255,6 +266,12 @@ const app = {
         chunks.forEach(c => { if(c.split('\n').length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
         document.getElementById('qInput').value = '';
         this.renderQList();
+        
+        // Scroll to bottom of list smoothly
+        setTimeout(() => {
+            const listEl = document.getElementById('qList');
+            if(listEl) listEl.scrollTo({ top: listEl.scrollHeight, behavior: 'smooth' });
+        }, 100);
     },
 
     removeQuestion(idx) {
@@ -367,7 +384,7 @@ const app = {
             start_time: document.getElementById('startTime').value,
             end_time: document.getElementById('endTime').value,
             anti_cheat: acBox ? acBox.checked : false,
-            publish_score: psBox ? psBox.checked : true,
+            publish_score: psBox ? psBox.checked : false,
             ...this.data
         };
         const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json;charset=utf-8"});
@@ -669,7 +686,7 @@ const app = {
         const acElem = document.getElementById('antiCheat');
         const psElem = document.getElementById('publishScore');
         const isAntiCheat = acElem ? acElem.checked : false;
-        const isPublishScore = psElem ? psElem.checked : true;
+        const isPublishScore = psElem ? psElem.checked : false; // Default off
         
         let jsBuilder=[], jsValid=[], studentInputsHtml=[];
         let hasStudentInputs = false;
@@ -1037,7 +1054,7 @@ const app = {
       const START_TIME = parseDateVN(START_TIME_STR, false);
       let absoluteEndTime = parseDateVN(END_TIME_STR, true);
       
-      // Thay đổi: Nếu có giờ bắt đầu và giờ kết thúc, tính luôn thời gian đếm ngược
+      // Nếu có giờ bắt đầu và giờ kết thúc, tính luôn thời gian đếm ngược
       if (START_TIME && absoluteEndTime && !durationMinutes) {
           durationMinutes = (absoluteEndTime - START_TIME) / 60000;
       }
