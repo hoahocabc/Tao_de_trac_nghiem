@@ -1,47 +1,24 @@
-/* Base Utilities & Animations */
-.btn {
-    @apply px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-200 text-sm focus:outline-none focus:ring-4 focus:ring-offset-0 active:scale-95 hover:-translate-y-0.5;
+/* Tùy chỉnh thanh cuộn (Scrollbar) cho toàn trang */
+::-webkit-scrollbar { 
+    width: 6px; 
+    height: 6px; 
 }
-.btn-primary { @apply bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-md focus:ring-blue-500/30 border border-transparent; }
-.btn-green { @apply bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:from-emerald-600 hover:to-emerald-700 shadow-md focus:ring-emerald-500/30 border border-transparent; }
-.btn-outline { @apply bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-400 focus:ring-slate-200/50 shadow-sm; }
-
-.form-label {
-    @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2;
+::-webkit-scrollbar-track { 
+    background: transparent; 
 }
-.form-input, .form-select {
-    @apply w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-200 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm;
+::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 10px; 
 }
-
-/* Modal with Scale Animation */
-.modal-overlay {
-    @apply fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity duration-300 opacity-100;
-}
-.modal-overlay.hidden {
-    @apply opacity-0 pointer-events-none;
-}
-.modal-content {
-    @apply bg-white rounded-2xl shadow-2xl p-6 transform transition-all duration-300 scale-100;
-}
-.modal-overlay.hidden .modal-content {
-    @apply scale-95;
+::-webkit-scrollbar-thumb:hover { 
+    background: #94a3b8; 
 }
 
-/* Tabs Styling - Grid Layout */
-.tab-btn {
-    @apply w-full flex flex-col items-center justify-center px-2 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 border-2 active:scale-95;
+/* Ẩn scrollbar nhưng vẫn cho phép cuộn */
+.no-scrollbar::-webkit-scrollbar { 
+    display: none; 
 }
-.tab-active { 
-    @apply bg-white text-blue-700 border-blue-500 shadow-md transform -translate-y-0.5; 
+.no-scrollbar { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
 }
-.tab-inactive { 
-    @apply bg-slate-50 text-slate-500 border-transparent hover:bg-slate-200 hover:text-slate-800 hover:border-slate-300; 
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; border: 2px solid transparent; background-clip: padding-box; }
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
