@@ -8,14 +8,47 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Cấu hình hiệu ứng NỔI (3D) cho toàn bộ ứng dụng bằng Tailwind -->
+    <style type="text/tailwindcss">
+        @layer components {
+            /* Nút bấm nổi 3D */
+            .btn {
+                @apply relative px-5 py-2.5 rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-sm focus:outline-none active:translate-y-1;
+            }
+            .btn-primary {
+                @apply bg-blue-500 text-white shadow-[0_4px_0_0_#1d4ed8] hover:shadow-[0_6px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8];
+            }
+            .btn-green {
+                @apply bg-emerald-500 text-white shadow-[0_4px_0_0_#047857] hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857];
+            }
+            .btn-outline {
+                @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0];
+            }
+
+            /* Tab 3D */
+            .tab-btn {
+                @apply w-full flex flex-col items-center justify-center px-2 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 border-2 active:translate-y-1;
+            }
+            .tab-active { 
+                @apply bg-white text-blue-700 border-blue-200 shadow-[0_4px_0_0_#bfdbfe] -translate-y-1; 
+            }
+            .tab-inactive { 
+                @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; 
+            }
+
+            /* Form nổi */
+            .form-label {
+                @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2;
+            }
+            .form-input, .form-select {
+                @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner;
+            }
+        }
+    </style>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { primary: '#2563eb' }
-                }
-            }
+            theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } }
         }
     </script>
 </head>
@@ -24,54 +57,42 @@
     <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
         <div class="max-w-[1400px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="bg-gradient-to-br from-blue-500 to-blue-700 p-2 rounded-lg text-white shadow-md transform hover:scale-105 transition-transform">
+                <div class="bg-blue-500 p-2.5 rounded-xl text-white shadow-[0_3px_0_0_#1d4ed8]">
                     <i data-lucide="flask-conical" class="w-5 h-5"></i>
                 </div>
                 <h1 class="text-xl font-bold text-slate-900 tracking-tight hidden md:block">Tạo đề trắc nghiệm - Hóa học ABC</h1>
             </div>
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0">
-                <button onclick="app.newProject()" class="px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md hover:-translate-y-1">
-                    <i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span>
-                </button>
-                <button onclick="app.loadProject()" class="px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md hover:-translate-y-1">
-                    <i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Mở file</span>
-                </button>
-                <button onclick="app.saveProject()" class="px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md hover:-translate-y-1">
-                    <i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Lưu lại</span>
-                </button>
-                <div class="w-px h-8 bg-slate-200 mx-2"></div>
-                <button onclick="app.openGFSettings()" class="px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/40 hover:-translate-y-1">
-                    <i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span>Google Form</span>
-                </button>
-                <button onclick="app.exportHTML()" class="px-4 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-1">
-                    <i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span>
-                </button>
+            <div class="flex items-center gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 pt-2 md:pt-0">
+                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span></button>
+                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Mở file</span></button>
+                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Lưu lại</span></button>
+                <div class="w-px h-8 bg-slate-200 mx-1"></div>
+                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span>Google Form</span></button>
+                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span></button>
             </div>
         </div>
     </header>
 
     <main class="flex-1 max-w-[1400px] mx-auto w-full px-4 lg:px-6 py-6 flex flex-col gap-6">
         <!-- Cấu hình đề thi -->
-        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 transition-all hover:shadow-md">
-            <h2 class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-4 flex items-center gap-2">
-                <i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi
-            </h2>
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="form-label mb-4 flex items-center gap-2"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-5">
                 <div class="lg:col-span-2">
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Tên bài kiểm tra</label>
-                    <input type="text" id="quizTitle" class="w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm" value="BÀI TẬP TRẮC NGHIỆM">
+                    <label class="form-label">Tên bài kiểm tra</label>
+                    <input type="text" id="quizTitle" class="form-input" value="BÀI TẬP TRẮC NGHIỆM">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Người tạo</label>
-                    <input type="text" id="creatorName" class="w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm" placeholder="VD: Thầy A">
+                    <label class="form-label">Người tạo</label>
+                    <input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Giao diện (Theme)</label>
-                    <select id="themeSelect" class="w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm"></select>
+                    <label class="form-label">Giao diện (Theme)</label>
+                    <select id="themeSelect" class="form-select"></select>
                 </div>
                 <div>
-                    <label class="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Hạn nộp bài</label>
-                    <input type="text" id="endTime" class="w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm" placeholder="HH:MM DD/MM/YYYY">
+                    <label class="form-label">Hạn nộp bài</label>
+                    <input type="text" id="endTime" class="form-input" placeholder="HH:MM DD/MM/YYYY">
                     <input type="hidden" id="startTime" value="">
                 </div>
             </div>
@@ -79,33 +100,29 @@
 
         <!-- Main Workspace -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
-            
             <!-- Khu vực soạn thảo (Trái) -->
             <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-24" style="height: calc(100vh - 11rem);">
-                
                 <!-- 6 Tabs -->
-                <div class="bg-slate-100 p-3 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-2" id="tabsContainer">
+                <div class="bg-slate-100 p-4 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-3" id="tabsContainer">
                     <!-- Được tạo bởi JS -->
                 </div>
 
-                <div class="p-5 flex-1 flex flex-col bg-slate-50/50">
+                <div class="p-6 flex-1 flex flex-col bg-slate-50">
                     <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-lg font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
-                        <button class="text-blue-600 hover:text-blue-800 bg-blue-100/50 hover:bg-blue-100 px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 shadow-sm active:scale-95" onclick="app.showGuide()">
-                            <i data-lucide="help-circle" class="w-4 h-4"></i> Hướng dẫn nhập
+                        <h2 class="text-xl font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
+                        <button class="btn btn-outline py-2 px-3" onclick="app.showGuide()">
+                            <i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> Hướng dẫn nhập
                         </button>
                     </div>
 
                     <!-- Khung nhập -->
-                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
-                        <!-- Toolbar -->
-                        <div class="bg-slate-50 p-2.5 border-b border-slate-200 flex flex-wrap gap-2 items-center text-sm" id="editorToolbar"></div>
-                        <!-- Textarea -->
+                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
+                        <div class="bg-slate-100 p-2.5 border-b-2 border-slate-200 flex flex-wrap gap-2 items-center text-sm" id="editorToolbar"></div>
                         <textarea id="qInput" class="w-full p-4 font-mono text-sm flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed" placeholder="Nhập câu hỏi tại đây...&#10;Mỗi câu cách nhau bởi ##&#10;Đáp án đúng có dấu # ở đầu..."></textarea>
                     </div>
                     
-                    <div class="mt-5 flex justify-end">
-                        <button class="px-4 py-3 sm:px-8 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-base focus:outline-none active:scale-95 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-1 w-full sm:w-auto" onclick="app.addQuestion()">
+                    <div class="mt-6 flex justify-end">
+                        <button class="btn btn-primary w-full sm:w-auto" onclick="app.addQuestion()">
                             <i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách
                         </button>
                     </div>
@@ -116,9 +133,9 @@
             <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col" style="height: calc(100vh - 11rem);">
                 <div class="p-5 border-b border-slate-200 bg-slate-50 rounded-t-2xl flex justify-between items-center">
                     <h3 class="font-bold text-slate-800 flex items-center gap-2 text-lg">
-                        <i data-lucide="list-checks" class="w-5 h-5 text-emerald-600"></i> Danh sách câu hỏi
+                        <i data-lucide="list-checks" class="w-6 h-6 text-emerald-500"></i> Danh sách câu hỏi
                     </h3>
-                    <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-sm font-bold px-3 py-1 rounded-full shadow-sm">0 câu</span>
+                    <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-sm font-bold px-3 py-1 rounded-full shadow-[0_2px_0_0_#a7f3d0]">0 câu</span>
                 </div>
                 <div id="qList" class="p-5 space-y-4 overflow-y-auto flex-1 bg-slate-50/50">
                     <!-- Được tạo bởi JS -->
@@ -127,43 +144,43 @@
         </section>
     </main>
 
-    <!-- Popup Google Form (Hoạt ảnh mượt mà bằng class Tailwind) -->
+    <!-- Popup Google Form -->
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[90vh]">
-            <div class="flex justify-between items-center mb-5 pb-4 border-b border-slate-100">
-                <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 text-green-600"></i> Cấu hình Google Form</h2>
-                <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-2 rounded-xl active:scale-90"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <div class="modal-content bg-white rounded-3xl shadow-2xl p-8 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[90vh]">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b-2 border-slate-100">
+                <h2 class="text-2xl font-bold text-slate-900 flex items-center gap-2"><i data-lucide="database" class="w-7 h-7 text-green-500"></i> Cấu hình Google Form</h2>
+                <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-2 rounded-xl active:scale-90"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
             
-            <div class="bg-blue-50 text-blue-800 text-sm p-4 rounded-xl mb-6 flex gap-3 border border-blue-100 shadow-sm">
+            <div class="bg-blue-50 text-blue-800 text-sm p-4 rounded-xl mb-6 flex gap-3 border-2 border-blue-100 font-medium">
                 <i data-lucide="info" class="w-5 h-5 shrink-0 mt-0.5"></i>
                 <p>Dán link Google Form của bạn vào ô bên dưới. Phần mềm sẽ tự động quét các trường nhập liệu và cấu hình tự động gửi điểm.</p>
             </div>
 
             <div class="flex flex-col sm:flex-row gap-4 mb-6">
-                <input type="text" id="gfUrlInput" class="w-full bg-white border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-3 text-base outline-none transition-all duration-300 hover:border-slate-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 placeholder-slate-400 shadow-sm flex-1" placeholder="Dán link Form vào đây...">
-                <button id="btnAnalyze" class="px-6 py-3 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white hover:shadow-lg hover:shadow-emerald-500/40 hover:-translate-y-1 whitespace-nowrap" onclick="app.autoAnalyzeGF()">
+                <input type="text" id="gfUrlInput" class="form-input flex-1 text-base py-3" placeholder="Dán link Form vào đây...">
+                <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()">
                     <i data-lucide="zap" class="w-5 h-5 mr-2"></i>Phân tích ngay
                 </button>
             </div>
 
-            <div class="flex-1 overflow-y-auto border-2 border-slate-200 rounded-xl mb-6 bg-white min-h-[250px] shadow-inner">
+            <div class="flex-1 overflow-y-auto border-2 border-slate-200 rounded-xl mb-6 bg-slate-50 min-h-[250px] shadow-inner p-2">
                 <table class="w-full text-sm text-left">
-                    <thead class="bg-slate-100 sticky top-0 border-b-2 border-slate-200 z-10">
+                    <thead class="bg-white sticky top-0 z-10 shadow-sm rounded-lg">
                         <tr>
-                            <th class="p-4 font-bold text-slate-700">Tiêu đề trường</th>
+                            <th class="p-4 font-bold text-slate-700 rounded-tl-lg">Tiêu đề trường</th>
                             <th class="p-4 font-bold text-slate-700">Mã ID</th>
                             <th class="p-4 font-bold text-slate-700">Loại dữ liệu</th>
-                            <th class="p-4 font-bold text-slate-700 text-center">Bắt buộc</th>
+                            <th class="p-4 font-bold text-slate-700 text-center rounded-tr-lg">Bắt buộc</th>
                         </tr>
                     </thead>
-                    <tbody id="gfFieldsTable" class="divide-y divide-slate-100"></tbody>
+                    <tbody id="gfFieldsTable" class="divide-y divide-slate-100 bg-white"></tbody>
                 </table>
             </div>
 
-            <div class="flex justify-end gap-3 pt-4 border-t border-slate-100">
-                <button class="px-6 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-white border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:border-slate-300 hover:shadow-md hover:-translate-y-1" onclick="app.closeModal('gfModal')">Hủy bỏ</button>
-                <button class="px-8 py-2.5 rounded-xl font-semibold inline-flex items-center justify-center transition-all duration-300 text-sm focus:outline-none active:scale-95 bg-gradient-to-r from-blue-600 to-blue-700 text-white hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-1" onclick="app.saveGFConfig()">Lưu cấu hình</button>
+            <div class="flex justify-end gap-4 pt-4 border-t-2 border-slate-100">
+                <button class="btn btn-outline" onclick="app.closeModal('gfModal')">Hủy bỏ</button>
+                <button class="btn btn-primary px-8" onclick="app.saveGFConfig()">Lưu cấu hình</button>
             </div>
         </div>
     </div>
