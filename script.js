@@ -11,12 +11,17 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất (Ví dụ: # A. Đáp án đúng).\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án có dấu #.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=, =(3)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\nVí dụ:\n=(1)=\n# Nước\n# nước\n=(2)=\n# 100\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu (VD: # 1=B, 2=A, 3=D).",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc xuyên suốt, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. (Lưu ý: Số lượng chữ cái của từ khóa phải bằng đúng số lưng hàng ngang).\n- Hệ thống tự động căn chỉnh và tạo lưới ô chữ."
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi ti���t.\n\nVí dụ mẫu:\n##\nChất nào sau đây là kim loại kiềm?\nA. Sắt\n# B. Natri\nC. Đồng\nD. Nhôm\nLời giải: Natri thuộc nhóm IA nên là kim loại kiềm.",
+    
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n\nVí dụ mẫu:\n##\nCác khí nào sau đây nhẹ hơn không khí?\n# A. H2\nB. CO2\n# C. N2\nD. SO2",
+    
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ mẫu:\n##\nCông thức hóa học của Axit sunfuric là gì?\n# H2SO4\n# h2so4",
+    
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ mẫu:\n##\nNước sôi ở =(1)= độ C và hóa rắn ở =(2)= độ C.\nĐáp án:\n=(1)=\n# 100\n=(2)=\n# 0\n# không",
+    
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ mẫu:\n##\nGhép các chất với trạng thái tương ứng:\nCột I:\n1. Nước\n2. Sắt\n3. Oxy\nCột II:\nA. Rắn\nB. Lỏng\nC. Khí\n# 1=B, 2=A, 3=C",
+    
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ mẫu:\n##\nGiải ô chữ hóa học sau:\nKhí duy trì sự cháy # OXY\nKim loại lỏng ở điều kiện thường # THUYNGAN\nTừ khóa: # ON"
 };
 
 const chem_symbols = [
@@ -100,38 +105,38 @@ const app = {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
         
-        let html = '<div class="flex flex-wrap gap-1.5 items-center bg-transparent rounded pb-1">';
+        let html = '';
         
-        // Symbols
+        // Symbols Hóa học
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-100 hover:bg-blue-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" title="Mũi tên thuận nghịch" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
+        // Kí tự đặc biệt
         extra_symbols.forEach(sym => {
-            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-bold transition-all active:scale-90 shadow-sm" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
+            html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-bold transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertText('${sym}', '', '', '${inputId}')">${sym}</button>`;
         });
 
         // Divider
-        html += `<div class="w-px h-5 bg-slate-300 mx-1 hidden sm:block"></div>`;
+        html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
 
         // Format
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs font-black transition-all active:scale-90 shadow-sm" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded text-xs italic font-black transition-all active:scale-90 shadow-sm" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs font-black transition-all active:scale-90 shadow-sm shrink-0" title="In đậm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 bg-white border border-slate-300 hover:bg-slate-200 rounded-md text-xs italic font-black transition-all active:scale-90 shadow-sm shrink-0" title="In nghiêng" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
 
         // Divider
-        html += `<div class="w-px h-5 bg-slate-300 mx-1 hidden sm:block"></div>`;
+        html += `<div class="w-px h-4 bg-slate-300 mx-1 shrink-0"></div>`;
 
         // Media
-        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
-        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-md text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-md text-xs font-bold flex items-center transition-all active:scale-90 shadow-sm shrink-0 whitespace-nowrap" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
 
-        html += '</div>';
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -1036,13 +1041,8 @@ const app = {
           return result;
       };
 
-      let durationMinutes = null;
-      function parseDateVN(dateStr, isEndTime) {
+      function parseDateVN(dateStr) {
           if (!dateStr || dateStr.trim() === "") return null;
-          if (isEndTime && /^\\d+$/.test(dateStr.trim())) {
-              durationMinutes = parseInt(dateStr.trim(), 10);
-              return null;
-          }
           try {
               let parts = dateStr.trim().split(" ");
               if(parts.length < 2) return null;
@@ -1051,20 +1051,8 @@ const app = {
               return new Date(dateParts[2], parseInt(dateParts[1]) - 1, dateParts[0], timeParts[0], timeParts[1]).getTime();
           } catch(e) { return null; }
       }
-      const START_TIME = parseDateVN(START_TIME_STR, false);
-      let absoluteEndTime = parseDateVN(END_TIME_STR, true);
-      
-      // Nếu có giờ bắt đầu và giờ kết thúc, tính luôn thời gian đếm ngược
-      if (START_TIME && absoluteEndTime && !durationMinutes) {
-          durationMinutes = (absoluteEndTime - START_TIME) / 60000;
-      }
-      
-      if (durationMinutes) {
-          let savedEndTime = localStorage.getItem(EXAM_ID + "_ABS_END");
-          if (savedEndTime) {
-              absoluteEndTime = parseInt(savedEndTime, 10);
-          }
-      }
+      const START_TIME = parseDateVN(START_TIME_STR);
+      const absoluteEndTime = parseDateVN(END_TIME_STR);
 
       function lockExam(reason) {
           if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
@@ -1079,12 +1067,12 @@ const app = {
           let nowInit = new Date().getTime();
           if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
           else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
-          else if (absoluteEndTime && !durationMinutes && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + (durationMinutes ? "Hết thời gian làm bài" : END_TIME_STR));
+          else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
           else if (START_TIME && nowInit < START_TIME) {
               document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
                   <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
                   <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
-                  \${END_TIME_STR && !durationMinutes ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
+                  \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
                   <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
                   <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
               </body>\`;
@@ -1302,14 +1290,6 @@ const app = {
 
       let timerInterval; let seconds = 0;
       function startTimer() {
-        if (durationMinutes) {
-            let savedTime = localStorage.getItem(EXAM_ID + "_ABS_END");
-            if (!savedTime) {
-                absoluteEndTime = new Date().getTime() + durationMinutes * 60000;
-                localStorage.setItem(EXAM_ID + "_ABS_END", absoluteEndTime);
-            }
-        }
-
         function tick() {
             let displayStr = "";
             if (absoluteEndTime) {
