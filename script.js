@@ -142,25 +142,70 @@ const app = {
     insertArrow(type, inputId = 'qInput') {
         const el = document.getElementById(inputId);
         const s = el.selectionStart, e = el.selectionEnd;
-        
-        let topText = prompt("Nhập chữ xuất hiện phía TRÊN mũi tên (Để trống nếu không có):", "");
-        if (topText === null) return; 
-        
-        let bottomText = prompt("Nhập chữ xuất hiện phía DƯỚI mũi tên (Để trống nếu không có):", "");
-        if (bottomText === null) return;
 
-        topText = topText.trim();
-        bottomText = bottomText.trim();
-        
-        let arrowBase = type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons';
-        let bottomPart = bottomText ? `[\\text{${bottomText}}]` : "";
-        let topPart = topText ? `{\\text{${topText}}}` : "{}";
-        
-        let text = `$${arrowBase}${bottomPart}${topPart}$`;
-        
-        el.value = el.value.substring(0, s) + text + el.value.substring(e);
-        el.setSelectionRange(s + text.length, s + text.length);
-        el.focus();
+        // Tạo popup nhập liệu
+        const overlay = document.createElement('div');
+        overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4';
+        overlay.innerHTML = `
+            <div class="bg-white rounded-2xl shadow-xl p-5 w-full max-w-sm flex flex-col gap-4 transform transition-all">
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                    <i data-lucide="arrow-right-circle" class="w-5 h-5 text-blue-500"></i> Chèn mũi tên
+                </h3>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên (tùy chọn):</label>
+                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên (tùy chọn):</label>
+                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
+                </div>
+                <div class="flex justify-end gap-2 mt-2">
+                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors text-sm">Hủy</button>
+                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition-colors text-sm shadow-[0_3px_0_0_#1d4ed8] active:translate-y-1 active:shadow-none">Chèn vào</button>
+                </div>
+            </div>
+        `;
+
+        document.body.appendChild(overlay);
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        const topInput = document.getElementById('arrowTopInput');
+        const bottomInput = document.getElementById('arrowBottomInput');
+        const cancelBtn = document.getElementById('arrowCancelBtn');
+        const confirmBtn = document.getElementById('arrowConfirmBtn');
+
+        topInput.focus();
+
+        const closePopup = () => {
+            document.body.removeChild(overlay);
+            el.focus();
+        };
+
+        const confirmInsert = () => {
+            let topText = topInput.value.trim();
+            let bottomText = bottomInput.value.trim();
+            
+            let arrowBase = type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons';
+            let bottomPart = bottomText ? `[\\text{${bottomText}}]` : "";
+            let topPart = topText ? `{\\text{${topText}}}` : "{}";
+            
+            let text = `$${arrowBase}${bottomPart}${topPart}$`;
+            
+            el.value = el.value.substring(0, s) + text + el.value.substring(e);
+            el.setSelectionRange(s + text.length, s + text.length);
+            
+            closePopup();
+        };
+
+        cancelBtn.onclick = closePopup;
+        confirmBtn.onclick = confirmInsert;
+
+        const handleKey = (ev) => {
+            if (ev.key === 'Enter') confirmInsert();
+            if (ev.key === 'Escape') closePopup();
+        };
+        topInput.addEventListener('keydown', handleKey);
+        bottomInput.addEventListener('keydown', handleKey);
     },
 
     insertImage(inputId = 'qInput') {
