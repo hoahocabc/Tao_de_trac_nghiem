@@ -12,7 +12,7 @@ const THEMES = {
 
 const GUIDES = {
     1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Mỗi câu phải bắt đầu bằng cú pháp: ##\n- Các phương án đánh A, B, C, D...\n- Đặt dấu # ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối nếu cần giải thích chi tiết.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Mỗi câu bắt đầu bằng cú pháp: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Mỗi câu b��t đầu bằng cú pháp: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.",
     3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt đầu bằng: ##\n- Ghi các đáp án được chấp nhận sau dấu #. (Mỗi cách ghi 1 dòng có dấu # phía trước).",
     4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt đầu bằng: ##\n- Đặt chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Xuống dòng ghi 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.",
     5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và 'Cột II:' (dùng chữ A. B. C.).\n- Ghi đáp án ghép nối ở cuối cùng ngay sau dấu # (VD: 1=B, 2=A).",
@@ -74,7 +74,7 @@ const app = {
         const titles = [
             {icon: 'circle-dot', text: '1 lựa chọn'}, {icon: 'check-square', text: 'Nhiều lựa chọn'},
             {icon: 'pen-line', text: 'Trả lời ngắn'}, {icon: 'form-input', text: 'Điền khuyết'},
-            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: '�� chữ'}
+            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: 'Ô chữ'}
         ];
         c.innerHTML = titles.map((t, i) => `
             <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-3" onclick="app.switchTab(${i+1})">
@@ -348,20 +348,27 @@ const app = {
             document.getElementById('creatorName').value = "";
             document.getElementById('startTime').value = "";
             document.getElementById('endTime').value = "";
-            document.getElementById('antiCheat').checked = false;
-            document.getElementById('publishScore').checked = false;
+            
+            // Check an toàn cho checkbox nếu HTML chưa kịp cập nhật
+            const acBox = document.getElementById('antiCheat');
+            const psBox = document.getElementById('publishScore');
+            if (acBox) acBox.checked = false;
+            if (psBox) psBox.checked = false;
+            
             this.switchTab(1);
         }
     },
     saveProject() {
+        const acBox = document.getElementById('antiCheat');
+        const psBox = document.getElementById('publishScore');
         const p = {
             title: document.getElementById('quizTitle').value,
             creator: document.getElementById('creatorName').value,
             theme: document.getElementById('themeSelect').value,
             start_time: document.getElementById('startTime').value,
             end_time: document.getElementById('endTime').value,
-            anti_cheat: document.getElementById('antiCheat').checked,
-            publish_score: document.getElementById('publishScore').checked,
+            anti_cheat: acBox ? acBox.checked : false,
+            publish_score: psBox ? psBox.checked : true,
             ...this.data
         };
         const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json"});
@@ -384,8 +391,10 @@ const app = {
                 document.getElementById('startTime').value = p.start_time || '';
                 document.getElementById('endTime').value = p.end_time || '';
                 
-                document.getElementById('antiCheat').checked = p.anti_cheat === true;
-                document.getElementById('publishScore').checked = p.publish_score === true;
+                const acBox = document.getElementById('antiCheat');
+                const psBox = document.getElementById('publishScore');
+                if (acBox) acBox.checked = p.anti_cheat === true;
+                if (psBox) psBox.checked = p.publish_score === true;
                 
                 let loadedGF = p.gf_config;
                 if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) {
@@ -522,7 +531,7 @@ const app = {
     saveGFConfig() {
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        alert("✅ Đã lưu c��u hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
+        alert("✅ Đã lưu cấu hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
     parseQuestionLines(lines, partType) {
@@ -648,11 +657,15 @@ const app = {
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
-        const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đ���i)"];
+        const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
-        const isAntiCheat = document.getElementById('antiCheat').checked;
-        const isPublishScore = document.getElementById('publishScore').checked;
+        
+        // Đọc giá trị an toàn (phòng trường hợp file index.html cũ chưa có checkbox)
+        const acElem = document.getElementById('antiCheat');
+        const psElem = document.getElementById('publishScore');
+        const isAntiCheat = acElem ? acElem.checked : false;
+        const isPublishScore = psElem ? psElem.checked : true;
         
         let jsBuilder=[], jsValid=[], studentInputsHtml=[];
         let hasStudentInputs = false;
@@ -672,8 +685,8 @@ const app = {
                         <input type="text" id="${sId}" placeholder="Nhập ${f.title}..." style="width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none;" ${reqStr}>
                     </div>
                 `);
-                jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}").value.trim() || "Chưa điền");`);
-                if (f.required) jsValid.push(`if(!document.getElementById("${sId}").value.trim()) missing_fields.push("${safeTitle}");`);
+                jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}") ? (document.getElementById("${sId}").value.trim() || "Chưa điền") : "Chưa điền");`);
+                if (f.required) jsValid.push(`if(document.getElementById("${sId}") && !document.getElementById("${sId}").value.trim()) missing_fields.push("${safeTitle}");`);
             } 
             else if (f.type === "Tự động") {
                 let t = f.title.toLowerCase();
@@ -761,7 +774,8 @@ const app = {
                     let randomRight = [...rightCol].sort(() => 0.5 - Math.random());
                     
                     sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${header}</div>`);
-                    sectionsHTML.push(`<div class='match-container' id='match_${qid}' data-expected='${expectedStr}'><svg class='match-lines' id='svg_${qid}'></svg><div class='match-columns'>`);
+                    // Thêm width 100% height 100% cho svg
+                    sectionsHTML.push(`<div class='match-container' id='match_${qid}' data-expected='${expectedStr}'><svg class='match-lines' id='svg_${qid}' width='100%' height='100%'></svg><div class='match-columns'>`);
                     
                     sectionsHTML.push(`<div class='match-col match-left'>`);
                     randomLeft.forEach(item => sectionsHTML.push(`<div class='match-item match-item-left' data-id='${item.label}'>${item.text}</div>`));
@@ -848,7 +862,14 @@ const app = {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-  <script>window.MathJax = { tex: { inlineMath: [['$', '$']] }, chtml: { scale: 0.9, mtextInheritFont: true }, svg: { fontCache: 'global', mtextInheritFont: true } };</script>
+  <script>
+      window.MathJax = { 
+          loader: {load: ['[tex]/mhchem', '[tex]/extpfeil']},
+          tex: { packages: {'[+]': ['mhchem', 'extpfeil']}, inlineMath: [['$', '$']] }, 
+          chtml: { scale: 0.9, mtextInheritFont: true }, 
+          svg: { fontCache: 'global', mtextInheritFont: true } 
+      };
+  </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
@@ -928,7 +949,7 @@ const app = {
       </button>
   </div>
   <div id="quizApp" style="display:none;">
-      <div id="loadingOverlay"><div class="spinner"></div><h3 style="color:var(--primary); margin-top:20px;">Đang chấm và gửi điểm...</h3></div>
+      <div id="loadingOverlay"><div class="spinner"></div><h3 style="color:var(--primary); margin-top:20px;">Đang xử lý dữ liệu...</h3></div>
       <div class='navbar'>
         <div class='score-box' id='scoreDisplay'>Điểm số: 0</div>
         <div class='timer-container'>
@@ -1023,57 +1044,58 @@ const app = {
           </body>\`;
       }
 
-      let nowInit = new Date().getTime();
-      if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
-      else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
-      else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + (durationMinutes ? "Hết thời gian làm bài" : END_TIME_STR));
-      else if (START_TIME && nowInit < START_TIME) {
-          document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
-              <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
-              <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
-              \${END_TIME_STR && !durationMinutes ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
-              <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
-              <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
-          </body>\`;
-          let waitInterval = setInterval(() => {
-              let r = Math.floor((START_TIME - new Date().getTime()) / 1000);
-              if (r <= 0) { clearInterval(waitInterval); location.reload(); }
-              else {
-                  let h = Math.floor(r / 3600).toString().padStart(2, '0');
-                  let m = Math.floor((r % 3600) / 60).toString().padStart(2, '0');
-                  let s = (r % 60).toString().padStart(2, '0');
-                  document.getElementById('countdownWatch').innerText = (h !== "00" ? h + ":" : "") + m + ":" + s;
-              }
-          }, 1000);
-          throw new Error("Waiting for start time");
-      } else { 
-          if (IS_ANTI_CHEAT && !sessionStorage.getItem(EXAM_ID + "_ACCEPTED")) {
-              document.getElementById('antiCheatOverlay').style.display = 'flex';
-              let warningWait = 10;
-              let warningInterval = setInterval(() => {
-                  warningWait--;
-                  let btn = document.getElementById('btnAcceptRules');
-                  if (warningWait <= 0) {
-                      clearInterval(warningInterval);
-                      btn.innerText = "Bắt đầu làm bài";
-                      btn.style.background = "#2563eb";
-                      btn.style.cursor = "pointer";
-                      btn.disabled = false;
-                      btn.onclick = () => {
-                          sessionStorage.setItem(EXAM_ID + "_ACCEPTED", "true");
-                          document.getElementById('antiCheatOverlay').style.display = 'none';
-                          document.getElementById('quizApp').style.display = 'block';
-                          startTimer();
-                      };
-                  } else {
-                      btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
+      window.addEventListener('DOMContentLoaded', () => {
+          let nowInit = new Date().getTime();
+          if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
+          else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
+          else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + (durationMinutes ? "Hết thời gian làm bài" : END_TIME_STR));
+          else if (START_TIME && nowInit < START_TIME) {
+              document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
+                  <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
+                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
+                  \${END_TIME_STR && !durationMinutes ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
+                  <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
+                  <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
+              </body>\`;
+              let waitInterval = setInterval(() => {
+                  let r = Math.floor((START_TIME - new Date().getTime()) / 1000);
+                  if (r <= 0) { clearInterval(waitInterval); location.reload(); }
+                  else {
+                      let h = Math.floor(r / 3600).toString().padStart(2, '0');
+                      let m = Math.floor((r % 3600) / 60).toString().padStart(2, '0');
+                      let s = (r % 60).toString().padStart(2, '0');
+                      document.getElementById('countdownWatch').innerText = (h !== "00" ? h + ":" : "") + m + ":" + s;
                   }
               }, 1000);
-          } else {
-              document.getElementById('quizApp').style.display = 'block'; 
-              startTimer();
+          } else { 
+              if (IS_ANTI_CHEAT && !sessionStorage.getItem(EXAM_ID + "_ACCEPTED")) {
+                  document.getElementById('antiCheatOverlay').style.display = 'flex';
+                  let warningWait = 10;
+                  let warningInterval = setInterval(() => {
+                      warningWait--;
+                      let btn = document.getElementById('btnAcceptRules');
+                      if (warningWait <= 0) {
+                          clearInterval(warningInterval);
+                          btn.innerText = "Bắt đầu làm bài";
+                          btn.style.background = "#2563eb";
+                          btn.style.cursor = "pointer";
+                          btn.disabled = false;
+                          btn.onclick = () => {
+                              sessionStorage.setItem(EXAM_ID + "_ACCEPTED", "true");
+                              document.getElementById('antiCheatOverlay').style.display = 'none';
+                              document.getElementById('quizApp').style.display = 'block';
+                              startTimer();
+                          };
+                      } else {
+                          btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
+                      }
+                  }, 1000);
+              } else {
+                  document.getElementById('quizApp').style.display = 'block'; 
+                  startTimer();
+              }
           }
-      }
+      });
 
       window.violationCount = 0; window.violationDetails = []; window.isForceSubmit = false; let isHandlingViolation = false;
       function handleViolation(reason) {
@@ -1198,6 +1220,7 @@ const app = {
                       } else { selectedItem = item; item.classList.add('selected'); }
                   });
               });
+              setTimeout(() => drawMatchLines(container), 200);
           });
           window.addEventListener('resize', () => { document.querySelectorAll('.match-container').forEach(c => drawMatchLines(c)); });
       });
@@ -1207,7 +1230,8 @@ const app = {
           if(container && !container.classList.contains('graded')) { container.matchLinks = []; container.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected')); drawMatchLines(container); }
       }
       function drawMatchLines(container) {
-          let svg = container.querySelector('.match-lines'); svg.innerHTML = '';
+          let svg = container.querySelector('.match-lines'); 
+          while(svg.firstChild) { svg.removeChild(svg.firstChild); }
           let cRect = container.getBoundingClientRect(); let primaryColor = getPrimaryColor(); let isGraded = container.classList.contains('graded');
           container.matchLinks.forEach((link) => {
               let leftEl = container.querySelector(\`.match-item-left[data-id="\${link.l}"]\`);
@@ -1237,16 +1261,11 @@ const app = {
       function playBeep() {
           try {
               let ctx = new (window.AudioContext || window.webkitAudioContext)();
-              let osc = ctx.createOscillator();
-              let gain = ctx.createGain();
-              osc.connect(gain);
-              gain.connect(ctx.destination);
-              osc.type = "square";
-              osc.frequency.value = 850; 
-              gain.gain.setValueAtTime(1, ctx.currentTime);
-              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
-              osc.start(ctx.currentTime);
-              osc.stop(ctx.currentTime + 0.3);
+              let osc = ctx.createOscillator(); let gain = ctx.createGain();
+              osc.connect(gain); gain.connect(ctx.destination);
+              osc.type = "square"; osc.frequency.value = 850; 
+              gain.gain.setValueAtTime(1, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+              osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
           } catch(e) {}
       }
 
@@ -1302,36 +1321,45 @@ const app = {
          if (typeof timerInterval !== 'undefined') clearInterval(timerInterval); 
          let overlay = document.getElementById('loadingOverlay'); overlay.style.display = 'flex';
          let totalScore = 0; let maxPossibleScore = 0; let partStats = {};
+         let detailsHtmlArr = []; // Chứa chi tiết từng câu
 
          document.querySelectorAll('.section').forEach(function(section) {
            let partType = section.getAttribute('data-parttype'); let partTitle = section.getAttribute('data-title'); partStats[partTitle] = { score: 0, max: 0 };
            section.querySelectorAll('.question').forEach(function(q) {
              let qid = q.id; let feedback = ""; let qScore = 0; let qMax = 1; 
+             let userAnsText = ""; let correctAnsText = "";
+             let qLabelMatch = q.querySelector('.q-text strong');
+             let qLabel = qLabelMatch ? qLabelMatch.innerText : "?";
+
              if (partType === "1") {
                let selected = q.querySelector('input[name="' + qid + '"]:checked'); let correct = q.querySelector('.explanation').getAttribute('data-answer');
+               userAnsText = selected ? selected.value : "Chưa trả lời"; correctAnsText = correct;
                if (!selected) feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correct + '</span>';
                else if (selected.value === correct) { qScore = 1; feedback = '<span style="color:#10b981;">✓ Chính xác!</span>'; }
                else feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correct + '</span>'; 
              } else if (partType === "2") {
                let selectedList = q.querySelectorAll('input[name="' + qid + '"]:checked');
-               if (selectedList.length === 0) { let correct = q.querySelector('.explanation').getAttribute('data-answer'); feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correct + '</span>'; }
+               let correct = q.querySelector('.explanation').getAttribute('data-answer').split(',');
+               correctAnsText = correct.join(', ');
+               if (selectedList.length === 0) { userAnsText = "Chưa trả lời"; feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correctAnsText + '</span>'; }
                else {
                  let userAnswers = []; selectedList.forEach(function(el) { userAnswers.push(el.value); });
-                 let correct = q.querySelector('.explanation').getAttribute('data-answer').split(',');
+                 userAnsText = userAnswers.join(', ');
                  userAnswers.sort(); correct.sort();
                  if (userAnswers.join() === correct.join()) { qScore = 1; feedback = '<span style="color:#10b981;">✓ Chính xác!</span>'; }
-                 else feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correct.join(', ') + '</span>'; 
+                 else feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correctAnsText + '</span>'; 
                }
              } else if (partType === "3") {
                let inputElem = document.getElementById(qid + '_input'); let userInput = inputElem.value.trim().toLowerCase();
                let correctData = q.querySelector('.explanation').getAttribute('data-answer'); let accepted = correctData.split('||').map(s => s.trim().toLowerCase());
-               if (!userInput) feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correctData.replace(/\\|\\|/g, " hoặc ") + '</span>';
+               userAnsText = userInput || "Chưa trả lời"; correctAnsText = accepted.join(' hoặc ');
+               if (!userInput) feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correctAnsText + '</span>';
                else {
                  if (accepted.includes(userInput)) { 
                      qScore = 1; feedback = '<span style="color:#10b981;">✓ Chính xác!</span>'; 
                      if (IS_PUBLISH_SCORE) { inputElem.style.color = '#10b981'; inputElem.style.borderColor = '#10b981'; }
                  } else { 
-                     feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correctData.replace(/\\|\\|/g, " hoặc ") + '</span>'; 
+                     feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correctAnsText + '</span>'; 
                      if (IS_PUBLISH_SCORE) { inputElem.style.color = '#ef4444'; inputElem.style.borderColor = '#ef4444'; }
                  }
                  inputElem.disabled = true;
@@ -1351,6 +1379,10 @@ const app = {
                    }
                    inp.disabled = true; 
                });
+               
+               userAnsText = blankResults.map(r => \`(\${r.blank}) \${r.answered === false ? "Chưa điền" : r.answer}\`).join(' | ');
+               correctAnsText = blankResults.map(r => \`(\${r.blank}) \${r.accepted.join('/')}\`).join(' | ');
+               
                let wrongBlanks = []; let unansweredBlanks = [];
                blankResults.forEach(function(r) { if (r.answered === false) unansweredBlanks.push(r.blank); else if (!r.correct) wrongBlanks.push(r.blank); });
                if (wrongBlanks.length === 0 && unansweredBlanks.length === 0) { feedback = '<span style="color:#10b981;">✓ Hoàn toàn chính xác!</span>'; qScore = 1; }
@@ -1372,6 +1404,8 @@ const app = {
                        isPerfect = false; 
                    }
                });
+               userAnsText = userLinksStr.length > 0 ? userLinksStr.join(', ') : "Chưa nối";
+               correctAnsText = expectedPairs.join(', ');
                if (userLinksStr.length !== expectedPairs.length || JSON.stringify(userLinksStr) !== JSON.stringify(expectedPairs)) isPerfect = false;
                if (isPerfect && expectedPairs.length > 0) { feedback = '<span style="color:#10b981;">✓ Nối hoàn toàn chính xác!</span>'; qScore = 1; }
                else { let answerPairs = q.querySelector('.explanation').getAttribute('data-answer-pairs'); feedback = '<span style="color:#ef4444;">✗ Sai hoặc nối thiếu. Đáp án đúng là:<br>' + answerPairs + '</span>'; }
@@ -1416,8 +1450,18 @@ const app = {
                  cwContainer.querySelectorAll('.cw-num').forEach(numBtn => { numBtn.onclick = null; numBtn.style.cursor = 'default'; numBtn.style.opacity = '0.5'; });
                  let titleColor = (qScore === qMax) ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444');
                  feedback = \`<span style="color:\${titleColor}; font-size:1.15rem; font-weight: bold;">Điểm đạt được: \${qScore} / \${qMax} điểm</span><div style="font-size:0.95rem; color:var(--text); margin-top:12px; padding:12px; background:white; border-radius:8px; border:1px solid var(--border);">\${rowDetailsHtml}</div>\`;
+                 
+                 userAnsText = "Đạt " + qScore + "/" + qMax + " điểm";
+                 correctAnsText = "Xem chi tiết đáp án từng ô";
              }
              
+             // Thêm vào danh sách chi tiết
+             detailsHtmlArr.push(\`<div style="padding:15px; margin-bottom:12px; background:var(--hover-bg); border-radius:8px; border:1px solid var(--border); font-size:1rem;">
+                <strong style="color:var(--primary);">\${qLabel}</strong><br>
+                Phương án đã chọn/điền: <span style="color:\${qScore>0?'#10b981':'#ef4444'}; font-weight:bold;">\${userAnsText}</span><br>
+                Đáp án đúng: <strong>\${correctAnsText}</strong>
+             </div>\`);
+
              partStats[partTitle].score += qScore; partStats[partTitle].max += qMax; totalScore += qScore; maxPossibleScore += qMax;
              
              if (IS_PUBLISH_SCORE) {
@@ -1431,21 +1475,33 @@ const app = {
            });
          });
          
-         await sendToGoogleForm(totalScore, maxPossibleScore);
+         try { await sendToGoogleForm(totalScore, maxPossibleScore); } catch (e) { console.error(e); }
          if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_SUBMITTED", "true");
          overlay.style.display = 'none';
          
          let container = document.querySelector('.container'); let header = container.querySelector('.header'); let existingSummary = document.getElementById('resultSummary');
          if(existingSummary) existingSummary.remove();
          
+         let violationReportHtml = "";
+         if (IS_ANTI_CHEAT && window.violationCount > 0) {
+             violationReportHtml = \`<div style="color:#dc2626; background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fca5a5; font-weight:bold; margin-top:20px; font-size:1.05rem;">⚠️ Báo cáo vi phạm: \${window.violationCount} lần<br><span style="font-weight:normal; font-size:0.95rem;">Chi tiết: \${window.violationDetails.join(' | ')}</span></div>\`;
+         } else if (IS_ANTI_CHEAT) {
+             violationReportHtml = \`<div style="color:#10b981; background:#ecfdf5; padding:12px; border-radius:8px; border:1px solid #a7f3d0; font-weight:bold; margin-top:20px; font-size:1.05rem;">✅ Tuyệt vời! Bạn không vi phạm quy chế thi.</div>\`;
+         }
+
+         let detailLogHtml = \`<div style="margin-top:25px; text-align:left;">
+            <h3 style="color:var(--text); border-bottom:2px solid var(--border); padding-bottom:8px;">Chi tiết bài làm:</h3>
+            \${detailsHtmlArr.join('')}
+         </div>\`;
+
          if (IS_PUBLISH_SCORE) {
              let summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
              for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
-             summaryHtml += \`</table></div>\`;
+             summaryHtml += \`</table>\${violationReportHtml}\${detailLogHtml}</div>\`;
              header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
          } else {
-             let successHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div></div>\`;
+             let successHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\${violationReportHtml}</div>\`;
              header.insertAdjacentHTML('afterend', successHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Đã nộp bài';
          }
