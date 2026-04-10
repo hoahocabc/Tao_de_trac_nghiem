@@ -35,7 +35,6 @@ const app = {
     },
 
     setupEventListeners() {
-        // Tự động phân tích khi người dùng DÁN link
         const gfInput = document.getElementById('gfUrlInput');
         if (gfInput) {
             gfInput.addEventListener('paste', (e) => {
@@ -246,7 +245,6 @@ const app = {
         content.classList.add('scale-95', 'translate-y-4');
     },
 
-    // Hàm lấy HTML vượt rào CORS (3 Proxy dự phòng)
     async fetchHtmlWithCors(url) {
         const proxies = [
             { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' },
@@ -267,7 +265,7 @@ const app = {
                 }
             } catch (err) {
                 console.warn(`Proxy failed (${proxy.url}):`, err);
-                continue; // Lỗi thì chuyển Proxy tiếp theo
+                continue; 
             }
         }
         throw new Error("Không thể kết nối đến Google Form qua các Proxy. Vui lòng kiểm tra lại mạng hoặc thử tắt trình chặn quảng cáo (AdBlock).");
@@ -300,12 +298,13 @@ const app = {
             
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
-                    let type = "Học sinh tự điền";
+                    // Logic chỉ có "Tự nhập" và "Tự động"
+                    let type = "Tự nhập";
                     let t = (q[1] || "").toLowerCase();
                     
-                    if(t.includes('điểm') && t.includes('tối đa')) type = "Điểm tối đa (Tự động)";
-                    else if(t.includes('điểm') || t.includes('score')) type = "Điểm đạt được (Tự động)";
-                    else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Báo cáo vi phạm (Tự động)";
+                    if(t.includes('điểm') || t.includes('score') || t.includes('tự động')) {
+                        type = "Tự động";
+                    }
                     
                     fields.push({ id: q[4][0][0].toString(), title: q[1], type: type, required: q[4][0][2] == 1 });
                 }
@@ -339,16 +338,15 @@ const app = {
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
         
+        // Giao diện đã đổi về 2 lựa chọn duy nhất: Tự nhập / Tự động
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors">
                 <td class="p-3"><input type="text" class="form-input py-2 font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
                 <td class="p-3"><input type="text" class="form-input py-2 bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-3">
                     <select class="form-select py-2 font-bold text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
-                        <option ${f.type==="Học sinh tự điền"?"selected":""}>✍️ Học sinh tự điền</option>
-                        <option ${f.type==="Điểm đạt được (Tự động)"?"selected":""}>✅ Điểm đạt được</option>
-                        <option ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>🌟 Điểm tối đa</option>
-                        <option ${f.type==="Báo cáo vi phạm (Tự động)"?"selected":""}>⛔ Báo cáo vi phạm</option>
+                        <option value="Tự nhập" ${f.type==="Tự nhập"?"selected":""}>✍️ Tự nhập</option>
+                        <option value="Tự động" ${f.type==="Tự động"?"selected":""}>⚡ Tự động</option>
                     </select>
                 </td>
                 <td class="p-3 text-center">
@@ -363,6 +361,7 @@ const app = {
     saveGFConfig() {
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
+        alert("✅ Đã lưu cấu hình Google Form vào dữ liệu đề thi hiện tại!");
     },
 
     parsePart12(lines) {
@@ -398,7 +397,7 @@ const app = {
         
         this.data.gf_config.fields.forEach(f => {
             let sId = `field_${f.id}`;
-            if(f.type.includes("tự điền")) {
+            if(f.type === "Tự nhập") {
                 hasStudentInputs = true;
                 formHtml.push(`
                     <div style="margin-bottom: 15px;">
@@ -408,9 +407,10 @@ const app = {
                 `);
                 jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}").value.trim() || "Chưa điền");`);
                 if(f.required) jsValid.push(`if(!document.getElementById("${sId}").value.trim()) missing_fields.push("${f.title}");`);
-            } else if(f.type.includes("đạt")) jsBuilder.push(`formData.append("entry.${f.id}", score);`);
-            else if(f.type.includes("tối đa")) jsBuilder.push(`formData.append("entry.${f.id}", maxScore);`);
-            else if(f.type.includes("vi phạm")) jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
+            } else if(f.type === "Tự động") {
+                // Tự động mặc định gửi Điểm số (TotalScore)
+                jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
+            }
         });
 
         let sectionsHTML = [];
