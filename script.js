@@ -179,7 +179,7 @@ const app = {
 
     newProject() {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
-            const savedGF = this.data.gf_config; // Bảo lưu cấu hình form
+            const savedGF = this.data.gf_config; // BẢO LƯU THÔNG TIN GOOGLE FORM KHI TẠO ĐỀ MỚI
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
             document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
@@ -224,15 +224,19 @@ const app = {
                 document.getElementById('antiCheat').checked = p.anti_cheat === true;
                 document.getElementById('publishScore').checked = p.publish_score === true;
                 
-                if(p.gf_config && p.gf_config.fields) {
-                    p.gf_config.fields.forEach(field => {
+                let loadedGF = p.gf_config;
+                // BẢO LƯU THÔNG TIN GOOGLE FORM: Nếu file không có GF Config, giữ lại GF config đang có sẵn.
+                if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) {
+                    loadedGF = this.data.gf_config; 
+                } else {
+                    loadedGF.fields.forEach(field => {
                         if(field.type && (!field.type.includes("Tự") && !field.type.includes("tự"))) {
                             field.type = field.type.includes("tự điền") ? "Học sinh tự điền" : "Điểm đạt được (Tự động)";
                         }
                     });
                 }
 
-                this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: p.gf_config||{url:"", fields:[]} };
+                this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: loadedGF };
                 this.switchTab(1);
             };
             reader.readAsText(file);
@@ -602,7 +606,7 @@ const app = {
                 }
                 else if(ptype===6) {
                     let [qtext, clues, keyword, sol] = this.parseQuestionLines(lines, ptype);
-                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
+                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi �� tương ứng)</i></div>`);
                     sectionsHTML.push(`<div class='cw-container' id='cw_${qid}'><div class='cw-grid'>`);
                     
                     let alignedGrid = [];
