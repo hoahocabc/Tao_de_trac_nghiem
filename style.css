@@ -1,96 +1,21 @@
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-/* BUTTONS */
-.hdr-btn {
-    display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 600;
-    padding: 7px 14px; border-radius: 10px; border: 2px solid #e2e8f0;
-    background: white; color: #475569; cursor: pointer; white-space: nowrap;
-    transition: all 0.15s; box-shadow: 0 2px 0 0 #e2e8f0;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-.hdr-btn:hover { border-color: #94a3b8; background: #f8fafc; transform: translateY(-1px); }
-.hdr-btn:active { transform: translateY(1px); box-shadow: none; }
-
-.hdr-btn-green {
-    display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 700;
-    padding: 7px 14px; border-radius: 10px; border: none;
-    background: #10b981; color: white; cursor: pointer; white-space: nowrap;
-    transition: all 0.15s; box-shadow: 0 3px 0 0 #047857;
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-.hdr-btn-green:hover { background: #059669; transform: translateY(-1px); }
-.hdr-btn-green:active { transform: translateY(2px); box-shadow: none; }
-
-.hdr-btn-blue {
-    display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 700;
-    padding: 7px 14px; border-radius: 10px; border: none;
-    background: #3b82f6; color: white; cursor: pointer; white-space: nowrap;
-    transition: all 0.15s; box-shadow: 0 3px 0 0 #1d4ed8;
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
 }
-.hdr-btn-blue:hover { background: #2563eb; transform: translateY(-1px); }
-.hdr-btn-blue:active { transform: translateY(2px); box-shadow: none; }
-
-/* FORM */
-.lbl { display: block; font-size: 0.75rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
-.inp {
-    display: block; width: 100%; background: #f8fafc; border: 2px solid #e2e8f0;
-    color: #0f172a; border-radius: 12px; padding: 10px 14px; font-size: 0.875rem;
-    outline: none; transition: all 0.2s; font-family: inherit;
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
-.inp:hover { border-color: #93c5fd; }
-.inp:focus { background: white; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
-
-/* MODAL */
-.modal-overlay {
-    position: fixed; inset: 0; background: rgba(15,23,42,0.6);
-    backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center;
-    z-index: 1000; padding: 16px;
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
-.modal-overlay.hidden { display: none; }
-.modal-box {
-    background: white; border-radius: 24px; padding: 24px; width: 100%;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.25); max-height: 90vh;
-    display: flex; flex-direction: column; overflow: hidden;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-.modal-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #f1f5f9;
-}
-.modal-close-btn {
-    padding: 6px; border-radius: 10px; background: #f1f5f9; border: none;
-    cursor: pointer; color: #64748b; transition: all 0.15s;
-}
-.modal-close-btn:hover { background: #fee2e2; color: #ef4444; }
-
-/* TABS */
-.tab-btn {
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 8px 4px; border-radius: 10px; border: 2px solid transparent;
-    font-size: 0.7rem; font-weight: 700; cursor: pointer; transition: all 0.15s;
-    background: #f8fafc; color: #64748b; min-height: 60px;
-}
-.tab-btn:hover { background: white; border-color: #e2e8f0; color: #334155; transform: translateY(-1px); }
-.tab-btn.active { background: white; color: #1d4ed8; border-color: #bfdbfe; box-shadow: 0 3px 0 0 #bfdbfe; transform: translateY(-1px); }
-
-/* TOOLBAR BUTTONS */
-.tb-btn {
-    padding: 5px 9px; border-radius: 7px; border: none; background: transparent;
-    color: #475569; cursor: pointer; font-weight: 700; font-size: 0.85rem;
-    transition: all 0.15s; line-height: 1;
-}
-.tb-btn:hover { background: #eff6ff; color: #2563eb; }
-.tb-btn:active { transform: scale(0.9); }
-
-/* QUESTION CARD */
-.q-card {
-    background: white; border: 2px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;
-    transition: all 0.15s; position: relative;
-    box-shadow: 0 3px 0 0 #e2e8f0;
-}
-.q-card:hover { border-color: #93c5fd; box-shadow: 0 3px 0 0 #93c5fd; transform: translateY(-1px); }
-
-/* ANIMATION */
-@keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-.fade-in { animation: fadeIn 0.15s ease-out; }
