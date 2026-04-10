@@ -40,16 +40,16 @@ const app = {
 
     renderTabs() {
         const c = document.getElementById('tabsContainer');
-        const titles = ["1. Một Lựa Chọn", "2. Nhiều Lựa Chọn", "3. Trả Lời Ngắn", "4. Điền Khuyết", "5. Ghép Đôi", "6. Ô Chữ"];
+        const titles = ["Một Lựa Chọn", "Nhiều Lựa Chọn", "Trả Lời Ngắn", "Điền Khuyết", "Ghép Đôi", "Ô Chữ"];
         c.innerHTML = titles.map((t, i) => `
-            <button class="px-4 py-2 text-sm whitespace-nowrap ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" 
-                    onclick="app.switchTab(${i+1})">Phần ${t}</button>
+            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" 
+                    onclick="app.switchTab(${i+1})">Phần ${i+1}: ${t}</button>
         `).join('');
     },
 
     switchTab(tab) {
         this.activeTab = tab;
-        document.getElementById('partTitle').innerText = "Phần " + tab;
+        document.getElementById('partTitle').innerHTML = `Phần ${tab}`;
         this.renderTabs();
         this.renderQList();
         document.getElementById('qInput').value = '';
@@ -59,15 +59,18 @@ const app = {
 
     renderToolbar() {
         const tb = document.getElementById('editorToolbar');
-        let html = '';
+        let html = '<div class="flex bg-slate-100 rounded-md p-0.5 border border-slate-200">';
         chem_symbols.forEach(sym => {
-            html += `<button class="px-2 py-1 bg-white border rounded hover:bg-gray-100" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
+            html += `<button class="px-2.5 py-1 text-slate-700 hover:bg-white hover:shadow-sm rounded transition-all" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}')">${sym.t}</button>`;
         });
-        html += `<span class="mx-2 text-gray-300">|</span>
-                 <button class="px-2 py-1 bg-white border rounded font-bold" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
-                 <button class="px-2 py-1 bg-white border rounded italic" onclick="app.insertText('Italic', '<i>', '</i>')">I</button>
-                 <button class="px-2 py-1 bg-white border rounded" onclick="app.insertImage()">📷 Ảnh</button>`;
+        html += `</div><div class="w-px h-5 bg-slate-200 mx-1"></div>
+                 <div class="flex bg-slate-100 rounded-md p-0.5 border border-slate-200">
+                    <button class="px-3 py-1 text-slate-700 hover:bg-white hover:shadow-sm rounded font-bold transition-all" onclick="app.insertText('Bold', '<b>', '</b>')">B</button>
+                    <button class="px-3 py-1 text-slate-700 hover:bg-white hover:shadow-sm rounded italic transition-all" onclick="app.insertText('Italic', '<i>', '</i>')">I</button>
+                 </div>
+                 <button class="ml-auto px-3 py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-md text-xs font-semibold flex items-center transition-all" onclick="app.insertImage()"><i data-lucide="image" class="w-3.5 h-3.5 mr-1"></i> Chèn ảnh</button>`;
         tb.innerHTML = html;
+        lucide.createIcons();
     },
 
     insertText(t, startTag, endTag) {
@@ -119,12 +122,23 @@ const app = {
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div class="p-2 border rounded bg-gray-50 flex justify-between items-start text-sm">
-                <div class="truncate max-w-[80%]"><strong>Câu ${i+1}:</strong> ${q.substring(0, 100).replace(/</g,'&lt;')}...</div>
-                <button class="text-red-500 hover:text-red-700 ml-2" onclick="app.removeQuestion(${i})">Xóa</button>
+            <div class="p-3 border border-slate-200 rounded-lg bg-white shadow-sm hover:border-blue-300 transition-colors group relative pr-12">
+                <div class="text-xs font-bold text-blue-600 mb-1">Câu ${i+1}</div>
+                <div class="text-sm text-slate-700 line-clamp-3 leading-relaxed">${q.replace(/</g,'&lt;')}</div>
+                <button class="absolute top-3 right-3 p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-md transition-colors opacity-0 group-hover:opacity-100" onclick="app.removeQuestion(${i})" title="Xóa câu hỏi">
+                    <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
             </div>
         `).join('');
-        document.getElementById('qList').innerHTML = html || '<div class="text-gray-500 italic">Chưa có câu hỏi.</div>';
+        document.getElementById('qList').innerHTML = html || `
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-10">
+                <i data-lucide="inbox" class="w-10 h-10 opacity-50"></i>
+                <p class="text-sm">Chưa có câu hỏi nào ở phần này</p>
+            </div>`;
+        
+        const badge = document.getElementById('qCountBadge');
+        if(badge) badge.innerText = `${arr.length} câu`;
+        lucide.createIcons();
     },
 
     // Project Management
@@ -173,7 +187,7 @@ const app = {
         f.click();
     },
 
-    // Google Form Auto Analyzer (using allorigins to bypass CORS)
+    // Google Form Auto Analyzer
     openGFSettings() {
         document.getElementById('gfModal').classList.remove('hidden');
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
@@ -205,7 +219,6 @@ const app = {
                 }
             });
             this.data.gf_config.fields = fields;
-            // Fix URL to formResponse
             this.data.gf_config.url = url.split('?')[0].replace('/edit', '/formResponse').replace('/viewform', '/formResponse');
             if(!this.data.gf_config.url.endsWith('/formResponse')) this.data.gf_config.url += '/formResponse';
             
@@ -221,18 +234,18 @@ const app = {
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
-            <tr class="border-b">
-                <td class="p-2"><input type="text" class="border w-full p-1" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2"><input type="text" class="border w-full p-1" value="${f.id}" readonly></td>
-                <td class="p-2">
-                    <select class="border w-full p-1" onchange="app.data.gf_config.fields[${i}].type=this.value">
+            <tr class="hover:bg-slate-50 transition-colors">
+                <td class="p-3"><input type="text" class="form-input py-1.5" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-3"><input type="text" class="form-input py-1.5 bg-slate-100" value="${f.id}" readonly></td>
+                <td class="p-3">
+                    <select class="form-select py-1.5" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option ${f.type==="Học sinh tự điền"?"selected":""}>Học sinh tự điền</option>
                         <option ${f.type==="Điểm đạt được (Tự động)"?"selected":""}>Điểm đạt được (Tự động)</option>
                         <option ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
                         <option ${f.type==="Báo cáo vi phạm (Tự động)"?"selected":""}>Báo cáo vi phạm (Tự động)</option>
                     </select>
                 </td>
-                <td class="p-2 text-center"><input type="checkbox" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked"></td>
+                <td class="p-3 text-center"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked"></td>
             </tr>
         `).join('');
     },
