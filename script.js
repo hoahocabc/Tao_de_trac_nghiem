@@ -579,7 +579,7 @@ const app = {
                     sectionsHTML.push(`</div><div class='match-col match-right'>`);
                     randomRight.forEach(item => sectionsHTML.push(`<div class='match-item match-item-right' data-id='${item.label}'>${item.text}</div>`));
                     sectionsHTML.push(`</div></div>`);
-                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đường kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột và bấm trực tiếp vào đường kẻ hoặc bấm lại vào hai ô đã nối để xóa)</i></div></div>`);
+                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đ��ờng kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột và bấm trực tiếp vào đường kẻ hoặc bấm lại vào hai ô đã nối để xóa)</i></div></div>`);
                     sectionsHTML.push(`<div class='explanation' id='${qid}_result' data-answer-pairs='${answerPairs.join('<br>').replace(/'/g,"&apos;")}' data-solution='${encodeURIComponent(sol)}'></div></div>`);
                 }
                 else if(ptype===6) {
@@ -836,17 +836,40 @@ const app = {
       }
       
       document.addEventListener('DOMContentLoaded', () => {
-          if (!IS_ANTI_CHEAT) return;
-          document.body.style.userSelect = 'none'; document.body.style.webkitUserSelect = 'none';
+          // LUÔN chặn copy, paste, click chuột phải và bôi đen để bảo vệ đề (không phụ thuộc vào checkbox)
+          document.body.style.userSelect = 'none'; 
+          document.body.style.webkitUserSelect = 'none';
           document.addEventListener('contextmenu', e => e.preventDefault());
-          ['copy', 'cut', 'paste'].forEach(evt => document.addEventListener(evt, e => { e.preventDefault(); navigator.clipboard.writeText(''); alert("⚠️ Cảnh báo: Tính năng sao chép bị vô hiệu hóa!"); }));
+          
+          ['copy', 'cut', 'paste'].forEach(evt => document.addEventListener(evt, e => { 
+              e.preventDefault(); 
+              navigator.clipboard.writeText(''); 
+              
+              if (IS_ANTI_CHEAT) {
+                  handleViolation("Hành vi sao chép/dán dữ liệu");
+              } else {
+                  alert("⚠️ Tính năng sao chép và dán đã bị vô hiệu hóa!"); 
+              }
+          }));
+          
           document.addEventListener('keydown', function(e) {
-              if (e.key === 'F12' || e.key === 'PrintScreen' || (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || (e.ctrlKey && ['U', 'P', 'S'].includes(e.key.toUpperCase()))) {
-                  e.preventDefault(); handleViolation("Sử dụng phím tắt bị cấm");
+              if (e.key === 'F12' || e.key === 'PrintScreen' || 
+                 (e.ctrlKey && e.shiftKey && ['I', 'J', 'C'].includes(e.key.toUpperCase())) || 
+                 (e.ctrlKey && ['U', 'P', 'S', 'C'].includes(e.key.toUpperCase()))) {
+                  e.preventDefault(); 
+                  if (IS_ANTI_CHEAT) handleViolation("Sử dụng phím tắt bị cấm");
               }
           });
-          document.addEventListener('visibilitychange', () => { if (document.hidden) handleViolation("Chuyển Tab hoặc Thu nhỏ Trình duyệt"); });
-          window.addEventListener('blur', () => { if (document.activeElement instanceof HTMLIFrameElement) return; handleViolation("Mở ứng dụng khác / Rời khỏi cửa sổ thi"); });
+          
+          // Chuyển tab / Mở cửa sổ khác CHỈ phạt nếu bật Chống gian lận
+          document.addEventListener('visibilitychange', () => { 
+              if (document.hidden && IS_ANTI_CHEAT) handleViolation("Chuyển Tab hoặc Thu nhỏ Trình duyệt"); 
+          });
+          
+          window.addEventListener('blur', () => { 
+              if (document.activeElement instanceof HTMLIFrameElement) return; 
+              if (IS_ANTI_CHEAT) handleViolation("Mở ứng dụng khác / Rời khỏi cửa sổ thi"); 
+          });
       });
 
       document.addEventListener('DOMContentLoaded', () => {
