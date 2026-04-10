@@ -204,7 +204,6 @@ const app = {
                 document.getElementById('startTime').value = p.start_time || '';
                 document.getElementById('endTime').value = p.end_time || '';
                 
-                // Mặc định bật nếu file cũ không có trường này
                 document.getElementById('antiCheat').checked = p.anti_cheat !== undefined ? p.anti_cheat : true;
                 
                 if(p.gf_config && p.gf_config.fields) {
@@ -541,7 +540,7 @@ const app = {
                 else if(ptype===3) {
                     let [qtext, ans, sol] = this.parseQuestionLines(lines, ptype);
                     sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div>`);
-                    sectionsHTML.push(`<div class='blank-container'>Đáp án của bạn: <input type='text' id='{qid}_input' oninput="this.style.width=Math.max(60, (this.value.length+2)*10)+'px';"></div>`);
+                    sectionsHTML.push(`<div class='blank-container'>Đáp án của bạn: <input type='text' id='${qid}_input' oninput="this.style.width=Math.max(60, (this.value.length+2)*10)+'px';"></div>`);
                     sectionsHTML.push(`<div class='explanation' id='${qid}_result' data-answer='${ans.replace(/'/g,"&apos;")}' data-solution='${encodeURIComponent(sol)}'></div></div>`);
                 }
                 else if(ptype===4) {
@@ -579,7 +578,7 @@ const app = {
                     sectionsHTML.push(`</div><div class='match-col match-right'>`);
                     randomRight.forEach(item => sectionsHTML.push(`<div class='match-item match-item-right' data-id='${item.label}'>${item.text}</div>`));
                     sectionsHTML.push(`</div></div>`);
-                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đ��ờng kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột và bấm trực tiếp vào đường kẻ hoặc bấm lại vào hai ô đã nối để xóa)</i></div></div>`);
+                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đường kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột và bấm trực tiếp vào đường kẻ hoặc bấm lại vào hai ô đã nối để xóa)</i></div></div>`);
                     sectionsHTML.push(`<div class='explanation' id='${qid}_result' data-answer-pairs='${answerPairs.join('<br>').replace(/'/g,"&apos;")}' data-solution='${encodeURIComponent(sol)}'></div></div>`);
                 }
                 else if(ptype===6) {
@@ -836,7 +835,7 @@ const app = {
       }
       
       document.addEventListener('DOMContentLoaded', () => {
-          // LUÔN chặn copy, paste, click chuột phải và bôi đen để bảo vệ đề (không phụ thuộc vào checkbox)
+          // LUÔN chặn copy, paste, click chuột phải và bôi đen để bảo vệ đề
           document.body.style.userSelect = 'none'; 
           document.body.style.webkitUserSelect = 'none';
           document.addEventListener('contextmenu', e => e.preventDefault());
