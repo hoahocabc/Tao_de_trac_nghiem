@@ -1,21 +1,43 @@
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* Tùy chỉnh thanh cuộn UI */
+::-webkit-scrollbar { 
+    width: 8px; 
+    height: 8px; 
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+::-webkit-scrollbar-track { 
+    background: transparent; 
 }
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
+::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 10px; 
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+::-webkit-scrollbar-thumb:hover { 
+    background: #94a3b8; 
 }
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.no-scrollbar::-webkit-scrollbar { 
+    display: none; 
 }
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+.no-scrollbar { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+/* Animations cho Toast Notifications */
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(20px); }
+}
+
+.toast-enter { 
+    animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+    pointer-events: auto; 
+}
+
+.toast-exit { 
+    animation: fadeOut 0.3s forwards; 
+    pointer-events: none; 
 }
