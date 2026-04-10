@@ -256,7 +256,8 @@ const app = {
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang tải...';
+        // Đổi nhãn thành Đang phân tích...
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang phân tích...';
         btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
         
         try {
@@ -272,7 +273,7 @@ const app = {
                 if(q[4] && q[4][0]) {
                     let type = "Tự nhập";
                     let t = (q[1] || "").toLowerCase();
-                    // NHẬN DIỆN THÔNG MINH TẤT CẢ CÁC TỪ KHÓA ĐIỂM, THỐNG KÊ LÀ "TỰ ĐỘNG"
+                    // NHẬN DIỆN THÔNG MINH TẤT CẢ CÁC TỪ KHÓA
                     if(t.includes('điểm') || t.includes('score') || t.includes('tự động') || t.includes('tổng') || t.includes('thống kê')) {
                         type = "Tự động";
                     }
@@ -302,7 +303,6 @@ const app = {
 
     renderGFFields() {
         const tb = document.getElementById('gfFieldsTable');
-        
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
                 <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 sm:py-2 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
@@ -323,9 +323,10 @@ const app = {
     },
 
     saveGFConfig() {
+        // Chỉ lưu ngầm vào biến bộ nhớ (this.data), đóng cửa sổ và báo thành công. Không tự động tải file .json nữa.
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        this.saveProject();
+        alert("✅ Đã lưu thông tin Google Form vào bộ nhớ. Bạn có thể tiếp tục soạn đề và bấm XUẤT HTML!");
     },
 
     parsePart12(lines) {
@@ -359,6 +360,7 @@ const app = {
         let jsBuilder=[], jsValid=[], formHtml=[];
         let hasStudentInputs = false;
         
+        // Khi xuất HTML, app sẽ tự động quét thông tin GF từ bộ nhớ này và tạo Form ẩn
         this.data.gf_config.fields.forEach(f => {
             let sId = `field_${f.id}`;
             if(f.type === "Tự nhập") {
