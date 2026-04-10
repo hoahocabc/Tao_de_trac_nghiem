@@ -1,184 +1,158 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo đề trắc nghiệm - Hóa học ABC</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tạo đề trắc nghiệm - Hóa học ABC</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style type="text/tailwindcss">
+    @layer components {
+      .btn { @apply relative px-5 py-2.5 rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-sm focus:outline-none active:translate-y-1; }
+      .btn-primary { @apply bg-blue-500 text-white shadow-[0_4px_0_0_#1d4ed8] hover:shadow-[0_6px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-none; }
+      .btn-green { @apply bg-emerald-500 text-white shadow-[0_4px_0_0_#047857] hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-none; }
+      .btn-outline { @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-none; }
+      .tab-btn { @apply w-full flex flex-col items-center justify-center px-2 py-3 text-xs sm:text-sm font-semibold rounded-xl transition-all duration-200 border-2 active:translate-y-1; }
+      .tab-active { @apply bg-white text-blue-700 border-blue-200 shadow-[0_4px_0_0_#bfdbfe] -translate-y-1; }
+      .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700; }
+      .form-label { @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2; }
+      .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2.5 text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } }
+      }
+    };
+  </script>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col" style="font-family:'Inter',sans-serif;">
 
-<!-- HEADER -->
-<header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-    <div class="max-w-screen-xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
-        <div class="flex items-center gap-3 shrink-0">
-            <div class="bg-blue-500 p-2 rounded-xl text-white">
-                <i data-lucide="flask-conical" class="w-5 h-5"></i>
-            </div>
-            <span class="font-bold text-slate-900 hidden md:block">Tạo đề trắc nghiệm - Hóa học ABC</span>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+  <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+    <div class="max-w-[1400px] mx-auto px-4 lg:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="bg-blue-500 p-2.5 rounded-xl text-white shadow-[0_3px_0_0_#1d4ed8]">
+          <i data-lucide="flask-conical" class="w-5 h-5"></i>
         </div>
-        <div class="flex items-center gap-2 overflow-x-auto py-1">
-            <button onclick="App.newProject()" class="hdr-btn">
-                <i data-lucide="file-plus" class="w-4 h-4 mr-1"></i> Tạo mới
-            </button>
-            <button onclick="App.loadProject()" class="hdr-btn">
-                <i data-lucide="folder-open" class="w-4 h-4 mr-1"></i> Mở file
-            </button>
-            <button onclick="App.saveProject()" class="hdr-btn">
-                <i data-lucide="save" class="w-4 h-4 mr-1"></i> Lưu
-            </button>
-            <button onclick="App.openGF()" class="hdr-btn-green">
-                <i data-lucide="database" class="w-4 h-4 mr-1"></i> Google Form
-            </button>
-            <button onclick="App.exportHTML()" class="hdr-btn-blue">
-                <i data-lucide="rocket" class="w-4 h-4 mr-1"></i> Xuất HTML
-            </button>
-        </div>
+        <h1 class="text-xl font-bold text-slate-900 tracking-tight hidden md:block">Tạo đề trắc nghiệm - Hóa học ABC</h1>
+      </div>
+      <div class="flex items-center gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 pt-2 md:pt-0">
+        <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span></button>
+        <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Mở file</span></button>
+        <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Lưu lại</span></button>
+        <div class="w-px h-8 bg-slate-200 mx-1"></div>
+        <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span>Google Form</span></button>
+        <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span></button>
+      </div>
     </div>
-</header>
+  </header>
 
-<main class="flex-1 max-w-screen-xl mx-auto w-full px-4 py-5 flex flex-col gap-5">
+  <main class="flex-1 max-w-[1400px] mx-auto w-full px-4 lg:px-6 py-6 flex flex-col gap-6">
+    <section class="bg-white p-5 lg:p-6 rounded-2xl shadow-sm border border-slate-200">
+      <h2 class="form-label mb-4 flex items-center gap-2"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
+        <div class="flex flex-col gap-4">
+          <div>
+            <label class="form-label">Tên bài kiểm tra</label>
+            <input type="text" id="quizTitle" class="form-input" value="BÀI TẬP TRẮC NGHIỆM" />
+          </div>
+          <div>
+            <label class="form-label">Người tạo</label>
+            <input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A" />
+          </div>
+        </div>
 
-    <!-- CẤU HÌNH -->
-    <section class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-        <div class="text-xs font-bold text-slate-500 uppercase tracking-wide mb-4 flex items-center gap-2">
-            <i data-lucide="settings-2" class="w-4 h-4 text-blue-500"></i> Cấu hình đề thi
+        <div class="flex flex-col gap-4">
+          <div>
+            <label class="form-label">Giờ bắt đầu (HH:MM DD/MM/YYYY)</label>
+            <input type="text" id="startTime" class="form-input" placeholder="Bỏ trống nếu thi ngay" />
+          </div>
+          <div>
+            <label class="form-label">Giờ kết thúc (HH:MM DD/MM/YYYY)</label>
+            <input type="text" id="endTime" class="form-input" placeholder="Bỏ trống nếu không giới hạn" />
+          </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="flex flex-col gap-3">
-                <div>
-                    <label class="lbl">Tên bài kiểm tra</label>
-                    <input id="quizTitle" class="inp" value="BÀI TẬP TRẮC NGHIỆM">
-                </div>
-                <div>
-                    <label class="lbl">Người tạo</label>
-                    <input id="creatorName" class="inp" placeholder="VD: Thầy Nguyễn Văn A">
-                </div>
-            </div>
-            <div class="flex flex-col gap-3">
-                <div>
-                    <label class="lbl">Giờ bắt đầu <span class="font-normal text-slate-400">(HH:MM DD/MM/YYYY)</span></label>
-                    <input id="startTime" class="inp" placeholder="Bỏ trống = thi ngay">
-                </div>
-                <div>
-                    <label class="lbl">Giờ kết thúc <span class="font-normal text-slate-400">(bỏ trống = không giới hạn)</span></label>
-                    <input id="endTime" class="inp" placeholder="Bỏ trống = không giới hạn">
-                </div>
-            </div>
-            <div class="flex flex-col gap-3">
-                <div>
-                    <label class="lbl">Giao diện (Theme)</label>
-                    <select id="themeSelect" class="inp"></select>
-                </div>
-                <div class="flex items-center gap-3 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-2.5 cursor-pointer hover:border-blue-400 transition-all">
-                    <input type="checkbox" id="shuffleCheck" class="w-5 h-5 accent-blue-600 cursor-pointer">
-                    <label for="shuffleCheck" class="text-sm font-semibold text-slate-700 cursor-pointer select-none">🔀 Xáo trộn câu hỏi & đáp án</label>
-                </div>
-            </div>
+
+        <div class="flex flex-col gap-4">
+          <div>
+            <label class="form-label">Giao diện (Theme)</label>
+            <select id="themeSelect" class="form-select"></select>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- EDITOR + LIST -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 flex-1">
+    <section class="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 items-start">
+      <div class="lg:col-span-7 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-20 lg:top-24 h-[60vh] lg:h-[calc(100vh-11rem)]">
+        <div class="bg-slate-100 p-3 lg:p-4 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-3" id="tabsContainer"></div>
 
-        <!-- EDITOR -->
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col" style="height:calc(100vh - 14rem);min-height:480px;">
+        <div class="p-4 lg:p-6 flex-1 flex flex-col bg-slate-50">
+          <div class="flex justify-between items-center mb-3 lg:mb-4">
+            <h2 class="text-lg lg:text-xl font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
+            <button class="btn btn-outline py-1.5 px-3 lg:py-2 text-xs lg:text-sm" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> HD nhập</button>
+          </div>
 
-            <!-- TABS -->
-            <div id="tabsContainer" class="grid grid-cols-6 gap-1.5 p-3 bg-slate-100 border-b border-slate-200 rounded-t-2xl"></div>
+          <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
+            <div class="bg-slate-100 p-2 lg:p-2.5 border-b-2 border-slate-200 flex flex-wrap gap-2 items-center text-sm" id="editorToolbar"></div>
+            <textarea id="qInput" class="w-full p-4 font-mono text-sm flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed" placeholder="Nhập câu hỏi tại đây...&#10;Mỗi câu cách nhau bởi ##"></textarea>
+          </div>
 
-            <!-- BODY -->
-            <div class="flex flex-col flex-1 p-4 gap-3 min-h-0">
-                <div class="flex items-center justify-between shrink-0">
-                    <h2 id="partTitle" class="font-extrabold text-blue-700 text-lg">Phần 1: Một Lựa Chọn</h2>
-                    <button onclick="App.showGuide()" class="text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 hover:bg-blue-100 transition-all flex items-center gap-1">
-                        <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Hướng dẫn
-                    </button>
-                </div>
-
-                <!-- TOOLBAR -->
-                <div id="toolbar" class="shrink-0 bg-slate-50 border-2 border-slate-200 rounded-xl p-2 flex flex-wrap gap-1 items-center"></div>
-
-                <!-- TEXTAREA -->
-                <textarea id="qInput"
-                    class="flex-1 w-full p-3 font-mono text-sm rounded-xl border-2 border-slate-200 outline-none resize-none bg-white focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all leading-relaxed min-h-0"
-                    placeholder="Nhập câu hỏi tại đây...&#10;&#10;Mỗi câu bắt đầu bằng ##&#10;Đáp án đúng có dấu # ở đầu dòng&#10;&#10;Ví dụ:&#10;##&#10;Thủ đô của Việt Nam là?&#10;# A. Hà Nội&#10;B. Huế&#10;C. TP. Hồ Chí Minh"></textarea>
-
-                <button onclick="App.addQuestion()" class="shrink-0 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_3px_0_0_#1d4ed8] active:shadow-none active:translate-y-1">
-                    <i data-lucide="plus-circle" class="w-5 h-5"></i> Thêm vào danh sách
-                </button>
-            </div>
+          <div class="mt-4 lg:mt-6 flex justify-end">
+            <button class="btn btn-primary w-full sm:w-auto" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách</button>
+          </div>
         </div>
+      </div>
 
-        <!-- DANH SÁCH -->
-        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col" style="height:calc(100vh - 14rem);min-height:480px;">
-            <div class="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-slate-50 rounded-t-2xl shrink-0">
-                <span class="font-bold text-slate-800 flex items-center gap-2">
-                    <i data-lucide="list-checks" class="w-5 h-5 text-emerald-500"></i> Danh sách câu hỏi
-                </span>
-                <span id="qCountBadge" class="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">0 câu</span>
-            </div>
-            <div id="qList" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+      <div class="lg:col-span-5 bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col h-[50vh] lg:h-[calc(100vh-11rem)]">
+        <div class="p-4 lg:p-5 border-b border-slate-200 bg-slate-50 rounded-t-2xl flex justify-between items-center shrink-0">
+          <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base lg:text-lg"><i data-lucide="list-checks" class="w-5 h-5 lg:w-6 lg:h-6 text-emerald-500"></i> Danh sách câu hỏi</h3>
+          <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-xs lg:text-sm font-bold px-3 py-1 rounded-full shadow-[0_2px_0_0_#a7f3d0]">0 câu</span>
         </div>
+        <div id="qList" class="p-4 lg:p-5 space-y-4 overflow-y-auto flex-1 bg-slate-50/50"></div>
+      </div>
+    </section>
+  </main>
 
+  <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
+    <div class="modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
+      <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-slate-100 shrink-0">
+        <h2 class="text-lg sm:text-2xl font-bold text-slate-900 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 sm:w-7 sm:h-7 text-green-500"></i> Cấu hình Google Form</h2>
+        <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-2 rounded-xl active:scale-90"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-4 shrink-0">
+        <input type="text" id="gfUrlInput" class="form-input flex-1 text-sm sm:text-base py-2 sm:py-3" placeholder="Dán link Form vào đây..." />
+        <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()"><i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>Phân tích</button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto min-h-0 border-2 border-slate-200 rounded-xl mb-4 bg-slate-50 shadow-inner p-1 sm:p-2">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-white sticky top-0 z-10 shadow-sm rounded-lg">
+            <tr>
+              <th class="p-2 sm:p-4 font-bold text-slate-700 rounded-tl-lg">Tiêu đề trường</th>
+              <th class="p-2 sm:p-4 font-bold text-slate-700 hidden sm:table-cell">Mã ID</th>
+              <th class="p-2 sm:p-4 font-bold text-slate-700">Loại dữ liệu</th>
+              <th class="p-2 sm:p-4 font-bold text-slate-700 text-center rounded-tr-lg">Bắt buộc</th>
+            </tr>
+          </thead>
+          <tbody id="gfFieldsTable" class="divide-y divide-slate-100 bg-white"></tbody>
+        </table>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-3 border-t-2 border-slate-100 shrink-0">
+        <button class="btn btn-outline py-2 px-4" onclick="app.closeModal('gfModal')">Hủy bỏ</button>
+        <button class="btn btn-primary py-2 px-6 sm:px-8" onclick="app.saveGFConfig()">Lưu thông tin</button>
+      </div>
     </div>
-</main>
+  </div>
 
-<!-- MODAL GOOGLE FORM -->
-<div id="gfModal" class="modal-overlay hidden">
-    <div class="modal-box" style="max-width:860px;">
-        <div class="modal-header">
-            <span class="font-bold text-lg flex items-center gap-2"><i data-lucide="database" class="w-5 h-5 text-green-500"></i> Cấu hình Google Form</span>
-            <button onclick="App.closeModal('gfModal')" class="modal-close-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <div class="bg-blue-50 border border-blue-200 text-blue-800 text-sm rounded-xl p-3 mb-4 flex gap-2">
-            <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
-            Dán link Google Form dạng dài (KHÔNG dùng link rút gọn forms.gle). App sẽ tự quét các trường.
-        </div>
-        <div class="flex gap-2 mb-4">
-            <input id="gfUrlInput" class="inp flex-1" placeholder="https://docs.google.com/forms/d/.../viewform">
-            <button id="btnAnalyze" onclick="App.autoAnalyzeGF()" class="hdr-btn-green whitespace-nowrap">
-                <i data-lucide="zap" class="w-4 h-4 mr-1"></i> Phân tích
-            </button>
-        </div>
-        <div class="border-2 border-slate-200 rounded-xl overflow-hidden mb-4" style="max-height:320px;overflow-y:auto;">
-            <table class="w-full text-sm">
-                <thead class="bg-slate-100 sticky top-0">
-                    <tr>
-                        <th class="text-left p-3 font-bold text-slate-600">Tiêu đề</th>
-                        <th class="text-left p-3 font-bold text-slate-600 hidden sm:table-cell">Entry ID</th>
-                        <th class="text-left p-3 font-bold text-slate-600">Loại</th>
-                        <th class="text-center p-3 font-bold text-slate-600">Bắt buộc</th>
-                    </tr>
-                </thead>
-                <tbody id="gfFieldsBody" class="divide-y divide-slate-100 bg-white"></tbody>
-            </table>
-        </div>
-        <div class="flex justify-end gap-3">
-            <button onclick="App.closeModal('gfModal')" class="hdr-btn">Hủy</button>
-            <button onclick="App.saveGFConfig()" class="hdr-btn-blue">Lưu cấu hình</button>
-        </div>
-    </div>
-</div>
-
-<!-- MODAL HƯỚNG DẪN -->
-<div id="guideModal" class="modal-overlay hidden">
-    <div class="modal-box" style="max-width:620px;">
-        <div class="modal-header">
-            <span class="font-bold text-lg flex items-center gap-2"><i data-lucide="book-open" class="w-5 h-5 text-blue-500"></i> Hướng dẫn nhập liệu</span>
-            <button onclick="App.closeModal('guideModal')" class="modal-close-btn"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <pre id="guideText" class="bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-mono overflow-y-auto" style="max-height:400px;"></pre>
-        <div class="flex justify-end mt-4">
-            <button onclick="App.closeModal('guideModal')" class="hdr-btn-blue">Đã hiểu ✓</button>
-        </div>
-    </div>
-</div>
-
-<input type="file" id="fileLoader" class="hidden">
-<script src="script.js"></script>
+  <input type="file" id="fileLoader" class="hidden" />
+  <script src="script.js"></script>
 </body>
 </html>
