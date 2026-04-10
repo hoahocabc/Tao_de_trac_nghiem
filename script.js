@@ -35,7 +35,7 @@ const app = {
     },
 
     setupEventListeners() {
-        // Tự động phân tích khi người dùng DÁN link vào ô nhập
+        // Tự động phân tích khi người dùng DÁN link
         const gfInput = document.getElementById('gfUrlInput');
         if (gfInput) {
             gfInput.addEventListener('paste', (e) => {
@@ -230,7 +230,6 @@ const app = {
         if(this.data.gf_config.fields.length > 0) {
             this.renderGFFields();
         } else {
-            // Trạng thái trống ban đầu
             document.getElementById('gfFieldsTable').innerHTML = `
                 <tr><td colspan="4" class="text-center py-10 text-slate-400 font-medium italic">
                     <i data-lucide="link" class="w-10 h-10 mx-auto mb-2 text-slate-300"></i>
@@ -247,11 +246,37 @@ const app = {
         content.classList.add('scale-95', 'translate-y-4');
     },
 
+    // Hàm lấy HTML vượt rào CORS (3 Proxy dự phòng)
+    async fetchHtmlWithCors(url) {
+        const proxies = [
+            { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' },
+            { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' },
+            { url: `https://corsproxy.io/?${encodeURIComponent(url)}`, type: 'text' }
+        ];
+
+        for (const proxy of proxies) {
+            try {
+                const response = await fetch(proxy.url, { cache: "no-store" });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                if (proxy.type === 'json') {
+                    const data = await response.json();
+                    if (data.contents) return data.contents;
+                } else {
+                    return await response.text();
+                }
+            } catch (err) {
+                console.warn(`Proxy failed (${proxy.url}):`, err);
+                continue; // Lỗi thì chuyển Proxy tiếp theo
+            }
+        }
+        throw new Error("Không thể kết nối đến Google Form qua các Proxy. Vui lòng kiểm tra lại mạng hoặc thử tắt trình chặn quảng cáo (AdBlock).");
+    },
+
     async autoAnalyzeGF() {
         let url = document.getElementById('gfUrlInput').value.trim();
         if(!url) return alert("Vui lòng nhập link Form!");
         
-        // Nhận diện link rút gọn
         if(url.includes("forms.gle")) {
             alert("⚠️ Chú ý: Phần mềm cần Link Form dạng dài (docs.google.com/forms/...) để phân tích.\nVui lòng mở link rút gọn bằng trình duyệt, copy đường link dài rồi dán lại vào đây.");
             return;
@@ -264,12 +289,9 @@ const app = {
         document.getElementById('gfUrlInput').disabled = true;
         
         try {
-            // Bypassing CORS sử dụng AllOrigins
-            const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-            const data = await res.json();
-            const html = data.contents;
-            const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
+            const html = await this.fetchHtmlWithCors(url);
             
+            const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
             if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai' (Bất kỳ ai cũng có thể xem).");
             
             const jsonData = JSON.parse(match[1]);
@@ -281,7 +303,6 @@ const app = {
                     let type = "Học sinh tự điền";
                     let t = (q[1] || "").toLowerCase();
                     
-                    // Logic nhận diện thông minh
                     if(t.includes('điểm') && t.includes('tối đa')) type = "Điểm tối đa (Tự động)";
                     else if(t.includes('điểm') || t.includes('score')) type = "Điểm đạt được (Tự động)";
                     else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Báo cáo vi phạm (Tự động)";
@@ -297,8 +318,6 @@ const app = {
             document.getElementById('gfUrlInput').value = this.data.gf_config.url;
             this.renderGFFields();
             
-            // Thông báo thành công nhỏ góc màn hình thay vì alert
-            const btnText = document.createElement('span');
             btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Thành công!';
             btn.classList.replace('from-emerald-500', 'from-blue-500');
             setTimeout(() => {
@@ -346,7 +365,6 @@ const app = {
         this.closeModal('gfModal');
     },
 
-    // Parser functions mimicking Python
     parsePart12(lines) {
         let qLines=[], oLines=[], sLines=[], solMode=false;
         lines.forEach(l => {
@@ -370,7 +388,6 @@ const app = {
         return [qLines.join('<br>'), aLines.join('||'), sLines.join('<br>')];
     },
 
-    // Massive HTML Exporter
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
