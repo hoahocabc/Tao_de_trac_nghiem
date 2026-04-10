@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Mỗi câu phải bắt đầu bằng cú pháp: ##\n- Các phương án đánh A, B, C, D...\n- Đặt dấu # ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối nếu cần giải thích chi tiết.\n\nVí dụ:\n##\nThủ đô của Việt Nam là gì?\n# A. Hà Nội\nB. Huế\nC. Đà Nẵng\nLời giải:\nHà Nội là thủ đô của VN từ năm 1945.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Mỗi câu bắt đầu bằng cú pháp: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n\nVí dụ:\n##\nNhững hạt nào nằm trong hạt nhân nguyên tử?\n# A. Proton\nB. Electron\n# C. Neutron\nLời giải:\nHạt nhân gồm n và p.",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt đầu bằng: ##\n- Học sinh sẽ tự gõ đáp án vào ô trống.\n- Ghi các đáp án được chấp nhận sau dấu #. (Nếu có nhiều cách ghi, mỗi cách ghi 1 dòng có dấu # phía trước).\n\nVí dụ:\n##\nKhối lượng nguyên tử của Clo là bao nhiêu?\n# 35.5\n# 35,5\n# 35.5 amu",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt đầu bằng: ##\n- Đặt chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Xuống dòng ghi 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ:\n##\nHình vuông có =(1)= cạnh và =(2)= góc vuông.\nĐáp án:\n=(1)=\n# 4\n# bốn\n=(2)=\n# 4\n# bốn",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và 'Cột II:' (dùng chữ A. B. C.).\n- Ghi đáp án ghép nối ở cuối cùng ngay sau dấu # (VD: 1=B, 2=A).\n\nVí dụ:\n##\nHãy ghép nối cho phù hợp:\nCột I:\n1. Gà\n2. Chó\nCột II:\nA. 4 chân\nB. 2 chân\n# 1=B, 2=A",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang và đáp án tương ứng theo cú pháp: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. Hệ thống sẽ tự động gióng cột.\n\nVí dụ:\n##\n1. Hạt mang điện tích dương # PROTON\n2. Hạt mang điện tích âm # ELECTRON\n3. Hạt không mang điện # NEUTRON\nTừ khóa: # PEN"
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Mỗi câu phải bắt đầu bằng cú pháp: ##\n- Các phương án đánh A, B, C, D...\n- Đặt dấu # ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối nếu cần giải thích chi tiết.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Mỗi câu bắt đầu bằng cú pháp: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt đầu bằng: ##\n- Ghi các đáp án được chấp nhận sau dấu #. (Mỗi cách ghi 1 dòng có dấu # phía trước).",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt đầu bằng: ##\n- Đặt chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Xuống dòng ghi 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và 'Cột II:' (dùng chữ A. B. C.).\n- Ghi đáp án ghép nối ở cuối cùng ngay sau dấu # (VD: 1=B, 2=A).",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang và đáp án tương ứng theo cú pháp: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'."
 };
 
 const chem_symbols = [
@@ -74,7 +74,7 @@ const app = {
         const titles = [
             {icon: 'circle-dot', text: '1 lựa chọn'}, {icon: 'check-square', text: 'Nhiều lựa chọn'},
             {icon: 'pen-line', text: 'Trả lời ngắn'}, {icon: 'form-input', text: 'Điền khuyết'},
-            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: 'Ô chữ'}
+            {icon: 'arrow-right-left', text: 'Ghép đôi'}, {icon: 'grid-3x3', text: '�� chữ'}
         ];
         c.innerHTML = titles.map((t, i) => `
             <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-3" onclick="app.switchTab(${i+1})">
@@ -143,7 +143,6 @@ const app = {
         const el = document.getElementById(inputId);
         const s = el.selectionStart, e = el.selectionEnd;
 
-        // Tạo popup nhập liệu
         const overlay = document.createElement('div');
         overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4';
         overlay.innerHTML = `
@@ -523,7 +522,7 @@ const app = {
     saveGFConfig() {
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        alert("✅ Đã lưu cấu hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
+        alert("✅ Đã lưu c��u hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
     parseQuestionLines(lines, partType) {
@@ -649,7 +648,7 @@ const app = {
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
-        const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
+        const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đ���i)"];
         const startTime = document.getElementById('startTime').value;
         const endTime = document.getElementById('endTime').value;
         const isAntiCheat = document.getElementById('antiCheat').checked;
@@ -860,8 +859,6 @@ const app = {
     .score-box { background: var(--primary); color: white; padding: 6px 16px; border-radius: 9999px; font-weight: 600; font-size: 1rem; }
     .timer-container { display: flex; align-items: center; gap: 12px; }
     .timer { font-size: 1.1rem; font-weight: 700; color: #dc2626; font-variant-numeric: tabular-nums; background: #fee2e2; padding: 6px 16px; border-radius: 9999px; }
-    .btn-start { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 9999px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-    .btn-start:hover { background: var(--primary-hover); }
     .container { max-width: 800px; margin: 40px auto; padding: 0 16px; }
     .header { text-align: center; margin-bottom: 40px; }
     .header h1 { margin: 0; font-size: 2rem; color: var(--text); font-weight: 700; letter-spacing: -0.025em; }
@@ -935,8 +932,7 @@ const app = {
       <div class='navbar'>
         <div class='score-box' id='scoreDisplay'>Điểm số: 0</div>
         <div class='timer-container'>
-            <span class='timer'>⏱ <span id='timeDisplay'>00:00:00</span></span>
-            <button class='btn-start' onclick='startTimer()' id='btnStartTimer'>Bắt đầu</button>
+            <span class='timer'>⏱ <span id='timeDisplay'>--:--</span></span>
         </div>
       </div>
       <div class='container'>
@@ -993,8 +989,13 @@ const app = {
           return result;
       };
 
-      function parseDateVN(dateStr) {
+      let durationMinutes = null;
+      function parseDateVN(dateStr, isEndTime) {
           if (!dateStr || dateStr.trim() === "") return null;
+          if (isEndTime && /^\\d+$/.test(dateStr.trim())) {
+              durationMinutes = parseInt(dateStr.trim(), 10);
+              return null;
+          }
           try {
               let parts = dateStr.trim().split(" ");
               if(parts.length < 2) return null;
@@ -1003,8 +1004,15 @@ const app = {
               return new Date(dateParts[2], parseInt(dateParts[1]) - 1, dateParts[0], timeParts[0], timeParts[1]).getTime();
           } catch(e) { return null; }
       }
-      const START_TIME = parseDateVN(START_TIME_STR);
-      const END_TIME = parseDateVN(END_TIME_STR);
+      const START_TIME = parseDateVN(START_TIME_STR, false);
+      let absoluteEndTime = parseDateVN(END_TIME_STR, true);
+      
+      if (durationMinutes) {
+          let savedEndTime = localStorage.getItem(EXAM_ID + "_ABS_END");
+          if (savedEndTime) {
+              absoluteEndTime = parseInt(savedEndTime, 10);
+          }
+      }
 
       function lockExam(reason) {
           if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
@@ -1018,12 +1026,12 @@ const app = {
       let nowInit = new Date().getTime();
       if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_SUBMITTED")) lockExam("Bạn đã hoàn thành và nộp bài thi này. Không thể làm lại.");
       else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
-      else if (END_TIME && nowInit >= END_TIME) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
+      else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + (durationMinutes ? "Hết thời gian làm bài" : END_TIME_STR));
       else if (START_TIME && nowInit < START_TIME) {
           document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
               <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
               <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
-              \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
+              \${END_TIME_STR && !durationMinutes ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
               <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
               <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
           </body>\`;
@@ -1055,6 +1063,7 @@ const app = {
                           sessionStorage.setItem(EXAM_ID + "_ACCEPTED", "true");
                           document.getElementById('antiCheatOverlay').style.display = 'none';
                           document.getElementById('quizApp').style.display = 'block';
+                          startTimer();
                       };
                   } else {
                       btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
@@ -1062,6 +1071,7 @@ const app = {
               }, 1000);
           } else {
               document.getElementById('quizApp').style.display = 'block'; 
+              startTimer();
           }
       }
 
@@ -1231,40 +1241,48 @@ const app = {
               let gain = ctx.createGain();
               osc.connect(gain);
               gain.connect(ctx.destination);
-              osc.type = "sine";
-              osc.frequency.value = 800; 
+              osc.type = "square";
+              osc.frequency.value = 850; 
               gain.gain.setValueAtTime(1, ctx.currentTime);
-              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+              gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
               osc.start(ctx.currentTime);
-              osc.stop(ctx.currentTime + 0.5);
+              osc.stop(ctx.currentTime + 0.3);
           } catch(e) {}
       }
 
       let timerInterval; let seconds = 0;
       function startTimer() {
-        document.getElementById('btnStartTimer').style.display = 'none';
-        timerInterval = setInterval(() => {
+        if (durationMinutes && !absoluteEndTime) {
+            absoluteEndTime = new Date().getTime() + durationMinutes * 60000;
+            localStorage.setItem(EXAM_ID + "_ABS_END", absoluteEndTime);
+        }
+
+        function tick() {
             let displayStr = "";
-            if (END_TIME) {
-                let now = new Date().getTime(); let remain = Math.floor((END_TIME - now) / 1000);
+            if (absoluteEndTime) {
+                let now = new Date().getTime(); let remain = Math.floor((absoluteEndTime - now) / 1000);
                 if (remain <= 0) {
-                    displayStr = "00:00:00"; clearInterval(timerInterval);
+                    document.getElementById('timeDisplay').innerText = "00:00:00"; clearInterval(timerInterval);
                     if (document.getElementById('submitBtn') && document.getElementById('submitBtn').style.display !== 'none') {
                         alert("⏳ ĐÃ HẾT GIỜ LÀM BÀI! Hệ thống sẽ tự động nộp bài."); window.isForceSubmit = true;
                         if(typeof gradeQuiz === 'function') gradeQuiz();
                     }
+                    return;
                 } else {
                     let h = Math.floor(remain / 3600).toString().padStart(2, '0'); let m = Math.floor((remain % 3600) / 60).toString().padStart(2, '0'); let s = (remain % 60).toString().padStart(2, '0');
                     displayStr = (h !== "00" ? h + ":" : "") + m + ":" + s;
                     if (remain <= 300) { document.querySelector('.timer').style.backgroundColor = '#ef4444'; document.querySelector('.timer').style.color = '#ffffff'; }
-                    if (remain === 60) { playBeep(); setTimeout(playBeep, 500); }
+                    if (remain === 60) { playBeep(); setTimeout(playBeep, 400); setTimeout(playBeep, 800); }
                 }
             } else {
                 seconds++; let h = Math.floor(seconds / 3600).toString().padStart(2, '0'); let m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0'); let s = (seconds % 60).toString().padStart(2, '0');
                 displayStr = (h !== "00" ? h + ":" : "") + m + ":" + s;
             }
             document.getElementById('timeDisplay').innerText = displayStr;
-        }, 1000);
+        }
+        
+        tick();
+        timerInterval = setInterval(tick, 1000);
       }
 
       async function sendToGoogleForm(totalScore, maxPossibleScore) {
@@ -1309,8 +1327,13 @@ const app = {
                let correctData = q.querySelector('.explanation').getAttribute('data-answer'); let accepted = correctData.split('||').map(s => s.trim().toLowerCase());
                if (!userInput) feedback = '<span style="color:#ef4444;">✗ Bạn chưa trả lời. Đáp án đúng: ' + correctData.replace(/\\|\\|/g, " hoặc ") + '</span>';
                else {
-                 if (accepted.includes(userInput)) { qScore = 1; feedback = '<span style="color:#10b981;">✓ Chính xác!</span>'; inputElem.style.color = '#10b981'; inputElem.style.borderColor = '#10b981'; }
-                 else { feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correctData.replace(/\\|\\|/g, " hoặc ") + '</span>'; inputElem.style.color = '#ef4444'; inputElem.style.borderColor = '#ef4444'; }
+                 if (accepted.includes(userInput)) { 
+                     qScore = 1; feedback = '<span style="color:#10b981;">✓ Chính xác!</span>'; 
+                     if (IS_PUBLISH_SCORE) { inputElem.style.color = '#10b981'; inputElem.style.borderColor = '#10b981'; }
+                 } else { 
+                     feedback = '<span style="color:#ef4444;">✗ Sai. Đáp án đúng: ' + correctData.replace(/\\|\\|/g, " hoặc ") + '</span>'; 
+                     if (IS_PUBLISH_SCORE) { inputElem.style.color = '#ef4444'; inputElem.style.borderColor = '#ef4444'; }
+                 }
                  inputElem.disabled = true;
                }
              } else if (partType === "4") {
@@ -1320,7 +1343,14 @@ const app = {
                  if (userAnswer !== "") { if (accepted.includes(userAnswer)) blankResults.push({blank: index+1, correct: true, answer: userAnswer, accepted: accepted}); else blankResults.push({blank: index+1, correct: false, answer: userAnswer, accepted: accepted}); }
                  else blankResults.push({blank: index+1, answered: false, accepted: accepted}); 
                });
-               inputs.forEach(function(inp, index) { let res = blankResults[index]; inp.style.color = res.correct ? '#10b981' : '#ef4444'; inp.style.borderColor = res.correct ? '#10b981' : '#ef4444'; inp.disabled = true; });
+               inputs.forEach(function(inp, index) { 
+                   let res = blankResults[index]; 
+                   if (IS_PUBLISH_SCORE) {
+                       inp.style.color = res.correct ? '#10b981' : '#ef4444'; 
+                       inp.style.borderColor = res.correct ? '#10b981' : '#ef4444'; 
+                   }
+                   inp.disabled = true; 
+               });
                let wrongBlanks = []; let unansweredBlanks = [];
                blankResults.forEach(function(r) { if (r.answered === false) unansweredBlanks.push(r.blank); else if (!r.correct) wrongBlanks.push(r.blank); });
                if (wrongBlanks.length === 0 && unansweredBlanks.length === 0) { feedback = '<span style="color:#10b981;">✓ Hoàn toàn chính xác!</span>'; qScore = 1; }
@@ -1335,8 +1365,12 @@ const app = {
                let isPerfect = true; let svg = matchContainer.querySelector('.match-lines');
                svg.querySelectorAll('.visible-line').forEach(line => {
                    let l = line.getAttribute('data-left'); let r = line.getAttribute('data-right'); let pairStr = l + '=' + r;
-                   if (expectedPairs.includes(pairStr)) line.setAttribute('stroke', '#10b981'); 
-                   else { line.setAttribute('stroke', '#ef4444'); isPerfect = false; }
+                   if (expectedPairs.includes(pairStr)) {
+                       if (IS_PUBLISH_SCORE) line.setAttribute('stroke', '#10b981'); 
+                   } else { 
+                       if (IS_PUBLISH_SCORE) line.setAttribute('stroke', '#ef4444'); 
+                       isPerfect = false; 
+                   }
                });
                if (userLinksStr.length !== expectedPairs.length || JSON.stringify(userLinksStr) !== JSON.stringify(expectedPairs)) isPerfect = false;
                if (isPerfect && expectedPairs.length > 0) { feedback = '<span style="color:#10b981;">✓ Nối hoàn toàn chính xác!</span>'; qScore = 1; }
@@ -1356,8 +1390,16 @@ const app = {
                      inputs.forEach(inp => {
                          let correctChar = inp.getAttribute('data-ans').toUpperCase(); let userChar = inp.value.trim().toUpperCase();
                          if (userChar !== correctChar) rowCorrect = false;
-                         if (userChar === correctChar && userChar !== "") { inp.style.color = '#10b981'; inp.style.borderColor = '#10b981'; if (!inp.classList.contains('cw-key')) inp.style.backgroundColor = '#ecfdf5'; }
-                         else { inp.style.color = '#ef4444'; inp.style.borderColor = '#ef4444'; if (!inp.classList.contains('cw-key')) inp.style.backgroundColor = '#fef2f2'; if (userChar === "") { inp.value = correctChar; inp.style.opacity = '0.5'; } else { inp.value = correctChar; } }
+                         if (IS_PUBLISH_SCORE) {
+                             if (userChar === correctChar && userChar !== "") { 
+                                 inp.style.color = '#10b981'; inp.style.borderColor = '#10b981'; 
+                                 if (!inp.classList.contains('cw-key')) inp.style.backgroundColor = '#ecfdf5'; 
+                             } else { 
+                                 inp.style.color = '#ef4444'; inp.style.borderColor = '#ef4444'; 
+                                 if (!inp.classList.contains('cw-key')) inp.style.backgroundColor = '#fef2f2'; 
+                                 if (userChar === "") { inp.value = correctChar; inp.style.opacity = '0.5'; } else { inp.value = correctChar; } 
+                             }
+                         }
                          inp.disabled = true;
                      });
                      let usedHint = window.usedClues && window.usedClues[qid] && window.usedClues[qid].has(rIdx); let rowPts = 0; let statusText = "";
