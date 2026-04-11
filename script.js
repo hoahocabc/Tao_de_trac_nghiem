@@ -53,6 +53,26 @@ const app = {
         this.setupEventListeners();
     },
 
+    toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.querySelector('#mobileMenuBtn i');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            if(typeof lucide !== 'undefined') {
+                icon.setAttribute('data-lucide', 'x');
+                lucide.createIcons();
+            }
+        } else {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+            if(typeof lucide !== 'undefined') {
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            }
+        }
+    },
+
     setupEventListeners() {
         const gfInput = document.getElementById('gfUrlInput');
         if (gfInput) {
