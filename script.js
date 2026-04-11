@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.\n\nVí dụ:\n##\nChất nào sau đây là muối ăn?\nA. NaClO\n# B. NaCl\nC. Na2SO4\nD. Na2CO3\nLời giải: Muối ăn có thành phần chính là Natri clorua (NaCl).",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\n##\nTrong các kim loại sau, kim loại nào là kim loại kiềm?\n# A. Natri (Na)\n# B. Kali (K)\nC. Nhôm (Al)\nD. Sắt (Fe)",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án.\n\nVí dụ:\n##\nNguyên tố hóa học nào có ký hiệu là O?\n# Oxi\n# Oxygen\n# Khí oxi",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ:\n##\nNước có công thức hóa học là =(1)=. Phân tử nước gồm 2 nguyên tử =(2)= và 1 nguyên tử =(3)=.\nĐáp án:\n=(1)=\n# H2O\n=(2)=\n# Hidro\n# Hydrogen\n=(3)=\n# Oxi\n# Oxygen",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi tiêu đề câu hỏi.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # ở đầu.\n\nVí dụ:\n##\nGhép tên nguyên tố với ký hiệu hóa học tương ứng:\nCột I:\n1. Sắt\n2. Đồng\n3. Bạc\nCột II:\nA. Ag\nB. Fe\nC. Cu\n# 1=B, 2=C, 3=A",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\n##\nÔ chữ về các nguyên tố hóa học\nKim loại ở thể lỏng trong điều kiện thường? # THUYNGAN\nKhí không màu, không mùi, duy trì sự cháy? # OXI\nTừ khóa: # HO"
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'."
 };
 
 const chem_symbols = [
@@ -57,9 +57,7 @@ const app = {
         const gfInput = document.getElementById('gfUrlInput');
         if (gfInput) {
             gfInput.addEventListener('paste', () => {
-                setTimeout(() => {
-                    if (gfInput.value.includes('google.com/forms')) this.autoAnalyzeGF();
-                }, 100);
+                setTimeout(() => { if (gfInput.value.includes('google.com/forms')) this.autoAnalyzeGF(); }, 100);
             });
         }
     },
@@ -83,12 +81,18 @@ const app = {
     },
 
     switchTab(tab) {
+        // Cảnh báo nếu đang gõ dở mà chuyển tab
+        const qInput = document.getElementById('qInput');
+        if(qInput && qInput.value.trim().length > 5 && this.activeTab !== tab) {
+            if(!confirm("Bạn đang có câu hỏi chưa được 'Thêm vào danh sách'. Chuyển tab sẽ làm mất nội dung này. Tiếp tục?")) return;
+        }
+
         this.activeTab = tab;
         const titles = ["Một phương án đúng", "Nhiều đáp án đúng", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Giải ô chữ"];
-        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-sm sm:text-base">${titles[tab-1]}</span>`;
+        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-xs sm:text-base">${titles[tab-1]}</span>`;
         this.renderTabs();
         this.renderQList();
-        document.getElementById('qInput').value = '';
+        if(qInput) qInput.value = '';
     },
 
     showGuide() { alert(GUIDES[this.activeTab]); },
@@ -100,29 +104,29 @@ const app = {
         
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
-        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
         extra_symbols.forEach(s => {
-            html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
+            html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
         });
         
-        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
-        html += `<button class="px-2.5 py-1 text-slate-700 hover:bg-slate-100 rounded font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs sm:text-sm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2.5 py-1 text-slate-700 hover:bg-slate-100 rounded italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs sm:text-sm" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
         
-        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
-        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] sm:text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
-        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[10px] sm:text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[10px] font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
         
         html += `</div>`;
         tb.innerHTML = html;
@@ -179,36 +183,24 @@ const app = {
 
         topInput.focus();
 
-        const closePopup = () => {
-            document.body.removeChild(overlay);
-            el.focus();
-        };
+        const closePopup = () => { document.body.removeChild(overlay); el.focus(); };
 
         const confirmInsert = () => {
             let topText = topInput.value.trim();
             let bottomText = bottomInput.value.trim();
-            
             let arrowBase = type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons';
             let bottomPart = bottomText ? `[\\text{${bottomText}}]` : "";
             let topPart = topText ? `{\\text{${topText}}}` : "{}";
-            
             let text = `$${arrowBase}${bottomPart}${topPart}$`;
             
             el.value = el.value.substring(0, s) + text + el.value.substring(e);
             el.setSelectionRange(s + text.length, s + text.length);
-            
             closePopup();
         };
 
-        cancelBtn.onclick = closePopup;
-        confirmBtn.onclick = confirmInsert;
-
-        const handleKey = (ev) => {
-            if (ev.key === 'Enter') confirmInsert();
-            if (ev.key === 'Escape') closePopup();
-        };
-        topInput.addEventListener('keydown', handleKey);
-        bottomInput.addEventListener('keydown', handleKey);
+        cancelBtn.onclick = closePopup; confirmBtn.onclick = confirmInsert;
+        const handleKey = (ev) => { if (ev.key === 'Enter') confirmInsert(); if (ev.key === 'Escape') closePopup(); };
+        topInput.addEventListener('keydown', handleKey); bottomInput.addEventListener('keydown', handleKey);
     },
 
     insertImage(inputId = 'qInput') {
@@ -227,27 +219,19 @@ const app = {
     },
 
     insertVideo(inputId = 'qInput') {
-        const url = prompt("Nhập đường link Video (Hỗ trợ link YouTube hoặc đường link file .mp4 trực tiếp):", "");
+        const url = prompt("Nhập đường link Video (Hỗ trợ YouTube hoặc link file .mp4 trực tiếp):", "");
         if (!url) return;
-        
         let embedHtml = "";
         if (url.includes("youtube.com") || url.includes("youtu.be")) {
             let videoId = "";
-            if (url.includes("youtu.be/")) {
-                videoId = url.split("youtu.be/")[1].split("?")[0];
-            } else if (url.includes("watch?v=")) {
-                videoId = url.split("watch?v=")[1].split("&")[0];
-            }
-            if (videoId) {
-                embedHtml = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:10px 0;"><iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
-            } else {
-                alert("Không thể nhận diện ID YouTube từ đường link này!"); return;
-            }
+            if (url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0];
+            else if (url.includes("watch?v=")) videoId = url.split("watch?v=")[1].split("&")[0];
+            
+            if (videoId) embedHtml = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:10px 0;"><iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
+            else { alert("Không thể nhận diện ID YouTube!"); return; }
         } else if (url.toLowerCase().endsWith(".mp4") || url.toLowerCase().includes(".mp4?")) {
             embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
-        } else {
-            alert("Vui lòng nhập link YouTube hoặc link file .mp4 hợp lệ!"); return;
-        }
+        } else { alert("Vui lòng nhập link YouTube hoặc .mp4 hợp lệ!"); return; }
         
         this.insertText('', embedHtml, '', inputId);
     },
@@ -255,8 +239,9 @@ const app = {
     addQuestion() {
         const val = document.getElementById('qInput').value.trim();
         if(!val) return alert("Vui lòng nhập nội dung câu hỏi!");
+        // Tối ưu split ngắt dòng trên các OS khác nhau \r\n
         const chunks = val.includes("##") ? val.split("##").filter(x => x.trim()) : [val];
-        chunks.forEach(c => { if(c.split('\n').length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
+        chunks.forEach(c => { if(c.split(/\r?\n/).length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
         document.getElementById('qInput').value = '';
         this.renderQList();
     },
@@ -275,7 +260,6 @@ const app = {
         modal.classList.remove('opacity-0', 'pointer-events-none');
         content.classList.remove('scale-95', 'translate-y-4');
         content.classList.add('scale-100', 'translate-y-0');
-        
         document.getElementById('qInputEdit').value = this.data['part'+this.activeTab][idx];
     },
 
@@ -288,30 +272,24 @@ const app = {
         this.renderQList();
     },
 
-    /* ---- Xử lý hiệu ứng Kéo Thả ---- */
     handleDragStart(e, index) {
         this.draggedItemIndex = index;
         e.dataTransfer.effectAllowed = 'move';
+        // Sử dụng text/plain bắt buộc cho polyfill mobile hoạt động
+        e.dataTransfer.setData('text/plain', index);
         setTimeout(() => e.target.classList.add('dragging-item'), 0);
     },
 
     handleDragOver(e, index) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
-        
         if (index === this.draggedItemIndex) return false;
-
         const rect = e.currentTarget.getBoundingClientRect();
         const relY = e.clientY - rect.top;
         const insertAfter = relY >= rect.height / 2;
-
         document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
-
-        if (insertAfter) {
-            e.currentTarget.classList.add('drag-over-bottom');
-        } else {
-            e.currentTarget.classList.add('drag-over-top');
-        }
+        if (insertAfter) e.currentTarget.classList.add('drag-over-bottom');
+        else e.currentTarget.classList.add('drag-over-top');
         return false;
     },
 
@@ -323,7 +301,9 @@ const app = {
         e.stopPropagation();
         document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
         
-        if (this.draggedItemIndex !== null && this.draggedItemIndex !== dropIndex) {
+        let dragIndex = this.draggedItemIndex !== null ? this.draggedItemIndex : parseInt(e.dataTransfer.getData('text/plain'));
+        
+        if (dragIndex !== null && !isNaN(dragIndex) && dragIndex !== dropIndex) {
             const rect = e.currentTarget.getBoundingClientRect();
             const relY = e.clientY - rect.top;
             const insertAfter = relY >= rect.height / 2;
@@ -331,12 +311,12 @@ const app = {
             const list = this.data['part' + this.activeTab];
             let insertIndex = dropIndex;
             
-            if (this.draggedItemIndex < dropIndex && insertAfter) insertIndex = dropIndex;
-            else if (this.draggedItemIndex < dropIndex && !insertAfter) insertIndex = dropIndex - 1;
-            else if (this.draggedItemIndex > dropIndex && insertAfter) insertIndex = dropIndex + 1;
-            else if (this.draggedItemIndex > dropIndex && !insertAfter) insertIndex = dropIndex;
+            if (dragIndex < dropIndex && insertAfter) insertIndex = dropIndex;
+            else if (dragIndex < dropIndex && !insertAfter) insertIndex = dropIndex - 1;
+            else if (dragIndex > dropIndex && insertAfter) insertIndex = dropIndex + 1;
+            else if (dragIndex > dropIndex && !insertAfter) insertIndex = dropIndex;
             
-            const item = list.splice(this.draggedItemIndex, 1)[0];
+            const item = list.splice(dragIndex, 1)[0];
             list.splice(insertIndex, 0, item);
             this.renderQList();
         }
@@ -353,7 +333,7 @@ const app = {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
             <div draggable="true" 
-                 class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-20 cursor-default mb-2"
+                 class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-16 sm:pr-20 cursor-default mb-2"
                  ondragstart="app.handleDragStart(event, ${i})" 
                  ondragover="app.handleDragOver(event, ${i})" 
                  ondragleave="app.handleDragLeave(event)"
@@ -361,15 +341,15 @@ const app = {
                  ondragend="app.handleDragEnd(event)">
                  
                 <div class="flex items-center gap-1.5 mb-1.5 border-b border-slate-100 pb-1.5">
-                    <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
-                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5 pointer-events-none"></i>
+                    <div class="drag-handle cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
+                        <i data-lucide="grip-vertical" class="w-4 h-4 sm:w-3.5 sm:h-3.5 pointer-events-none"></i>
                     </div>
                     <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 sm:px-2 sm:py-1 rounded-md">Câu ${i+1}</span>
                 </div>
                 <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium pointer-events-none">${q.replace(/</g,'&lt;')}</div>
                 <div class="absolute top-2 right-2 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
-                    <button class="p-1.5 sm:p-2 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
-                    <button class="p-1.5 sm:p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
+                    <button class="p-1.5 sm:p-2 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
+                    <button class="p-1.5 sm:p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
                 </div>
             </div>
         `).join('');
@@ -377,7 +357,7 @@ const app = {
         document.getElementById('qList').innerHTML = html || `
             <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-8">
                 <div class="bg-slate-100 p-3 sm:p-4 rounded-xl shadow-inner"><i data-lucide="inbox" class="w-8 h-8 sm:w-10 sm:h-10 text-slate-300"></i></div>
-                <p class="text-[10px] sm:text-xs font-bold text-slate-400">Chưa có câu hỏi nào</p>
+                <p class="text-xs font-bold text-slate-400">Chưa có câu hỏi nào</p>
             </div>`;
         const badge = document.getElementById('qCountBadge');
         if(badge) badge.innerText = `${arr.length} câu`;
@@ -427,34 +407,27 @@ const app = {
             if(!file) return;
             const reader = new FileReader();
             reader.onload = ev => {
-                const p = JSON.parse(ev.target.result);
-                document.getElementById('quizTitle').value = p.title || '';
-                document.getElementById('creatorName').value = p.creator || '';
-                document.getElementById('themeSelect').value = p.theme || '';
-                document.getElementById('startTime').value = p.start_time || '';
-                document.getElementById('endTime').value = p.end_time || '';
-                
-                const acBox = document.getElementById('antiCheat');
-                const psBox = document.getElementById('publishScore');
-                if (acBox) acBox.checked = p.anti_cheat === true;
-                if (psBox) psBox.checked = p.publish_score === true;
-                
-                let loadedGF = p.gf_config;
-                if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) {
-                    loadedGF = this.data.gf_config; 
-                } else {
-                    loadedGF.fields.forEach(field => {
-                        if(field.type && (!field.type.includes("Tự") && !field.type.includes("tự"))) {
-                            field.type = field.type.includes("tự điền") ? "Học sinh tự nhập" : "Điểm số (Tự động)";
-                        }
-                    });
-                }
-
-                this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: loadedGF };
-                this.switchTab(1);
+                try {
+                    const p = JSON.parse(ev.target.result);
+                    document.getElementById('quizTitle').value = p.title || '';
+                    document.getElementById('creatorName').value = p.creator || '';
+                    document.getElementById('themeSelect').value = p.theme || '';
+                    document.getElementById('startTime').value = p.start_time || '';
+                    document.getElementById('endTime').value = p.end_time || '';
+                    
+                    const acBox = document.getElementById('antiCheat');
+                    const psBox = document.getElementById('publishScore');
+                    if (acBox) acBox.checked = p.anti_cheat === true;
+                    if (psBox) psBox.checked = p.publish_score === true;
+                    
+                    let loadedGF = p.gf_config;
+                    if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) { loadedGF = this.data.gf_config; }
+                    this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: loadedGF };
+                    this.switchTab(1);
+                } catch(err) { alert("Lỗi khi đọc file. File không đúng định dạng!"); }
             };
             reader.readAsText(file);
-            f.value = ''; // Reset
+            f.value = ''; 
         };
         f.click();
     },
@@ -482,14 +455,23 @@ const app = {
     },
 
     async fetchHtmlWithCors(url) {
+        // Tối ưu các proxy fallback để tăng tỷ lệ thành công, thêm timeout
         const proxies = [
             { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' },
             { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' },
             { url: `https://corsproxy.io/?${encodeURIComponent(url)}`, type: 'text' }
         ];
+        
+        const fetchWithTimeout = (resource, options) => {
+            const { timeout = 8000 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            return fetch(resource, { ...options, signal: controller.signal }).finally(() => clearTimeout(id));
+        };
+
         for (const proxy of proxies) {
             try {
-                const response = await fetch(proxy.url, { cache: "no-store" });
+                const response = await fetchWithTimeout(proxy.url, { cache: "no-store", timeout: 10000 });
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
                 if (proxy.type === 'json') {
                     const data = await response.json();
@@ -497,13 +479,13 @@ const app = {
                 } else return await response.text();
             } catch (err) { continue; }
         }
-        throw new Error("Không thể kết nối đến Google Form qua các Proxy. Vui lòng kiểm tra mạng.");
+        throw new Error("Không thể kết nối đến Google Form qua các máy chủ trung gian. Vui lòng thử lại sau.");
     },
 
     async autoAnalyzeGF() {
         let url = document.getElementById('gfUrlInput').value.trim();
         if(!url) return alert("Vui lòng nhập link Form!");
-        if(url.includes("forms.gle")) return alert("⚠️ Vui lòng mở link rút gọn bằng trình duyệt, copy đường link dài rồi dán lại vào đây.");
+        if(url.includes("forms.gle")) return alert("⚠️ Vui lòng mở link rút gọn bằng trình duyệt, copy đường link dài (docs.google.com/forms...) rồi dán lại vào đây.");
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
@@ -513,7 +495,7 @@ const app = {
         try {
             const html = await this.fetchHtmlWithCors(url);
             const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
-            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai'.");
+            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai' (Public).");
             
             const jsonData = JSON.parse(match[1]);
             const qs = jsonData[1][1];
@@ -521,9 +503,7 @@ const app = {
             
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
-                    let title = q[1] || "";
-                    let t = title.toLowerCase();
-                    let type = "Học sinh tự nhập";
+                    let title = q[1] || ""; let t = title.toLowerCase(); let type = "Học sinh tự nhập";
                     if(t.includes('điểm') || t.includes('score') || t.includes('tổng')) type = "Điểm số (Tự động)";
                     else if(t.includes('tối đa') || t.includes('max')) type = "Điểm tối đa (Tự động)";
                     else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Vi phạm (Tự động)";
@@ -556,10 +536,10 @@ const app = {
         const tb = document.getElementById('gfFieldsTable');
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
-                <td class="p-2 sm:p-2.5"><input type="text" class="form-input py-1 sm:py-1.5 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2 sm:p-2.5 hidden sm:table-cell"><input type="text" class="form-input py-1 sm:py-1.5 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-2.5"><input type="text" class="form-input py-1 sm:py-1.5 text-[10px] sm:text-sm font-bold" value="${f.title.replace(/"/g, '&quot;')}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-2.5 hidden sm:table-cell"><input type="text" class="form-input py-1 sm:py-1.5 bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-2 sm:p-2.5">
-                    <select class="form-select py-1 sm:py-1.5 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                    <select class="form-select py-1 sm:py-1.5 font-bold text-[10px] sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option value="Học sinh tự nhập" ${f.type==="Học sinh tự nhập"||f.type==="Tự nhập"?"selected":""}>Học sinh tự nhập</option>
                         <option value="Điểm số (Tự động)" ${f.type==="Điểm số (Tự động)"?"selected":""}>Điểm số (Tự động)</option>
                         <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
@@ -580,7 +560,7 @@ const app = {
     saveGFConfig() {
         this.data.gf_config.url = document.getElementById('gfUrlInput').value;
         this.closeModal('gfModal');
-        alert("✅ Đã lưu cấu hình Google Form vào bộ nhớ.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
+        alert("✅ Đã lưu cấu hình Google Form.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
     parseQuestionLines(lines, partType) {
@@ -591,7 +571,7 @@ const app = {
             const optionPattern = /^\s*#?\s*[A-Ea-e]\.\s/;
             lines.forEach(l => {
                 let cl = l.trimRight();
-                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode = true; sLines.push(cl.trimLeft().replace(/^Lời giải:\s*/, '')); return; }
+                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode = true; sLines.push(cl.trimLeft().replace(/^(Lời giải|Giải thích):\s*/, '')); return; }
                 if (solMode) sLines.push(cl);
                 else if (optionPattern.test(cl)) oLines.push(cl);
                 else qLines.push(cl);
@@ -602,7 +582,7 @@ const app = {
             let aLines = [];
             lines.forEach(l => {
                 let cl = l.trimRight();
-                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode = true; sLines.push(cl.trimLeft().replace(/^Lời giải:\s*/, '')); return; }
+                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { solMode = true; sLines.push(cl.trimLeft().replace(/^(Lời giải|Giải thích):\s*/, '')); return; }
                 if (solMode) sLines.push(cl);
                 else if (cl.trimLeft().startsWith("#")) {
                     let ans = cl.trimLeft().substring(1).trim();
@@ -616,7 +596,7 @@ const app = {
             lines.forEach(l => {
                 let cl = l.trimRight();
                 if (cl.trimLeft().startsWith("Đáp án:")) { state = "answers"; return; }
-                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { state = "solution"; sLines.push(cl.trimLeft().replace(/^Lời giải:\s*/, '')); return; }
+                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { state = "solution"; sLines.push(cl.trimLeft().replace(/^(Lời giải|Giải thích):\s*/, '')); return; }
                 
                 if (state === "solution") sLines.push(cl);
                 else if (state === "question") qLines.push(cl);
@@ -635,9 +615,9 @@ const app = {
         }
         else if (partType === 5) {
             let text = lines.join('\n');
-            let solMatch = text.match(/Lời giải:\s*([\s\S]*)/);
+            let solMatch = text.match(/(?:Lời giải|Giải thích):\s*([\s\S]*)/);
             let solution = solMatch ? solMatch[1].replace(/\n/g, '<br>') : "";
-            text = text.replace(/Lời giải:\s*[\s\S]*/, '');
+            text = text.replace(/(?:Lời giải|Giải thích):\s*[\s\S]*/, '');
             
             let headerMatch = text.match(/^(.*?)\s*(?=Cột I:)/s);
             let header = headerMatch ? headerMatch[1].replace(/\n/g, '<br>') : "";
@@ -685,7 +665,7 @@ const app = {
             let clues = [], keyword = "", state = "question";
             lines.forEach(l => {
                 let cl = l.trimRight();
-                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { state = "solution"; sLines.push(cl.trimLeft().replace(/^Lời giải:\s*/, '')); return; }
+                if (cl.trimLeft().startsWith("Lời giải:") || cl.trimLeft().startsWith("Giải thích:")) { state = "solution"; sLines.push(cl.trimLeft().replace(/^(Lời giải|Giải thích):\s*/, '')); return; }
                 if (state === "solution") { sLines.push(cl); return; }
                 if (cl.trimLeft().startsWith("Từ khóa:")) {
                     let kwMatch = cl.match(/#\s*(.*)/);
@@ -765,7 +745,7 @@ const app = {
             }
             
             this.data['part'+ptype].forEach((rawQ, idx) => {
-                let lines = rawQ.split('\n');
+                let lines = rawQ.split(/\r?\n/);
                 let qid = `part${partCounter}_q${idx+1}`;
                 
                 if(ptype===1 || ptype===2) {
@@ -826,21 +806,22 @@ const app = {
                     let randomRight = [...rightCol].sort(() => 0.5 - Math.random());
                     
                     sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${header}</div>`);
-                    sectionsHTML.push(`<div class='match-container' id='match_${qid}' data-expected='${expectedStr}'><svg class='match-lines' id='svg_${qid}' width='100%' height='100%'></svg><div class='match-columns'>`);
+                    // CSS Responsive cho Mobile: Thêm overflow-x-auto
+                    sectionsHTML.push(`<div class='match-container overflow-x-auto' id='match_${qid}' data-expected='${expectedStr}'><svg class='match-lines' id='svg_${qid}' width='100%' height='100%'></svg><div class='match-columns'>`);
                     
                     sectionsHTML.push(`<div class='match-col match-left'>`);
                     randomLeft.forEach(item => sectionsHTML.push(`<div class='match-item match-item-left' data-id='${item.label}'>${item.text}</div>`));
                     sectionsHTML.push(`</div><div class='match-col match-right'>`);
                     randomRight.forEach(item => sectionsHTML.push(`<div class='match-item match-item-right' data-id='${item.label}'>${item.text}</div>`));
                     sectionsHTML.push(`</div></div>`);
-                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đường kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột và bấm trực tiếp vào đường kẻ hoặc bấm lại vào hai ô đã nối để xóa)</i></div></div>`);
+                    sectionsHTML.push(`<button class='btn-clear-match' onclick='clearMatch("match_${qid}")'>⟲ Xóa tất cả đường kẻ</button><div class='match-tip'><i>(Mẹo: Rê chuột/Chạm và bấm vào đường kẻ hoặc hai ô đã nối để xóa)</i></div></div>`);
                     let ansAttr = encodeURIComponent(answerPairs.join('<br>')).replace(/'/g, "%27");
                     sectionsHTML.push(`<div class='explanation' id='${qid}_result' data-answer-pairs='${ansAttr}' data-solution='${encodedSol}'></div></div>`);
                 }
                 else if(ptype===6) {
                     let [qtext, clues, keyword, sol] = this.parseQuestionLines(lines, ptype);
                     let encodedSol = encodeURIComponent(sol).replace(/'/g, "%27");
-                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.95rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
+                    sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${qtext}</div><div style='font-size:0.85rem; color:var(--text-muted); margin-bottom:12px; text-align:center;'><i>(Bấm vào các số thứ tự màu xanh để xem gợi ý tương ứng)</i></div>`);
                     sectionsHTML.push(`<div class='cw-container' id='cw_${qid}'><div class='cw-grid'>`);
                     
                     let alignedGrid = [];
@@ -911,7 +892,7 @@ const app = {
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>${title}</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <script>
@@ -932,24 +913,24 @@ const app = {
     .score-box { background: var(--primary); color: white; padding: 6px 16px; border-radius: 9999px; font-weight: 600; font-size: 1rem; }
     .timer-container { display: flex; align-items: center; gap: 12px; }
     .timer { font-size: 1.1rem; font-weight: 700; color: #dc2626; font-variant-numeric: tabular-nums; background: #fee2e2; padding: 6px 16px; border-radius: 9999px; }
-    .container { max-width: 800px; margin: 40px auto; padding: 0 16px; }
-    .header { text-align: center; margin-bottom: 40px; }
-    .header h1 { margin: 0; font-size: 2rem; color: var(--text); font-weight: 700; letter-spacing: -0.025em; }
+    .container { max-width: 800px; margin: 20px auto; padding: 0 16px; }
+    .header { text-align: center; margin-bottom: 30px; }
+    .header h1 { margin: 0; font-size: 1.8rem; color: var(--text); font-weight: 700; letter-spacing: -0.025em; }
     .section-title { font-size: 1.25rem; font-weight: 600; color: var(--primary); margin: 2rem 0 0.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border); display: flex; align-items: center; }
     .btn-note { margin-left: 12px; padding: 4px 10px; background: var(--hover-bg); border: 1px solid var(--border); border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--primary); transition: all 0.2s; }
     .btn-note:hover { background: var(--primary); color: white; }
     .score-note { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; }
-    .question { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); margin-bottom: 24px; border: 1px solid var(--border); transition: box-shadow 0.2s; }
+    .question { background: var(--card); padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); margin-bottom: 24px; border: 1px solid var(--border); transition: box-shadow 0.2s; }
     .question:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
     .q-text { font-size: 1.05rem; margin-bottom: 16px; color: var(--text); }
     .option { display: flex; align-items: flex-start; padding: 12px 16px; margin: 8px 0; border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; background: var(--card); color: var(--text); }
     .option:hover { background: var(--hover-bg); }
     .option input { margin-top: 4px; margin-right: 12px; transform: scale(1.2); accent-color: var(--primary); cursor: pointer; }
-    .blank-container input { -webkit-appearance: none; border-radius: 0; border: none; border-bottom: 2px solid var(--primary); background: transparent; color: var(--primary); font-weight: 600; text-align: center; font-size: 1.05rem; padding: 2px 4px; outline: none; transition: border-color 0.2s; width: 60px; }
+    .blank-container input { -webkit-appearance: none; border-radius: 0; border: none; border-bottom: 2px solid var(--primary); background: transparent; color: var(--primary); font-weight: 600; text-align: center; font-size: 1.05rem; padding: 2px 4px; outline: none; transition: border-color 0.2s; width: 60px; max-width: 100%;}
     .match-container { position: relative; margin-top: 15px; }
-    .match-columns { display: flex; justify-content: space-between; }
-    .match-col { display: flex; flex-direction: column; gap: 15px; width: 40%; z-index: 2; }
-    .match-item { background: var(--card); color: var(--text); border: 2px solid var(--border); padding: 12px 16px; border-radius: 8px; cursor: pointer; text-align: center; font-weight: 500; transition: all 0.2s; user-select: none; }
+    .match-columns { display: flex; justify-content: space-between; min-width: 100%; gap: 10px; }
+    .match-col { display: flex; flex-direction: column; gap: 12px; width: 48%; z-index: 2; }
+    .match-item { background: var(--card); color: var(--text); border: 2px solid var(--border); padding: 10px; border-radius: 8px; cursor: pointer; text-align: center; font-weight: 500; font-size: 0.95rem; transition: all 0.2s; user-select: none; }
     .match-item:hover { border-color: var(--primary); background: var(--hover-bg); }
     .match-item.selected { border-color: var(--primary); background: var(--hover-bg); box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.1); }
     .match-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: visible; pointer-events: none; }
@@ -957,14 +938,14 @@ const app = {
     .match-line-group:hover .visible-line { stroke: #ef4444 !important; stroke-width: 5px; }
     .btn-clear-match { margin-top: 15px; background: var(--hover-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; display: block; margin-left: auto; margin-right: auto; z-index: 2; position: relative;}
     .match-tip { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
-    .cw-container { overflow-x: auto; margin-top: 15px; padding-bottom: 10px; text-align: center; }
-    .cw-grid { display: inline-flex; flex-direction: column; gap: 6px; font-family: monospace; }
-    .cw-row { display: flex; align-items: center; }
-    .cw-num { width: 28px; height: 28px; text-align: center; line-height: 26px; margin-right: 12px; font-weight: bold; color: var(--primary); background: var(--bg); border-radius: 50%; cursor: pointer; border: 1px solid var(--primary); flex-shrink: 0; }
+    .cw-container { overflow-x: auto; margin-top: 15px; padding-bottom: 10px; text-align: center; -webkit-overflow-scrolling: touch; }
+    .cw-grid { display: inline-flex; flex-direction: column; gap: 4px; font-family: monospace; }
+    .cw-row { display: flex; align-items: center; justify-content: center; }
+    .cw-num { width: 24px; height: 24px; text-align: center; line-height: 22px; margin-right: 8px; font-weight: bold; color: var(--primary); background: var(--bg); border-radius: 50%; cursor: pointer; border: 1px solid var(--primary); flex-shrink: 0; font-size: 0.85rem;}
     .cw-num:hover { background: var(--primary); color: white; transform: scale(1.1); }
-    .cw-cell { width: 34px; height: 34px; text-align: center; text-transform: uppercase; font-size: 1.1rem; font-weight: bold; border: 2px solid var(--border); border-radius: 6px; margin-right: 4px; outline: none; background: var(--card); color: var(--text); transition: all 0.2s; }
-    .cw-cell.cw-key { border-color: var(--primary); background-color: var(--hover-bg); border-width: 3px; }
-    .cw-empty { width: 34px; height: 34px; margin-right: 4px; display: inline-block; }
+    .cw-cell { width: 30px; height: 30px; text-align: center; text-transform: uppercase; font-size: 1rem; font-weight: bold; border: 2px solid var(--border); border-radius: 6px; margin-right: 2px; outline: none; background: var(--card); color: var(--text); transition: all 0.2s; padding: 0;}
+    .cw-cell.cw-key { border-color: var(--primary); background-color: var(--hover-bg); border-width: 2px; }
+    .cw-empty { width: 30px; height: 30px; margin-right: 2px; display: inline-block; }
     .clue-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; backdrop-filter: blur(2px); }
     .clue-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.2); z-index: 2001; width: 90%; max-width: 450px; border: 1px solid var(--border); text-align: center; }
     .clue-modal-overlay.active { display: block; }
@@ -977,26 +958,27 @@ const app = {
     .spinner { border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     @media (max-width: 640px) {
-        .navbar { flex-direction: column; gap: 12px; padding: 16px; border-radius: 0 0 16px 16px;}
-        .match-col { width: 45%; }
-        .cw-cell { width: 28px; height: 28px; font-size: 1rem; }
+        .navbar { flex-direction: column; gap: 8px; padding: 12px; }
+        .match-columns { flex-direction: column; }
+        .match-col { width: 100%; }
+        .cw-cell { width: 28px; height: 28px; font-size: 0.95rem; }
         .cw-empty { width: 28px; }
-        .cw-num { width: 24px; height: 24px; line-height: 22px; font-size: 0.9rem; }
+        .question { padding: 16px; }
     }
   </style>
 </head>
 <body>
   <div id="antiCheatOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#fef2f2; z-index:99999; justify-content:center; align-items:center; flex-direction:column; font-family:sans-serif; padding: 20px; box-sizing:border-box; text-align:center;">
-      <h1 style="color:#dc2626; margin-bottom:10px;">⚠️ NỘI QUY THI NGHIÊM NGẶT</h1>
-      <div style="background:white; border:2px solid #fca5a5; border-radius:12px; padding:20px; max-width:600px; text-align:left; line-height:1.6; font-size:1.1rem; box-shadow:0 4px 6px rgba(0,0,0,0.05); margin-bottom:20px; color:#0f172a;">
+      <h1 style="color:#dc2626; margin-bottom:10px; font-size:1.5rem; sm:font-size:2rem;">⚠️ NỘI QUY THI NGHIÊM NGẶT</h1>
+      <div style="background:white; border:2px solid #fca5a5; border-radius:12px; padding:20px; max-width:600px; text-align:left; line-height:1.6; font-size:1rem; sm:font-size:1.1rem; box-shadow:0 4px 6px rgba(0,0,0,0.05); margin-bottom:20px; color:#0f172a;">
           Hệ thống đã bật chế độ <b>chống gian lận</b>. Bạn sẽ bị <b style="color:#dc2626;">tự động nộp bài và khóa thi vĩnh viễn</b> nếu vi phạm quá 3 lần một trong các lỗi sau:
-          <ul style="color:#ef4444; font-weight:bold; margin-top:10px; margin-bottom:0;">
+          <ul style="color:#ef4444; font-weight:bold; margin-top:10px; margin-bottom:0; padding-left:20px;">
               <li>Chuyển sang tab hoặc cửa sổ ứng dụng khác.</li>
               <li>Thu nhỏ trình duyệt hoặc rời khỏi màn hình thi.</li>
               <li>Sử dụng các phím tắt bị cấm (F12, Copy, Paste, PrintScreen...).</li>
           </ul>
       </div>
-      <button id="btnAcceptRules" disabled style="background:#94a3b8; color:white; border:none; padding:12px 24px; border-radius:8px; font-size:1.2rem; font-weight:bold; cursor:not-allowed; transition: background 0.2s;">
+      <button id="btnAcceptRules" disabled style="background:#94a3b8; color:white; border:none; padding:12px 24px; border-radius:8px; font-size:1.1rem; font-weight:bold; cursor:not-allowed; transition: background 0.2s; width: 100%; max-width: 300px;">
           Tôi đã hiểu và đồng ý (10s)
       </button>
   </div>
@@ -1018,25 +1000,25 @@ const app = {
   
   <div id="clueModalOverlay" class="clue-modal-overlay" onclick="closeClueModal()"></div>
   <div id="clueModal" class="clue-modal">
-      <h3 id="clueModalTitle" style="margin-top:0; color:var(--primary); font-size:1.3rem;"></h3>
-      <div id="clueModalText" style="font-size:1.1rem; color:var(--text); margin-bottom:20px; padding:12px; background:var(--hover-bg); border-radius:8px; border:1px solid var(--border); line-height: 1.5;"></div>
-      <button onclick="closeClueModal()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer;">Đã hiểu</button>
+      <h3 id="clueModalTitle" style="margin-top:0; color:var(--primary); font-size:1.2rem;"></h3>
+      <div id="clueModalText" style="font-size:1.05rem; color:var(--text); margin-bottom:20px; padding:12px; background:var(--hover-bg); border-radius:8px; border:1px solid var(--border); line-height: 1.5;"></div>
+      <button onclick="closeClueModal()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer;">Đã hiểu</button>
   </div>
 
   <div id="noteModalOverlay" class="clue-modal-overlay" onclick="closeNoteModal()"></div>
   <div id="noteModal" class="clue-modal">
-      <h3 style="margin-top:0; color:var(--primary); font-size:1.3rem;">Lưu ý cách tính điểm</h3>
-      <div style="font-size:1.05rem; color:var(--text); margin-bottom:20px; text-align:left; line-height:1.6; padding: 0 8px;">
+      <h3 style="margin-top:0; color:var(--primary); font-size:1.2rem;">Lưu ý cách tính điểm</h3>
+      <div style="font-size:1rem; color:var(--text); margin-bottom:20px; text-align:left; line-height:1.6; padding: 0 4px;">
           - Trả lời đúng mỗi hàng (KHÔNG xem gợi ý): <strong>2 điểm</strong><br>
           - Trả lời đúng mỗi hàng (CÓ xem gợi ý): <strong>1 điểm</strong><br>
           - Trả lời sai hoặc không trả lời: <strong>0 điểm</strong><br><br>
-          <div style="color: #10b981; background: #ecfdf5; padding: 10px; border-radius: 8px; border: 1px solid #a7f3d0;">
+          <div style="color: #10b981; background: #ecfdf5; padding: 10px; border-radius: 8px; border: 1px solid #a7f3d0; font-size: 0.95rem;">
               ⭐ <strong>Đặc biệt (Từ khóa hàng dọc):</strong><br>
-              + Nếu trả lời đúng tất cả từ khóa: Tổng điểm = (Số hàng chưa trả lời có từ khóa đúng và không xem gợi ý) × 2 + Điểm các hàng đã trả lời.<br>
-              + Nếu sai/không trả lời từ khóa: Tổng điểm = Điểm các hàng đã trả lời.
+              + Trả lời đúng tất cả: Tổng điểm = (Số hàng chưa trả lời có từ khóa đúng và không xem gợi ý) × 2 + Điểm các hàng đã trả lời.<br>
+              + Sai/không trả lời từ khóa: Tính điểm các hàng đã trả lời.
           </div>
       </div>
-      <button onclick="closeNoteModal()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer;">Đã hiểu</button>
+      <button onclick="closeNoteModal()" style="width:100%; padding:12px; background:var(--primary); color:white; border:none; border-radius:8px; font-size:1rem; font-weight:bold; cursor:pointer;">Đã hiểu</button>
   </div>
 
   <script>
@@ -1077,9 +1059,9 @@ const app = {
       
       function lockExam(reason) {
           if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
-          document.documentElement.innerHTML = \`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
-              <h1 style="font-size:3rem; margin-bottom:10px;">⛔ TRUY CẬP BỊ TỪ CHỐI</h1>
-              <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\${reason}</h3>
+          document.documentElement.innerHTML = \`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none; padding:20px;">
+              <h1 style="font-size:2rem; sm:font-size:3rem; margin-bottom:10px;">⛔ TRUY CẬP BỊ TỪ CHỐI</h1>
+              <h3 style="color:#fff; font-weight:normal; max-width:100%; line-height:1.5;">\${reason}</h3>
               <p style="color:#888; margin-top:20px;">Mọi thắc mắc vui lòng liên hệ giáo viên của bạn.</p>
           </body>\`;
       }
@@ -1090,12 +1072,12 @@ const app = {
           else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
           else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
           else if (START_TIME && nowInit < START_TIME) {
-              document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
-                  <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
-                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
-                  \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
-                  <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
-                  <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
+              document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none; padding:20px;">
+                  <h1 style="color:#2563eb; margin-bottom:10px; font-size:1.5rem; sm:font-size:2rem;">KỲ THI CHƯA BẮT ĐẦU</h1>
+                  <p style="font-size:1rem; sm:font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
+                  \${END_TIME_STR ? \`<p style="font-size:1rem; sm:font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
+                  <div id="countdownWatch" style="font-size:2.5rem; sm:font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
+                  <p style="color:#64748b; margin-top:20px; font-style:italic; font-size:0.9rem;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
               </body>\`;
               let waitInterval = setInterval(() => {
                   let r = Math.floor((START_TIME - new Date().getTime()) / 1000);
@@ -1278,8 +1260,17 @@ const app = {
               let rightEl = container.querySelector(\`.match-item-right[data-id="\${link.r}"]\`);
               if (leftEl && rightEl) {
                   let lRect = leftEl.getBoundingClientRect(), rRect = rightEl.getBoundingClientRect();
-                  let x1 = lRect.right - cRect.left, y1 = lRect.top + lRect.height/2 - cRect.top;
-                  let x2 = rRect.left - cRect.left, y2 = rRect.top + rRect.height/2 - cRect.top;
+                  let scrollLeft = container.scrollLeft || 0;
+                  // Tính toán tọa độ x,y theo vị trí tương đối
+                  let x1 = lRect.right - cRect.left + scrollLeft, y1 = lRect.top + lRect.height/2 - cRect.top;
+                  let x2 = rRect.left - cRect.left + scrollLeft, y2 = rRect.top + rRect.height/2 - cRect.top;
+                  
+                  // Đảm bảo nét vẽ khi layout bị vỡ thành 1 cột trên mobile
+                  if(window.innerWidth <= 640) {
+                      x1 = lRect.left + lRect.width/2 - cRect.left + scrollLeft; y1 = lRect.bottom - cRect.top;
+                      x2 = rRect.left + rRect.width/2 - cRect.left + scrollLeft; y2 = rRect.top - cRect.top;
+                  }
+
                   let g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
                   if (!isGraded) g.setAttribute('class', 'match-line-group');
                   let visibleLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
@@ -1522,13 +1513,13 @@ const app = {
 
          let summaryHtml = "";
          if (IS_PUBLISH_SCORE) {
-             summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
-             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
+             summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:12px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.5rem; sm:font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
+             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:0.95rem; sm:font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1rem; sm:font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
              summaryHtml += \`</table>\${violationReportHtml}</div>\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
-             document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
+             document.getElementById('scoreDisplay').innerHTML = 'Tổng: ' + totalScore + '/' + maxPossibleScore;
          } else {
-             summaryHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\${violationReportHtml}</div>\`;
+             summaryHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.2rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\${violationReportHtml}</div>\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Đã nộp bài';
          }
