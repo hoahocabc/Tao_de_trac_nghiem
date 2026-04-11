@@ -1,6 +1,9 @@
 ::-webkit-scrollbar { 
-    width: 8px; 
-    height: 8px; 
+    width: 6px; 
+    height: 6px; 
+}
+@media (min-width: 640px) {
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
 }
 ::-webkit-scrollbar-track { 
     background: transparent; 
@@ -20,28 +23,34 @@
     scrollbar-width: none; 
 }
 
-/* Hiệu ứng kéo thả Sliding sinh động */
+/* Touch Action Support cho Mobile Drag & Drop */
 .q-item-drag {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Bắt buộc có để polyfill nhận diện touch drag trên mobile */
+    touch-action: pan-y; 
+}
+.drag-handle {
+    touch-action: none; /* Khóa cuộn trang khi chạm vào icon grip */
 }
 
 .dragging-item {
     opacity: 0.4;
-    transform: scale(0.96);
+    transform: scale(0.98);
     background-color: #eff6ff !important;
     border-style: dashed !important;
     border-color: #3b82f6 !important;
     box-shadow: none !important;
+    z-index: 50;
 }
 
 .drag-over-top {
     border-top: 4px solid #3b82f6 !important;
-    padding-top: 1.5rem !important;
+    padding-top: 1rem !important;
     margin-top: 0.5rem !important;
 }
 
 .drag-over-bottom {
     border-bottom: 4px solid #3b82f6 !important;
-    padding-bottom: 1.5rem !important;
+    padding-bottom: 1rem !important;
     margin-bottom: 0.5rem !important;
 }
