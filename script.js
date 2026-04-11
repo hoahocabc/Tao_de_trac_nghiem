@@ -74,7 +74,7 @@ const app = {
         let html = '';
         for(let i=1; i<=6; i++) {
             html += `
-            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'} p-2 sm:p-3" onclick="app.switchTab(${i})">
+            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i})">
                 <span class="text-center w-full truncate">Phần ${i}</span>
             </button>`;
         }
@@ -85,7 +85,7 @@ const app = {
     switchTab(tab) {
         this.activeTab = tab;
         const titles = ["Một phương án đúng", "Nhiều đáp án đúng", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Giải ô chữ"];
-        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-2 text-base">${titles[tab-1]}</span>`;
+        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-sm sm:text-base">${titles[tab-1]}</span>`;
         this.renderTabs();
         this.renderQList();
         document.getElementById('qInput').value = '';
@@ -96,33 +96,33 @@ const app = {
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
-        let html = '<div class="flex flex-wrap bg-white rounded-xl p-1.5 border border-slate-200 shadow-sm gap-1.5 items-center w-full">';
+        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border border-slate-200 shadow-sm gap-1 items-center w-full">';
         
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-sm" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-sm" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
-        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
         extra_symbols.forEach(s => {
-            html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-sm" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
+            html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs sm:text-sm" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
         });
         
-        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
-        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<button class="px-2.5 py-1 text-slate-700 hover:bg-slate-100 rounded font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs sm:text-sm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2.5 py-1 text-slate-700 hover:bg-slate-100 rounded italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-xs sm:text-sm" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
         
-        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
         
-        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-lg text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3.5 h-3.5 mr-1.5"></i> Ảnh</button>`;
-        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-lg text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3.5 h-3.5 mr-1.5"></i> Video</button>`;
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] sm:text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[10px] sm:text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
         
         html += `</div>`;
         tb.innerHTML = html;
@@ -150,21 +150,21 @@ const app = {
         const overlay = document.createElement('div');
         overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4';
         overlay.innerHTML = `
-            <div class="bg-white rounded-2xl shadow-xl p-5 w-full max-w-sm flex flex-col gap-4 transform transition-all">
-                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                    <i data-lucide="arrow-right-circle" class="w-5 h-5 text-blue-500"></i> Chèn mũi tên
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-5 w-full max-w-sm flex flex-col gap-3 transform transition-all">
+                <h3 class="text-base sm:text-lg font-bold text-slate-900 flex items-center gap-1.5">
+                    <i data-lucide="arrow-right-circle" class="w-4 h-4 text-blue-500"></i> Chèn mũi tên
                 </h3>
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
+                    <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên:</label>
+                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2.5 py-1.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
                 </div>
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên (tùy chọn):</label>
-                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-xl px-3 py-2 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
+                    <label class="block text-xs sm:text-sm font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên:</label>
+                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2.5 py-1.5 text-sm outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
                 </div>
-                <div class="flex justify-end gap-2 mt-2">
-                    <button id="arrowCancelBtn" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-xl hover:bg-slate-200 transition-colors text-sm">Hủy</button>
-                    <button id="arrowConfirmBtn" class="px-4 py-2 bg-blue-500 text-white font-bold rounded-xl hover:bg-blue-600 transition-colors text-sm shadow-[0_3px_0_0_#1d4ed8] active:translate-y-1 active:shadow-none">Chèn vào</button>
+                <div class="flex justify-end gap-2 mt-1">
+                    <button id="arrowCancelBtn" class="px-3 py-1.5 bg-slate-100 text-slate-700 font-bold rounded-lg hover:bg-slate-200 transition-colors text-xs sm:text-sm">Hủy</button>
+                    <button id="arrowConfirmBtn" class="px-3 py-1.5 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-colors text-xs sm:text-sm shadow-[0_2px_0_0_#1d4ed8] active:translate-y-0.5 active:shadow-none">Chèn vào</button>
                 </div>
             </div>
         `;
@@ -288,56 +288,96 @@ const app = {
         this.renderQList();
     },
 
+    /* ---- Xử lý hiệu ứng Kéo Thả ---- */
     handleDragStart(e, index) {
         this.draggedItemIndex = index;
-        e.target.style.opacity = '0.5';
         e.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => e.target.classList.add('dragging-item'), 0);
     },
 
-    handleDragOver(e) {
+    handleDragOver(e, index) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
+        
+        if (index === this.draggedItemIndex) return false;
+
+        const rect = e.currentTarget.getBoundingClientRect();
+        const relY = e.clientY - rect.top;
+        const insertAfter = relY >= rect.height / 2;
+
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+
+        if (insertAfter) {
+            e.currentTarget.classList.add('drag-over-bottom');
+        } else {
+            e.currentTarget.classList.add('drag-over-top');
+        }
         return false;
+    },
+
+    handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
     },
 
     handleDrop(e, dropIndex) {
         e.stopPropagation();
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+        
         if (this.draggedItemIndex !== null && this.draggedItemIndex !== dropIndex) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const relY = e.clientY - rect.top;
+            const insertAfter = relY >= rect.height / 2;
+            
             const list = this.data['part' + this.activeTab];
+            let insertIndex = dropIndex;
+            
+            if (this.draggedItemIndex < dropIndex && insertAfter) insertIndex = dropIndex;
+            else if (this.draggedItemIndex < dropIndex && !insertAfter) insertIndex = dropIndex - 1;
+            else if (this.draggedItemIndex > dropIndex && insertAfter) insertIndex = dropIndex + 1;
+            else if (this.draggedItemIndex > dropIndex && !insertAfter) insertIndex = dropIndex;
+            
             const item = list.splice(this.draggedItemIndex, 1)[0];
-            list.splice(dropIndex, 0, item);
+            list.splice(insertIndex, 0, item);
             this.renderQList();
         }
         return false;
     },
 
     handleDragEnd(e) {
-        e.target.style.opacity = '1';
+        e.target.classList.remove('dragging-item');
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
         this.draggedItemIndex = null;
     },
 
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-3 sm:p-4 border-2 border-slate-200 rounded-xl bg-white shadow-[0_4px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_4px_0_0_#60a5fa] transition-all group relative pr-[5.5rem] cursor-default transform hover:-translate-y-1 mb-4">
-                <div class="flex items-center gap-2 mb-2 border-b-2 border-slate-100 pb-2">
+            <div draggable="true" 
+                 class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-20 cursor-default mb-2"
+                 ondragstart="app.handleDragStart(event, ${i})" 
+                 ondragover="app.handleDragOver(event, ${i})" 
+                 ondragleave="app.handleDragLeave(event)"
+                 ondrop="app.handleDrop(event, ${i})" 
+                 ondragend="app.handleDragEnd(event)">
+                 
+                <div class="flex items-center gap-1.5 mb-1.5 border-b border-slate-100 pb-1.5">
                     <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
-                        <i data-lucide="grip-vertical" class="w-4 h-4"></i>
+                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5 pointer-events-none"></i>
                     </div>
-                    <span class="bg-blue-100 text-blue-700 text-[10px] sm:text-xs font-black px-2 py-1 sm:px-3 sm:py-1.5 rounded-lg">Câu ${i+1}</span>
+                    <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 sm:px-2 sm:py-1 rounded-md">Câu ${i+1}</span>
                 </div>
-                <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
-                <div class="absolute top-2 sm:top-4 right-2 sm:right-4 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
-                    <button class="p-2 sm:p-2.5 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border-2 border-blue-100 hover:border-blue-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
-                    <button class="p-2 sm:p-2.5 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border-2 border-red-100 hover:border-red-600 rounded-xl transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-4 sm:h-4"></i></button>
+                <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium pointer-events-none">${q.replace(/</g,'&lt;')}</div>
+                <div class="absolute top-2 right-2 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
+                    <button class="p-1.5 sm:p-2 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
+                    <button class="p-1.5 sm:p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
                 </div>
             </div>
         `).join('');
         
         document.getElementById('qList').innerHTML = html || `
-            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-4 py-12">
-                <div class="bg-slate-100 p-4 sm:p-5 rounded-2xl shadow-inner"><i data-lucide="inbox" class="w-10 h-10 sm:w-12 sm:h-12 text-slate-300"></i></div>
-                <p class="text-xs sm:text-sm font-bold text-slate-400">Chưa có câu hỏi nào</p>
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-8">
+                <div class="bg-slate-100 p-3 sm:p-4 rounded-xl shadow-inner"><i data-lucide="inbox" class="w-8 h-8 sm:w-10 sm:h-10 text-slate-300"></i></div>
+                <p class="text-[10px] sm:text-xs font-bold text-slate-400">Chưa có câu hỏi nào</p>
             </div>`;
         const badge = document.getElementById('qCountBadge');
         if(badge) badge.innerText = `${arr.length} câu`;
@@ -429,7 +469,7 @@ const app = {
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
         if(this.data.gf_config.fields.length > 0) this.renderGFFields();
         else {
-            document.getElementById('gfFieldsTable').innerHTML = `<tr><td colspan="4" class="text-center py-6 sm:py-10 text-slate-400 font-medium italic"><i data-lucide="link" class="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-2 text-slate-300"></i>Dán link Form vào ô phía trên để bắt đầu phân tích</td></tr>`;
+            document.getElementById('gfFieldsTable').innerHTML = `<tr><td colspan="4" class="text-center py-5 sm:py-8 text-slate-400 font-medium italic"><i data-lucide="link" class="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-slate-300"></i>Dán link Form vào ô phía trên để bắt đầu phân tích</td></tr>`;
             if (typeof lucide !== 'undefined') lucide.createIcons();
         }
     },
@@ -516,10 +556,10 @@ const app = {
         const tb = document.getElementById('gfFieldsTable');
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
-                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 sm:py-2 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 sm:py-2 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
-                <td class="p-2 sm:p-3">
-                    <select class="form-select py-1.5 sm:py-2 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                <td class="p-2 sm:p-2.5"><input type="text" class="form-input py-1 sm:py-1.5 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-2.5 hidden sm:table-cell"><input type="text" class="form-input py-1 sm:py-1.5 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-2.5">
+                    <select class="form-select py-1 sm:py-1.5 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option value="Học sinh tự nhập" ${f.type==="Học sinh tự nhập"||f.type==="Tự nhập"?"selected":""}>Học sinh tự nhập</option>
                         <option value="Điểm số (Tự động)" ${f.type==="Điểm số (Tự động)"?"selected":""}>Điểm số (Tự động)</option>
                         <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
@@ -528,9 +568,9 @@ const app = {
                         <option value="Khác (Tự động)" ${f.type==="Khác (Tự động)"||f.type==="Tự động"?"selected":""}>Khác (Tự động)</option>
                     </select>
                 </td>
-                <td class="p-2 sm:p-3 text-center">
+                <td class="p-2 sm:p-2.5 text-center">
                     <div class="flex justify-center items-center h-full">
-                        <input type="checkbox" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                        <input type="checkbox" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
                     </div>
                 </td>
             </tr>
