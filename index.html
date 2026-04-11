@@ -26,11 +26,29 @@
             .btn-primary { @apply bg-blue-500 text-white shadow-[0_3px_0_0_#1d4ed8] hover:shadow-[0_4px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8]; }
             .btn-green { @apply bg-emerald-500 text-white shadow-[0_3px_0_0_#047857] hover:shadow-[0_4px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
             .btn-outline { @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_3px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_4px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
-            .tab-btn { @apply w-full flex flex-col items-center justify-center px-1.5 py-1.5 sm:py-2 text-sm sm:text-base font-extrabold rounded-lg transition-all duration-200 border-2 active:translate-y-1; }
-            .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_3px_0_0_#60a5fa] -translate-y-1 scale-105; }
-            .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_3px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
+            
+            /* Đã tối ưu chiều cao tab */
+            .tab-btn { @apply w-full flex items-center justify-center px-1.5 py-1.5 sm:py-1.5 text-xs sm:text-sm font-extrabold rounded-md transition-all duration-200 border-2 active:translate-y-0.5; }
+            .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_2px_0_0_#60a5fa] -translate-y-0.5 scale-[1.02]; }
+            .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_2px_0_0_#e2e8f0] hover:-translate-y-0.5 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
+            
             .form-label { @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1; }
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-lg px-3 py-1.5 text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 shadow-inner; }
+
+            /* Hiệu ứng mượt mà khi Kéo - Thả */
+            .drag-over-top {
+                box-shadow: 0 -3px 0 0 #3b82f6, 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                border-color: #93c5fd !important;
+                background-color: #eff6ff !important;
+                transform: translateY(2px) scale(1.01);
+            }
+            .drag-over-bottom {
+                box-shadow: 0 3px 0 0 #3b82f6, 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                border-color: #93c5fd !important;
+                background-color: #eff6ff !important;
+                transform: translateY(-2px) scale(1.01);
+            }
+            .dragging-item { opacity: 0.4; border-style: dashed !important; transform: scale(0.98); }
         }
     </style>
 </head>
@@ -97,16 +115,19 @@
 
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3 flex-1 items-start">
             <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-16 h-[85vh] lg:h-[calc(100vh-8.5rem)]">
-                <div class="bg-slate-100 p-1.5 sm:p-2 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-1 shrink-0" id="tabsContainer"></div>
+                <div class="bg-slate-100 p-1.5 sm:p-1.5 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-1 shrink-0" id="tabsContainer"></div>
+                
                 <div class="p-2 sm:p-3 flex-1 flex flex-col bg-slate-50 overflow-y-auto min-h-0">
                     <div class="flex justify-between items-center mb-2 shrink-0">
                         <h2 class="text-base sm:text-lg font-extrabold text-blue-700 flex items-center gap-1.5" id="partTitle">Phần 1</h2>
                         <button class="btn btn-outline py-1 px-2.5 text-xs" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-3.5 h-3.5 mr-1 text-blue-600"></i> HD nhập</button>
                     </div>
+                    
                     <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all shadow-sm">
                         <div class="bg-slate-100 p-1 border-b border-slate-200" id="editorToolbar"></div>
                         <textarea id="qInput" class="w-full p-3 font-mono text-sm sm:text-base flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[350px] lg:min-h-[400px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
+                    
                     <div class="mt-2 flex justify-end shrink-0"><button class="btn btn-primary w-full sm:w-auto text-sm py-1.5" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-4 h-4 mr-1.5"></i> Thêm vào danh sách</button></div>
                 </div>
             </div>
@@ -155,9 +176,13 @@
     <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-2xl p-4 sm:p-5 w-full max-w-4xl transform transition-all duration-300 scale-95 translate-y-4">
             <h2 class="text-lg sm:text-xl font-bold mb-3">Chỉnh sửa câu hỏi</h2>
-            <div class="bg-slate-100 p-1 border-b border-slate-200" id="editorToolbarEdit"></div>
-            <textarea id="qInputEdit" class="w-full p-3 font-mono text-sm sm:text-base min-h-[250px] border-2 border-slate-200 outline-none focus:border-blue-500 rounded-b-lg"></textarea>
-            <div class="flex justify-end gap-2 mt-3">
+            
+            <div class="flex flex-col bg-white border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all shadow-sm">
+                <div class="bg-slate-100 p-1 border-b border-slate-200" id="editorToolbarEdit"></div>
+                <textarea id="qInputEdit" class="w-full p-4 font-mono text-sm sm:text-base min-h-[300px] outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed"></textarea>
+            </div>
+
+            <div class="flex justify-end gap-2 mt-4">
                 <button class="btn btn-outline" onclick="app.closeModal('editModal')">Hủy</button>
                 <button class="btn btn-primary" onclick="app.saveEditQuestion()">Lưu thay đổi</button>
             </div>
