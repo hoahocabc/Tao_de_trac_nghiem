@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.\n\nVí dụ:\n##\nChất nào sau đây là muối ăn?\nA. NaOH\n# B. NaCl\nC. HCl\nD. H2SO4\nLời giải: NaCl là natri clorua, thành phần chính của muối ăn.",
-    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\n##\nNhững chất nào sau đây là kim loại kiềm?\n# A. Na\n# B. K\nC. Mg\nD. Ca\nLời giải: Na và K thuộc nhóm IA.",
-    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.\n\nVí dụ:\n##\nCông thức hóa học của axit sunfuric là gì?\n# H2SO4\n# h2so4",
-    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.\n\nVí dụ:\n##\nPhản ứng giữa axit và bazơ gọi là phản ứng =(1)=. Phản ứng này luôn tạo ra =(2)= và nước.\nĐáp án:\n=(1)=\n# trung hòa\n# trung hoa\n=(2)=\n# muối\n# muoi",
-    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).\n\nVí dụ:\n##\nHãy ghép tên gọi với công thức tương ứng:\nCột I:\n1. Axit clohidric\n2. Natri hiđroxit\nCột II:\nA. NaOH\nB. HCl\n# 1=B, 2=A",
-    6: "Dạng 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\n##\nHạt mang điện tích âm trong nguyên tử là gì? # ELECTRON\nHạt không mang điện trong hạt nhân? # NEUTRON\nTừ khóa: # NGUYEN TU"
+    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Nội dung câu hỏi nằm ở dòng trên cùng.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án ĐÚNG.\n- Thêm 'Lời giải:' ở cuối nếu cần giải thích.\n\nVí dụ:\nChất nào sau đây là muối ăn?\nA. NaOH\n# B. NaCl\nC. HCl\nD. H2SO4\nLời giải: NaCl là natri clorua, thành phần chính của muối ăn.",
+    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\nNhững chất nào sau đây là kim loại kiềm?\n# A. Na\n# B. K\nC. Mg\nD. Ca\nLời giải: Na và K thuộc nhóm IA.",
+    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Các đáp án được chấp nhận ghi ở dưới cùng, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ:\nCông thức hóa học của axit sunfuric là gì?\n# H2SO4\n# h2so4",
+    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.\n\nVí dụ:\nPhản ứng giữa axit và bazơ gọi là phản ứng =(1)=. Phản ứng này luôn tạo ra =(2)= và nước.\nĐáp án:\n=(1)=\n# trung hòa\n# trung hoa\n=(2)=\n# muối\n# muoi",
+    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).\n\nVí dụ:\nHãy ghép tên gọi với công thức tương ứng:\nCột I:\n1. Axit clohidric\n2. Natri hiđroxit\nCột II:\nA. NaOH\nB. HCl\n# 1=B, 2=A",
+    6: "Dạng 6: GIẢI Ô CHỮ\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\nHạt mang điện tích âm trong nguyên tử là gì? # ELECTRON\nHạt không mang điện trong hạt nhân? # NEUTRON\nTừ khóa: # NGUYEN TU"
 };
 
 const chem_symbols = [
@@ -439,7 +439,18 @@ const app = {
                     
                     let loadedGF = p.gf_config;
                     if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) { loadedGF = this.data.gf_config; }
-                    this.data = { part1: p.part1||[], part2: p.part2||[], part3: p.part3||[], part4: p.part4||[], part5: p.part5||[], part6: p.part6||[], gf_config: loadedGF };
+                    
+                    const cleanQuestions = (arr) => (arr || []).map(q => q.replace(/^(##\s*)+/, '').trim());
+
+                    this.data = { 
+                        part1: cleanQuestions(p.part1), 
+                        part2: cleanQuestions(p.part2), 
+                        part3: cleanQuestions(p.part3), 
+                        part4: cleanQuestions(p.part4), 
+                        part5: cleanQuestions(p.part5), 
+                        part6: cleanQuestions(p.part6), 
+                        gf_config: loadedGF 
+                    };
                     this.switchTab(1);
                 } catch(err) { alert("Lỗi khi đọc file. File không đúng định dạng!"); }
             };
