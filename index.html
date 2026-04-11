@@ -26,7 +26,7 @@
             .btn-primary { @apply bg-blue-500 text-white shadow-[0_3px_0_0_#1d4ed8] hover:shadow-[0_4px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8]; }
             .btn-green { @apply bg-emerald-500 text-white shadow-[0_3px_0_0_#047857] hover:shadow-[0_4px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
             .btn-outline { @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_3px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_4px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
-            .tab-btn { @apply w-full flex flex-col items-center justify-center px-2 py-1.5 sm:py-2 text-sm sm:text-base font-extrabold rounded-lg transition-all duration-200 border-2 active:translate-y-1; }
+            .tab-btn { @apply w-full flex flex-col items-center justify-center px-1.5 py-1.5 sm:py-2 text-sm sm:text-base font-extrabold rounded-lg transition-all duration-200 border-2 active:translate-y-1; }
             .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_3px_0_0_#60a5fa] -translate-y-1 scale-105; }
             .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_3px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
             .form-label { @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1; }
@@ -36,27 +36,27 @@
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
     <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-        <div class="max-w-[1400px] mx-auto px-4 lg:px-6 h-14 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="bg-blue-500 p-2 rounded-lg text-white shadow-[0_2px_0_0_#1d4ed8]"><i data-lucide="flask-conical" class="w-5 h-5"></i></div>
-                <h1 class="text-xl font-bold text-slate-900 tracking-tight hidden md:block">Tạo đề trắc nghiệm - Hóa học ABC</h1>
+        <div class="max-w-[1400px] mx-auto px-3 lg:px-5 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-500 p-1.5 rounded-lg text-white shadow-[0_2px_0_0_#1d4ed8]"><i data-lucide="flask-conical" class="w-5 h-5"></i></div>
+                <h1 class="text-lg font-bold text-slate-900 tracking-tight hidden md:block">Tạo đề trắc nghiệm - Hóa học ABC</h1>
             </div>
-            <div class="flex items-center gap-2 md:gap-3 overflow-x-auto no-scrollbar pb-2 md:pb-0 pt-2 md:pt-0">
-                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span></button>
-                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Mở file</span></button>
-                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Lưu lại</span></button>
-                <div class="w-px h-6 bg-slate-200 mx-1"></div>
-                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span>Google Form</span></button>
-                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span></button>
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 md:pb-0 pt-1 md:pt-0">
+                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-1.5"></i><span class="hidden sm:inline">Tạo mới</span></button>
+                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-1.5"></i><span class="hidden sm:inline">Mở file</span></button>
+                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-1.5"></i><span class="hidden sm:inline">Lưu lại</span></button>
+                <div class="w-px h-6 bg-slate-200 mx-0.5"></div>
+                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-1.5"></i><span>Google Form</span></button>
+                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-1.5"></i><span>Xuất HTML</span></button>
             </div>
         </div>
     </header>
 
-    <main class="flex-1 max-w-[1500px] mx-auto w-full px-4 lg:px-6 py-3 flex flex-col gap-3">
-        <section class="bg-white p-3 lg:p-4 rounded-xl shadow-sm border border-slate-200 shrink-0">
-            <h2 class="form-label mb-2 flex items-center gap-2"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4">
-                <div class="flex flex-col gap-2">
+    <main class="flex-1 max-w-[1500px] mx-auto w-full px-3 lg:px-5 py-2 flex flex-col gap-2 sm:gap-3">
+        <section class="bg-white p-2 sm:p-3 rounded-xl shadow-sm border border-slate-200 shrink-0">
+            <h2 class="form-label mb-1.5 flex items-center gap-1.5"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-3">
+                <div class="flex flex-col gap-1.5">
                     <div>
                         <label class="form-label">Tên bài kiểm tra</label>
                         <input type="text" id="quizTitle" class="form-input" value="BÀI TẬP TRẮC NGHIỆM">
@@ -66,7 +66,7 @@
                         <input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A">
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <div>
                         <label class="form-label">Giờ bắt đầu</label>
                         <input type="text" id="startTime" class="form-input" placeholder="VD: 08:00 20/11/2026">
@@ -76,88 +76,88 @@
                         <input type="text" id="endTime" class="form-input" placeholder="VD: 09:00 20/11/2026">
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-1.5">
                     <div>
                         <label class="form-label">Giao diện (Theme)</label>
                         <select id="themeSelect" class="form-select"></select>
                     </div>
-                    <div class="flex flex-col gap-1 mt-1">
+                    <div class="flex flex-col gap-1 mt-0.5">
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="antiCheat" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
+                            <input type="checkbox" id="antiCheat" class="w-3.5 h-3.5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
                             <span class="text-xs sm:text-sm font-semibold text-slate-700">Chống gian lận (Chuyển tab/Mất focus)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
-                            <input type="checkbox" id="publishScore" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
-                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Công bố điểm & đáp án sau khi nộp</span>
+                            <input type="checkbox" id="publishScore" class="w-3.5 h-3.5 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
+                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Công bố điểm & đáp án sau nộp</span>
                         </label>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1 items-start">
-            <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-16 h-[85vh] lg:h-[calc(100vh-9rem)]">
-                <div class="bg-slate-100 p-2 lg:p-3 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-2 shrink-0" id="tabsContainer"></div>
-                <div class="p-3 flex-1 flex flex-col bg-slate-50 overflow-y-auto min-h-0">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-2.5 sm:gap-3 flex-1 items-start">
+            <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden sticky top-16 h-[85vh] lg:h-[calc(100vh-8.5rem)]">
+                <div class="bg-slate-100 p-1.5 sm:p-2 border-b border-slate-200 grid grid-cols-3 lg:grid-cols-6 gap-1 shrink-0" id="tabsContainer"></div>
+                <div class="p-2 sm:p-3 flex-1 flex flex-col bg-slate-50 overflow-y-auto min-h-0">
                     <div class="flex justify-between items-center mb-2 shrink-0">
-                        <h2 class="text-lg font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Phần 1</h2>
-                        <button class="btn btn-outline py-1 px-3 text-xs" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-4 h-4 mr-1.5 text-blue-600"></i> HD nhập</button>
+                        <h2 class="text-base sm:text-lg font-extrabold text-blue-700 flex items-center gap-1.5" id="partTitle">Phần 1</h2>
+                        <button class="btn btn-outline py-1 px-2.5 text-xs" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-3.5 h-3.5 mr-1 text-blue-600"></i> HD nhập</button>
                     </div>
-                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
-                        <div class="bg-slate-100 p-1.5 border-b-2 border-slate-200" id="editorToolbar"></div>
-                        <textarea id="qInput" class="w-full p-4 font-mono text-base flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[450px] lg:min-h-[500px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
+                    <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-xl overflow-hidden focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all shadow-sm">
+                        <div class="bg-slate-100 p-1 border-b border-slate-200" id="editorToolbar"></div>
+                        <textarea id="qInput" class="w-full p-3 font-mono text-sm sm:text-base flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[350px] lg:min-h-[400px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
-                    <div class="mt-3 flex justify-end shrink-0"><button class="btn btn-primary w-full sm:w-auto text-base py-1.5" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách</button></div>
+                    <div class="mt-2 flex justify-end shrink-0"><button class="btn btn-primary w-full sm:w-auto text-sm py-1.5" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-4 h-4 mr-1.5"></i> Thêm vào danh sách</button></div>
                 </div>
             </div>
 
-            <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[60vh] lg:h-[calc(100vh-9rem)]">
-                <div class="p-3 border-b border-slate-200 bg-slate-50 rounded-t-xl flex justify-between items-center shrink-0">
-                    <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm lg:text-base"><i data-lucide="list-checks" class="w-5 h-5 text-emerald-500"></i> Danh sách câu hỏi</h3>
-                    <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full shadow-[0_2px_0_0_#a7f3d0]">0 câu</span>
+            <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[60vh] lg:h-[calc(100vh-8.5rem)]">
+                <div class="p-2.5 sm:p-3 border-b border-slate-200 bg-slate-50 rounded-t-xl flex justify-between items-center shrink-0">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-1.5 text-sm lg:text-base"><i data-lucide="list-checks" class="w-4 h-4 text-emerald-500"></i> Danh sách câu hỏi</h3>
+                    <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-0.5 rounded-full shadow-[0_1px_0_0_#a7f3d0]">0 câu</span>
                 </div>
-                <div id="qList" class="p-3 space-y-3 overflow-y-auto flex-1 bg-slate-50/50"></div>
+                <div id="qList" class="p-2 sm:p-3 space-y-2 overflow-y-auto flex-1 bg-slate-50/50"></div>
             </div>
         </section>
     </main>
 
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
-            <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-slate-100 shrink-0">
-                <h2 class="text-lg sm:text-2xl font-bold text-slate-900 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6 sm:w-7 sm:h-7 text-green-500"></i> Cấu hình Google Form</h2>
-                <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-2 rounded-lg active:scale-90"><i data-lucide="x" class="w-5 h-5"></i></button>
+        <div class="modal-content bg-white rounded-2xl shadow-2xl p-3 sm:p-5 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
+            <div class="flex justify-between items-center mb-3 pb-2 border-b-2 border-slate-100 shrink-0">
+                <h2 class="text-base sm:text-xl font-bold text-slate-900 flex items-center gap-1.5"><i data-lucide="database" class="w-5 h-5 sm:w-6 sm:h-6 text-green-500"></i> Cấu hình Google Form</h2>
+                <button onclick="app.closeModal('gfModal')" class="text-slate-400 hover:text-red-500 transition-all bg-slate-100 hover:bg-red-50 p-1.5 rounded-lg active:scale-90"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
             
-            <div class="flex flex-col sm:flex-row gap-3 mb-4 shrink-0">
+            <div class="flex flex-col sm:flex-row gap-2 mb-3 shrink-0">
                 <input type="text" id="gfUrlInput" class="form-input flex-1" placeholder="Dán link Form vào đây (Ctrl + V)...">
-                <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()"><i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>Phân tích</button>
+                <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()"><i data-lucide="zap" class="w-4 h-4 sm:mr-1.5"></i>Phân tích</button>
             </div>
 
-            <div class="flex-1 overflow-y-auto min-h-0 border-2 border-slate-200 rounded-lg mb-4 bg-slate-50 shadow-inner p-1 sm:p-2">
+            <div class="flex-1 overflow-y-auto min-h-0 border-2 border-slate-200 rounded-lg mb-3 bg-slate-50 shadow-inner p-1">
                 <table class="w-full text-xs sm:text-sm text-left">
-                    <thead class="bg-white sticky top-0 z-10 shadow-sm rounded-lg">
+                    <thead class="bg-white sticky top-0 z-10 shadow-sm rounded-md">
                         <tr>
-                            <th class="p-2 sm:p-4 font-bold text-slate-700">Tiêu đề trường</th>
-                            <th class="p-2 sm:p-4 font-bold text-slate-700 hidden sm:table-cell">Mã ID</th>
-                            <th class="p-2 sm:p-4 font-bold text-slate-700">Loại dữ liệu</th>
-                            <th class="p-2 sm:p-4 font-bold text-slate-700 text-center">Bắt buộc</th>
+                            <th class="p-2 sm:p-3 font-bold text-slate-700">Tiêu đề trường</th>
+                            <th class="p-2 sm:p-3 font-bold text-slate-700 hidden sm:table-cell">Mã ID</th>
+                            <th class="p-2 sm:p-3 font-bold text-slate-700">Loại dữ liệu</th>
+                            <th class="p-2 sm:p-3 font-bold text-slate-700 text-center">Bắt buộc</th>
                         </tr>
                     </thead>
                     <tbody id="gfFieldsTable" class="divide-y divide-slate-100 bg-white"></tbody>
                 </table>
             </div>
-            <div class="flex justify-end gap-3 pt-3 border-t-2 border-slate-100 shrink-0">
+            <div class="flex justify-end pt-2 border-t border-slate-100 shrink-0">
                 <button class="btn btn-primary px-6 sm:px-8" onclick="app.saveGFConfig()">Lưu thông tin</button>
             </div>
         </div>
     </div>
 
-    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 opacity-0 pointer-events-none">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 w-full max-w-4xl transform transition-all duration-300 scale-95 translate-y-4">
-            <h2 class="text-xl font-bold mb-4">Chỉnh sửa câu hỏi</h2>
-            <div class="bg-slate-100 p-1.5 border-b-2 border-slate-200" id="editorToolbarEdit"></div>
-            <textarea id="qInputEdit" class="w-full p-4 font-mono text-base min-h-[300px] border-2 border-slate-200 outline-none focus:border-blue-500 rounded-b-lg"></textarea>
-            <div class="flex justify-end gap-3 mt-4">
+    <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-3 transition-all duration-300 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl p-4 sm:p-5 w-full max-w-4xl transform transition-all duration-300 scale-95 translate-y-4">
+            <h2 class="text-lg sm:text-xl font-bold mb-3">Chỉnh sửa câu hỏi</h2>
+            <div class="bg-slate-100 p-1 border-b border-slate-200" id="editorToolbarEdit"></div>
+            <textarea id="qInputEdit" class="w-full p-3 font-mono text-sm sm:text-base min-h-[250px] border-2 border-slate-200 outline-none focus:border-blue-500 rounded-b-lg"></textarea>
+            <div class="flex justify-end gap-2 mt-3">
                 <button class="btn btn-outline" onclick="app.closeModal('editModal')">Hủy</button>
                 <button class="btn btn-primary" onclick="app.saveEditQuestion()">Lưu thay đổi</button>
             </div>
