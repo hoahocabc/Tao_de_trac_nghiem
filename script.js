@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.",
-    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.",
-    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.",
-    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).",
-    6: "Dạng 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'."
+    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.\n\nVí dụ:\n##\nChất nào sau đây là muối ăn?\nA. NaOH\n# B. NaCl\nC. HCl\nD. H2SO4\nLời giải: NaCl là natri clorua, thành phần chính của muối ăn.",
+    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\n##\nNhững chất nào sau đây là kim loại kiềm?\n# A. Na\n# B. K\nC. Mg\nD. Ca\nLời giải: Na và K thuộc nhóm IA.",
+    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.\n\nVí dụ:\n##\nCông thức hóa học của axit sunfuric là gì?\n# H2SO4\n# h2so4",
+    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.\n\nVí dụ:\n##\nPhản ứng giữa axit và bazơ gọi là phản ứng =(1)=. Phản ứng này luôn tạo ra =(2)= và nước.\nĐáp án:\n=(1)=\n# trung hòa\n# trung hoa\n=(2)=\n# muối\n# muoi",
+    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).\n\nVí dụ:\n##\nHãy ghép tên gọi với công thức tương ứng:\nCột I:\n1. Axit clohidric\n2. Natri hiđroxit\nCột II:\nA. NaOH\nB. HCl\n# 1=B, 2=A",
+    6: "Dạng 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\n##\nHạt mang điện tích âm trong nguyên tử là gì? # ELECTRON\nHạt không mang điện trong hạt nhân? # NEUTRON\nTừ khóa: # NGUYEN TU"
 };
 
 const chem_symbols = [
@@ -1527,4 +1527,14 @@ const app = {
       }
   </script>
 </body>
-</html>
+</html>`;
+
+        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = title.replace(/\s+/g,'_') + ".html";
+        a.click();
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => app.init());
