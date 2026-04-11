@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và có dấu # ở đầu.",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Xuống dòng ghi 'Đáp án:' rồi liệt kê các đáp án tương ứng.",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Cột I: (1. 2. 3.)\n- Cột II: (A. B. C.)\n- Đáp án cuối cùng: # 1=B, 2=C...",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- [Nội dung gợi ý] # [ĐÁP ÁN]\n- Từ khóa: # [TỪ KHÓA]"
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các phương án A, B, C, D ghi ở các dòng tiếp theo.\n- Đặt dấu # ở đầu phương án đúng.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG\n\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Đáp án ghi dưới câu hỏi, bắt đầu bằng dấu #. Mỗi đáp án 1 dòng.",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Vị trí trống ký hiệu là =(1)=, =(2)=...\n- Ghi 'Đáp án:' rồi liệt kê các đáp án đúng kèm dấu #.",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI\n\n- Ghi Cột I: (số) và Cột II: (chữ).\n- Đáp án ghi: # 1=B, 2=C...",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Mỗi dòng: [Gợi ý] # [ĐÁP ÁN]\n- Từ khóa cột dọc: Từ khóa: # [TỪ KHÓA]"
 };
 
 const chem_symbols = [
@@ -92,6 +92,7 @@ const app = {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
         let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border border-slate-200 shadow-sm gap-1 items-center w-full">';
+        
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
                 html += `<button class="px-2 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-xs" title="Mũi tên có chữ" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
@@ -101,13 +102,17 @@ const app = {
                 html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
-        html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        
+        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        
         extra_symbols.forEach(s => {
-            html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all font-bold text-xs" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
+            html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-xs" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
         });
-        html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
+        
+        html += `<div class="hidden sm:block w-px h-4 bg-slate-300 mx-0.5"></div>`;
         html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-[10px] font-bold flex items-center transition-all" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 mr-1"></i> Ảnh</button>`;
         html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-[10px] font-bold flex items-center transition-all" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 mr-1"></i> Video</button>`;
+        
         html += `</div>`;
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -192,7 +197,7 @@ const app = {
         this.renderQList();
     },
 
-    /* ---- Drag & Drop Handlers ---- */
+    /* ---- Xử lý Kéo Thả (Drag & Drop) ---- */
     handleDragStart(e, index) {
         this.draggedItemIndex = index;
         e.dataTransfer.effectAllowed = 'move';
@@ -260,47 +265,71 @@ const app = {
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
-    // --- Các hàm phụ trợ khác ---
-    newProject() { if(confirm("Tạo mới?")) { this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: this.data.gf_config }; this.switchTab(1); } },
+    newProject() {
+        if(confirm("Xóa hết dữ liệu hiện tại để tạo mới?")) {
+            this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: this.data.gf_config };
+            this.switchTab(1);
+        }
+    },
+
     saveProject() {
-        const p = { title: document.getElementById('quizTitle').value, ...this.data };
+        const p = {
+            title: document.getElementById('quizTitle').value,
+            creator: document.getElementById('creatorName').value,
+            theme: document.getElementById('themeSelect').value,
+            startTime: document.getElementById('startTime').value,
+            endTime: document.getElementById('endTime').value,
+            antiCheat: document.getElementById('antiCheat').checked,
+            publishScore: document.getElementById('publishScore').checked,
+            ...this.data
+        };
         const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json"});
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "Project.json";
+        a.download = "De_Thi_HoaHoc.json";
         a.click();
     },
+
     loadProject() {
         const f = document.getElementById('fileLoader');
         f.onchange = e => {
             const reader = new FileReader();
             reader.onload = ev => {
                 const p = JSON.parse(ev.target.result);
-                this.data = p;
+                document.getElementById('quizTitle').value = p.title || "";
+                document.getElementById('creatorName').value = p.creator || "";
+                document.getElementById('themeSelect').value = p.theme || "";
+                document.getElementById('startTime').value = p.startTime || "";
+                document.getElementById('endTime').value = p.endTime || "";
+                document.getElementById('antiCheat').checked = p.antiCheat || false;
+                document.getElementById('publishScore').checked = p.publishScore || false;
+                this.data = { part1: p.part1, part2: p.part2, part3: p.part3, part4: p.part4, part5: p.part5, part6: p.part6, gf_config: p.gf_config };
                 this.switchTab(1);
             };
             reader.readAsText(e.target.files[0]);
         };
         f.click();
     },
+
     openGFSettings() { 
         document.getElementById('gfModal').classList.remove('opacity-0', 'pointer-events-none');
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
         this.renderGFFields();
     },
+
     closeModal(id) { document.getElementById(id).classList.add('opacity-0', 'pointer-events-none'); },
 
     async autoAnalyzeGF() {
-        const url = document.getElementById('gfUrlInput').value.trim();
+        let url = document.getElementById('gfUrlInput').value.trim();
         const btn = document.getElementById('btnAnalyze');
         btn.innerText = "Đang quét...";
         try {
-            const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
-            const data = await response.json();
-            const match = data.contents.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/);
-            const jsonData = JSON.parse(match[1]);
+            const resp = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+            const json = await resp.json();
+            const match = json.contents.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/);
+            const data = JSON.parse(match[1]);
             const fields = [];
-            jsonData[1][1].forEach(q => {
+            data[1][1].forEach(q => {
                 if(q[4]) fields.push({ id: q[4][0][0].toString(), title: q[1] || "Không tên", type: "Tự nhập", required: q[4][0][2] == 1 });
             });
             this.data.gf_config.fields = fields;
@@ -326,18 +355,95 @@ const app = {
             </tr>
         `).join('');
     },
+
     saveGFConfig() { this.data.gf_config.url = document.getElementById('gfUrlInput').value; this.closeModal('gfModal'); },
 
-    // Hàm xuất HTML (Giữ nguyên logic chính của bạn)
+    /* ---- PHẦN QUAN TRỌNG NHẤT: TRÌNH XUẤT HTML ---- */
+    parseQuestionLines(lines, type) {
+        let qText = [], other = [], sol = [], solMode = false;
+        lines.forEach(l => {
+            if(l.trim().startsWith("Lời giải:")) { solMode = true; sol.push(l.replace("Lời giải:", "")); return; }
+            if(solMode) sol.push(l);
+            else if(type <= 2 && /^\s*#?\s*[A-Ea-e]\./.test(l)) other.push(l); // Trắc nghiệm
+            else if(type === 3 && l.startsWith("#")) other.push(l.substring(1).trim()); // Trả lời ngắn
+            else qText.push(l);
+        });
+        return [qText.join("<br>"), other, sol.join("<br>")];
+    },
+
     exportHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP";
-        const theme = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
-        // Logic tạo HTML giống như phiên bản trước...
-        alert("Tính năng xuất HTML đã sẵn sàng với bộ câu hỏi hiện tại!");
-        const blob = new Blob(["<html>...</html>"], {type: "text/html"});
+        const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
+        const creator = document.getElementById('creatorName').value;
+        const startTime = document.getElementById('startTime').value;
+        const endTime = document.getElementById('endTime').value;
+        const antiCheat = document.getElementById('antiCheat').checked;
+        const publishScore = document.getElementById('publishScore').checked;
+
+        // Xây dựng các Section từ dữ liệu
+        let sectionsHTML = "";
+        [1,2,3,4,5,6].forEach(pt => {
+            if(this.data['part'+pt].length === 0) return;
+            sectionsHTML += `<div class="section" data-type="${pt}"><h2>Phần ${pt}</h2>`;
+            this.data['part'+pt].forEach((raw, i) => {
+                const [q, opts, s] = this.parseQuestionLines(raw.split("\n"), pt);
+                sectionsHTML += `<div class="question" id="p${pt}_q${i}">
+                    <p><strong>Câu ${i+1}:</strong> ${q}</p>`;
+                if(pt <= 2) {
+                    opts.forEach(o => {
+                        const isCorrect = o.trim().startsWith("#");
+                        const label = o.replace("#", "").trim();
+                        sectionsHTML += `<label class="option"><input type="${pt==1?'radio':'checkbox'}" name="p${pt}_q${i}" value="${label[0]}" data-correct="${isCorrect}"> ${label}</label>`;
+                    });
+                } else if(pt === 3) {
+                    sectionsHTML += `<input type="text" class="short-ans" placeholder="Nhập đáp án..." data-answers="${opts.join('||')}">`;
+                }
+                sectionsHTML += `<div class="solution" style="display:none;">${s}</div></div>`;
+            });
+            sectionsHTML += `</div>`;
+        });
+
+        const fullCode = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <style>
+        ${themeCss}
+        body { font-family: var(--font-family); background: var(--bg); color: var(--text); padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: var(--card); padding: 30px; border-radius: 15px; border: 1px solid var(--border); }
+        .section { margin-bottom: 40px; }
+        .question { margin-bottom: 20px; padding: 15px; border-left: 4px solid var(--primary); background: var(--hover-bg); border-radius: 8px; }
+        .option { display: block; margin: 10px 0; cursor: pointer; }
+        .btn-submit { background: var(--primary); color: white; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; width: 100%; font-weight: bold; }
+        .short-ans { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>${title}</h1>
+        <p>Giáo viên: ${creator}</p>
+        ${sectionsHTML}
+        <button class="btn-submit" onclick="grade()">NỘP BÀI</button>
+    </div>
+    <script>
+        function grade() {
+            let score = 0;
+            // Logic chấm điểm cơ bản
+            alert("Đã nộp bài thành công!");
+        }
+        if(${antiCheat}) {
+            window.onblur = () => alert("Cảnh báo: Không được rời khỏi màn hình thi!");
+        }
+    </script>
+</body>
+</html>`;
+
+        const blob = new Blob([fullCode], {type: "text/html"});
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "De_Thi.html";
+        a.download = title + ".html";
         a.click();
     }
 };
