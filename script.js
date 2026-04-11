@@ -74,7 +74,7 @@ const app = {
         let html = '';
         for(let i=1; i<=6; i++) {
             html += `
-            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'} p-3 sm:p-4" onclick="app.switchTab(${i})">
+            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'} p-2 sm:p-3" onclick="app.switchTab(${i})">
                 <span class="text-center w-full truncate">Phần ${i}</span>
             </button>`;
         }
@@ -85,7 +85,7 @@ const app = {
     switchTab(tab) {
         this.activeTab = tab;
         const titles = ["Một phương án đúng", "Nhiều đáp án đúng", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Giải ô chữ"];
-        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700">${titles[tab-1]}</span>`;
+        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-2 text-base">${titles[tab-1]}</span>`;
         this.renderTabs();
         this.renderQList();
         document.getElementById('qInput').value = '';
@@ -96,37 +96,37 @@ const app = {
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
-        let html = '<div class="flex flex-wrap bg-white rounded-xl p-2 border border-slate-200 shadow-sm gap-2 items-center w-full">';
+        let html = '<div class="flex flex-wrap bg-white rounded-xl p-1.5 border border-slate-200 shadow-sm gap-1.5 items-center w-full">';
         
         // Hóa học & toán học cơ bản
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
-                html += `<button class="px-2 py-1.5 sm:px-3 sm:py-2 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-sm" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
             } else if(sym.action === 'arrow_eq') {
-                html += `<button class="px-2 py-1.5 sm:px-3 sm:py-2 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold text-sm" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
             } else {
-                html += `<button class="px-2 py-1.5 sm:px-3 sm:py-2 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+                html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-sm" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
             }
         });
         
-        html += `<div class="hidden sm:block w-px h-6 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
         
         // Hiển thị toàn bộ các kí tự đặc biệt ra ngoài
         extra_symbols.forEach(s => {
-            html += `<button class="px-2 py-1.5 sm:px-3 sm:py-2 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-sm" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
+            html += `<button class="px-2 py-1.5 sm:px-2.5 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md transition-all active:scale-90 font-bold text-sm" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
         });
         
-        html += `<div class="hidden sm:block w-px h-6 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
         
         // Công cụ soạn thảo
-        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90 bg-white border border-slate-200" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90 bg-white border border-slate-200" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
         
-        html += `<div class="hidden sm:block w-px h-6 bg-slate-300 mx-1"></div>`;
+        html += `<div class="hidden sm:block w-px h-5 bg-slate-300 mx-1"></div>`;
         
         // Đa phương tiện
-        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-4 h-4 mr-1.5"></i> Ảnh</button>`;
-        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-4 h-4 mr-1.5"></i> Video</button>`;
+        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-lg text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3.5 h-3.5 mr-1.5"></i> Ảnh</button>`;
+        html += `<button class="px-2.5 py-1.5 sm:px-3 sm:py-1.5 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded-lg text-xs font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3.5 h-3.5 mr-1.5"></i> Video</button>`;
         
         html += `</div>`;
         tb.innerHTML = html;
