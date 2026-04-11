@@ -25,10 +25,10 @@
     
     <style type="text/tailwindcss">
         @layer components {
-            .btn { @apply relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-[10px] sm:text-xs md:text-sm focus:outline-none active:translate-y-1 whitespace-nowrap shrink-0; }
+            .btn { @apply relative px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-xs sm:text-sm focus:outline-none active:translate-y-1 shrink-0 whitespace-nowrap; }
             .btn-primary { @apply bg-blue-500 text-white shadow-[0_3px_0_0_#1d4ed8] sm:shadow-[0_4px_0_0_#1d4ed8] hover:shadow-[0_5px_0_0_#1d4ed8] sm:hover:shadow-[0_6px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8]; }
             .btn-green { @apply bg-emerald-500 text-white shadow-[0_3px_0_0_#047857] sm:shadow-[0_4px_0_0_#047857] hover:shadow-[0_5px_0_0_#047857] sm:hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
-            .btn-outline { @apply bg-white border sm:border-2 border-slate-200 text-slate-700 shadow-[0_3px_0_0_#e2e8f0] sm:shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_5px_0_0_#cbd5e1] sm:hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
+            .btn-outline { @apply bg-white border border-slate-200 sm:border-2 text-slate-700 shadow-[0_3px_0_0_#e2e8f0] sm:shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_5px_0_0_#cbd5e1] sm:hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
             .tab-btn { @apply w-full flex flex-col items-center justify-center px-1 sm:px-2 py-1.5 sm:py-2 text-xs sm:text-base font-extrabold rounded-xl transition-all duration-200 border-2 active:translate-y-1; }
             .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_4px_0_0_#60a5fa] -translate-y-1 scale-105; }
             .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
@@ -38,28 +38,48 @@
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
-    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 w-full">
-        <div class="max-w-[1500px] mx-auto px-2 sm:px-4 lg:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 w-full relative">
+        <div class="max-w-[1500px] mx-auto px-3 sm:px-4 lg:px-6 h-14 sm:h-16 flex items-center justify-between">
             
-            <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                 <div class="bg-blue-500 p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl text-white shadow-[0_2px_0_0_#1d4ed8] sm:shadow-[0_3px_0_0_#1d4ed8] shrink-0"><i data-lucide="flask-conical" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
                 <h1 class="text-sm sm:text-lg md:text-xl font-extrabold text-slate-900 tracking-tight whitespace-nowrap">Tạo đề ABC</h1>
             </div>
             
-            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar flex-nowrap flex-1 justify-end scroll-smooth py-1">
-                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Tạo mới</span></button>
-                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Mở file</span></button>
-                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Lưu lại</span></button>
-                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Nhập TXT</span></button>
+            <div class="hidden lg:flex items-center gap-2 flex-1 justify-end">
+                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
+                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
+                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
+                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập TXT</button>
                 
-                <div class="w-px h-5 sm:h-8 bg-slate-200 mx-0.5 shrink-0"></div>
+                <div class="w-px h-8 bg-slate-200 mx-1 shrink-0"></div>
                 
-                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden xl:inline">Google Form</span><span class="hidden sm:inline xl:hidden">Form</span></button>
-                <button class="btn btn-outline" onclick="app.exportWord()"><i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Xuất Word</span></button>
-                <button class="btn btn-outline" onclick="app.exportPDF()"><i data-lucide="printer" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Xuất PDF</span></button>
-                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden sm:inline">Xuất HTML</span></button>
+                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 mr-1.5"></i>Form</button>
+                <button class="btn btn-outline" onclick="app.exportWord()"><i data-lucide="file-text" class="w-4 h-4 mr-1.5"></i>Xuất Word</button>
+                <button class="btn btn-outline" onclick="app.exportPDF()"><i data-lucide="printer" class="w-4 h-4 mr-1.5"></i>Xuất PDF</button>
+                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 mr-1.5"></i>Xuất HTML</button>
             </div>
+
+            <button id="mobileMenuBtn" class="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none ml-auto" onclick="app.toggleMenu()">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
             
+        </div>
+
+        <div id="mobileMenu" class="lg:hidden hidden border-t border-slate-200 bg-slate-50 absolute top-full left-0 w-full shadow-2xl transition-all duration-200 flex-col p-3 gap-3 z-50">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+                <button class="btn btn-outline w-full" onclick="app.newProject(); app.toggleMenu()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
+                <button class="btn btn-outline w-full" onclick="app.loadProject(); app.toggleMenu()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
+                <button class="btn btn-outline w-full" onclick="app.saveProject(); app.toggleMenu()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
+                <button class="btn btn-outline w-full" onclick="document.getElementById('txtLoader').click(); app.toggleMenu()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập TXT</button>
+            </div>
+            <div class="h-px w-full bg-slate-200 my-0"></div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+                <button class="btn btn-green w-full" onclick="app.openGFSettings(); app.toggleMenu()"><i data-lucide="database" class="w-4 h-4 mr-1.5"></i>Form Form</button>
+                <button class="btn btn-outline w-full" onclick="app.exportWord(); app.toggleMenu()"><i data-lucide="file-text" class="w-4 h-4 mr-1.5"></i>Xuất Word</button>
+                <button class="btn btn-outline w-full" onclick="app.exportPDF(); app.toggleMenu()"><i data-lucide="printer" class="w-4 h-4 mr-1.5"></i>Xuất PDF</button>
+                <button class="btn btn-primary w-full" onclick="app.exportHTML(); app.toggleMenu()"><i data-lucide="rocket" class="w-4 h-4 mr-1.5"></i>Xuất HTML</button>
+            </div>
         </div>
     </header>
 
