@@ -433,19 +433,23 @@ const app = {
         if(!file) return;
         const reader = new FileReader();
         reader.onload = ev => {
-            const text = ev.target.result;
+            let text = ev.target.result;
+            
+            // Xóa toàn bộ các dòng chứa tên phần/dạng trước khi xử lý (ví dụ: "Dạng 1: ...", "Phần 1: ...")
+            text = text.replace(/^(Dạng|Phần)\s*\d+.*$/gim, '');
+            
             const chunks = text.split("##").map(c => c.trim()).filter(c => c.length > 0);
             let count = 0;
             chunks.forEach(c => {
-                const fullText = "##\n" + c;
+                // Biến c hiện tại không còn chứa "##", ta đẩy trực tiếp c vào mảng dữ liệu (không ghép thêm ## nữa)
+                const lines = c.split(/\r?\n/);
                 let type = 1;
-                const lines = fullText.split(/\r?\n/);
                 
-                if (fullText.includes("Cột I:") && fullText.includes("Cột II:")) {
+                if (c.includes("Cột I:") && c.includes("Cột II:")) {
                     type = 5;
-                } else if (fullText.match(/=\(\s*\d+\s*\)=/) && fullText.includes("Đáp án:")) {
+                } else if (c.match(/=\(\s*\d+\s*\)=/) && c.includes("Đáp án:")) {
                     type = 4;
-                } else if (lines.some(l => l.match(/^.+?#.+$/) && !l.trimLeft().startsWith("#")) || fullText.includes("Từ khóa:")) {
+                } else if (lines.some(l => l.match(/^.+?#.+$/) && !l.trimLeft().startsWith("#")) || c.includes("Từ khóa:")) {
                     type = 6;
                 } else {
                     const optionLines = lines.filter(l => l.match(/^\s*#?\s*[A-Ea-e]\.\s/));
@@ -456,7 +460,7 @@ const app = {
                         type = 3;
                     }
                 }
-                this.data['part'+type].push(fullText);
+                this.data['part'+type].push(c);
                 count++;
             });
             alert(`Đã nhập thành công ${count} câu hỏi từ file TXT.`);
@@ -726,6 +730,7 @@ const app = {
                 .title { text-align: center; font-size: 16pt; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; }
                 .q-container { margin-bottom: 15px; }
                 .q-text { font-weight: bold; margin-bottom: 5px; }
+                .section-title { font-size: 15pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #1d4ed8; text-transform: uppercase;}
             </style>
             </head><body><div class="title">${title}</div>`;
         } else {
@@ -734,10 +739,21 @@ const app = {
                 <h1 style="text-align: center; font-size: 18pt; text-transform: uppercase; margin-bottom: 20px;">${title}</h1>`;
         }
 
+        let leTitles = {1: "Một phương án đúng", 2: "Nhiều đáp án đúng", 3: "Trả lời ngắn", 4: "Điền khuyết", 5: "Ghép đôi (Nối)", 6: "Giải ô chữ"};
         let qIndex = 1;
+        let partCounter = 1;
+
         [1, 2, 3, 4, 5, 6].forEach(ptype => {
             if(this.data['part'+ptype].length === 0) return;
             
+            let sectionTitle = `Dạng ${partCounter}: ${leTitles[ptype]}`;
+            
+            if (isWord) {
+                html += `<div class="section-title">${sectionTitle}</div>`;
+            } else {
+                html += `<h2 style="font-size: 16pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #1d4ed8; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">${sectionTitle}</h2>`;
+            }
+
             this.data['part'+ptype].forEach(rawQ => {
                 let lines = rawQ.split(/\r?\n/);
                 let parsed = this.parseQuestionLines(lines, ptype);
@@ -777,6 +793,7 @@ const app = {
                 html += `</div>`;
                 qIndex++;
             });
+            partCounter++;
         });
 
         if (isWord) {
@@ -785,6 +802,16 @@ const app = {
             html += `</div>`;
         }
         return html;
+    },
+
+    exportHTML() {
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        const fullHTML = this.generateQuizHTML();
+        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = title.replace(/\s+/g,'_') + ".html";
+        a.click();
     },
 
     exportWord() {
