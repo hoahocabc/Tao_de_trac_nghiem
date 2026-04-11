@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'."
+    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở cuối câu nếu cần giải thích.",
+    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và CÓ DẤU # ở đầu.",
+    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.",
+    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).",
+    6: "Dạng 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'."
 };
 
 const chem_symbols = [
@@ -73,7 +73,7 @@ const app = {
         for(let i=1; i<=6; i++) {
             html += `
             <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i})">
-                <span class="text-center w-full truncate">Phần ${i}</span>
+                <span class="text-center w-full truncate">Dạng ${i}</span>
             </button>`;
         }
         c.innerHTML = html;
@@ -81,7 +81,6 @@ const app = {
     },
 
     switchTab(tab) {
-        // Cảnh báo nếu đang gõ dở mà chuyển tab
         const qInput = document.getElementById('qInput');
         if(qInput && qInput.value.trim().length > 5 && this.activeTab !== tab) {
             if(!confirm("Bạn đang có câu hỏi chưa được 'Thêm vào danh sách'. Chuyển tab sẽ làm mất nội dung này. Tiếp tục?")) return;
@@ -89,7 +88,7 @@ const app = {
 
         this.activeTab = tab;
         const titles = ["Một phương án đúng", "Nhiều đáp án đúng", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Giải ô chữ"];
-        document.getElementById('partTitle').innerHTML = `Phần ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-xs sm:text-base">${titles[tab-1]}</span>`;
+        document.getElementById('partTitle').innerHTML = `Dạng ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-xs sm:text-base">${titles[tab-1]}</span>`;
         this.renderTabs();
         this.renderQList();
         if(qInput) qInput.value = '';
@@ -239,7 +238,6 @@ const app = {
     addQuestion() {
         const val = document.getElementById('qInput').value.trim();
         if(!val) return alert("Vui lòng nhập nội dung câu hỏi!");
-        // Tối ưu split ngắt dòng trên các OS khác nhau \r\n
         const chunks = val.includes("##") ? val.split("##").filter(x => x.trim()) : [val];
         chunks.forEach(c => { if(c.split(/\r?\n/).length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
         document.getElementById('qInput').value = '';
@@ -275,7 +273,6 @@ const app = {
     handleDragStart(e, index) {
         this.draggedItemIndex = index;
         e.dataTransfer.effectAllowed = 'move';
-        // Sử dụng text/plain bắt buộc cho polyfill mobile hoạt động
         e.dataTransfer.setData('text/plain', index);
         setTimeout(() => e.target.classList.add('dragging-item'), 0);
     },
@@ -455,7 +452,6 @@ const app = {
     },
 
     async fetchHtmlWithCors(url) {
-        // Tối ưu các proxy fallback để tăng tỷ lệ thành công, thêm timeout
         const proxies = [
             { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' },
             { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' },
@@ -503,12 +499,13 @@ const app = {
             
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
-                    let title = q[1] || ""; let t = title.toLowerCase(); let type = "Học sinh tự nhập";
-                    if(t.includes('điểm') || t.includes('score') || t.includes('tổng')) type = "Điểm số (Tự động)";
-                    else if(t.includes('tối đa') || t.includes('max')) type = "Điểm tối đa (Tự động)";
-                    else if(t.includes('vi phạm') || t.includes('gian lận')) type = "Vi phạm (Tự động)";
-                    else if(t.includes('chi tiết') || t.includes('thống kê') || t.includes('bài làm') || t.includes('lỗi')) type = "Chi tiết bài làm (Tự động)";
-                    
+                    let title = q[1] || ""; let t = title.toLowerCase(); let type = "Tự nhập";
+                    if(t.includes('điểm') || t.includes('score') || t.includes('tổng') || 
+                       t.includes('tối đa') || t.includes('max') || 
+                       t.includes('vi phạm') || t.includes('gian lận') || 
+                       t.includes('chi tiết') || t.includes('thống kê') || t.includes('bài làm') || t.includes('lỗi')) {
+                        type = "Tự động";
+                    }
                     fields.push({ id: q[4][0][0].toString(), title: title, type: type, required: q[4][0][2] == 1 });
                 }
             });
@@ -540,12 +537,8 @@ const app = {
                 <td class="p-2 sm:p-2.5 hidden sm:table-cell"><input type="text" class="form-input py-1 sm:py-1.5 bg-slate-100 text-slate-500 font-mono text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-2 sm:p-2.5">
                     <select class="form-select py-1 sm:py-1.5 font-bold text-[10px] sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
-                        <option value="Học sinh tự nhập" ${f.type==="Học sinh tự nhập"||f.type==="Tự nhập"?"selected":""}>Học sinh tự nhập</option>
-                        <option value="Điểm số (Tự động)" ${f.type==="Điểm số (Tự động)"?"selected":""}>Điểm số (Tự động)</option>
-                        <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
-                        <option value="Vi phạm (Tự động)" ${f.type==="Vi phạm (Tự động)"?"selected":""}>Vi phạm (Tự động)</option>
-                        <option value="Chi tiết bài làm (Tự động)" ${f.type==="Chi tiết bài làm (Tự động)"?"selected":""}>Chi tiết bài làm (Tự động)</option>
-                        <option value="Khác (Tự động)" ${f.type==="Khác (Tự động)"||f.type==="Tự động"?"selected":""}>Khác (Tự động)</option>
+                        <option value="Tự nhập" ${f.type==="Tự nhập"||f.type==="Học sinh tự nhập"?"selected":""}>Tự nhập</option>
+                        <option value="Tự động" ${f.type==="Tự động"||f.type!=="Tự nhập"?"selected":""}>Tự động</option>
                     </select>
                 </td>
                 <td class="p-2 sm:p-2.5 text-center">
@@ -702,7 +695,9 @@ const app = {
             let sId = `field_${f.id}`;
             let safeTitle = f.title.replace(/"/g, '\\"');
             
-            if (f.type === "Học sinh tự nhập" || f.type === "Tự nhập") {
+            let isAuto = f.type === "Tự động" || (f.type !== "Tự nhập" && f.type !== "Học sinh tự nhập");
+            
+            if (!isAuto) {
                 hasStudentInputs = true;
                 let reqStr = f.required ? "required" : "";
                 let reqStar = f.required ? " <span style='color:#ef4444;'>*</span>" : "";
@@ -716,14 +711,17 @@ const app = {
                 jsBuilder.push(`formData.append("entry.${f.id}", document.getElementById("${sId}") ? (document.getElementById("${sId}").value.trim() || "Chưa điền") : "Chưa điền");`);
                 if (f.required) jsValid.push(`if(document.getElementById("${sId}") && !document.getElementById("${sId}").value.trim()) missing_fields.push("${safeTitle}");`);
             } 
-            else if (f.type === "Điểm tối đa (Tự động)") {
-                jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
-            } else if (f.type === "Vi phạm (Tự động)") {
-                jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
-            } else if (f.type === "Chi tiết bài làm (Tự động)") {
-                jsBuilder.push(`formData.append("entry.${f.id}", studentDetailsText);`);
-            } else {
-                jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
+            else {
+                let t = f.title.toLowerCase();
+                if (t.includes('tối đa') || t.includes('max')) {
+                    jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
+                } else if (t.includes('vi phạm') || t.includes('gian lận')) {
+                    jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
+                } else if (t.includes('chi tiết') || t.includes('thống kê') || t.includes('bài làm') || t.includes('lỗi')) {
+                    jsBuilder.push(`formData.append("entry.${f.id}", studentDetailsText);`);
+                } else {
+                    jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
+                }
             }
         });
 
@@ -733,7 +731,7 @@ const app = {
         
         [1,2,3,4,5,6].forEach(ptype => {
             if(this.data['part'+ptype].length === 0) return;
-            let sectionTitle = `Phần ${partCounter}: ${leTitles[ptype]}`;
+            let sectionTitle = `Dạng ${partCounter}: ${leTitles[ptype]}`;
             sectionsHTML.push(`<div class='section' id='part${partCounter}' data-parttype='${ptype}' data-title='${sectionTitle}'>`);
             
             if(ptype === 6) {
@@ -806,7 +804,6 @@ const app = {
                     let randomRight = [...rightCol].sort(() => 0.5 - Math.random());
                     
                     sectionsHTML.push(`<div class='question' id='${qid}'><div class='q-text'><strong>Câu ${idx+1}:</strong><br>${header}</div>`);
-                    // CSS Responsive cho Mobile: Thêm overflow-x-auto
                     sectionsHTML.push(`<div class='match-container overflow-x-auto' id='match_${qid}' data-expected='${expectedStr}'><svg class='match-lines' id='svg_${qid}' width='100%' height='100%'></svg><div class='match-columns'>`);
                     
                     sectionsHTML.push(`<div class='match-col match-left'>`);
@@ -1261,11 +1258,11 @@ const app = {
               if (leftEl && rightEl) {
                   let lRect = leftEl.getBoundingClientRect(), rRect = rightEl.getBoundingClientRect();
                   let scrollLeft = container.scrollLeft || 0;
-                  // Tính toán tọa độ x,y theo vị trí tương đối
+                  
                   let x1 = lRect.right - cRect.left + scrollLeft, y1 = lRect.top + lRect.height/2 - cRect.top;
                   let x2 = rRect.left - cRect.left + scrollLeft, y2 = rRect.top + rRect.height/2 - cRect.top;
                   
-                  // Đảm bảo nét vẽ khi layout bị vỡ thành 1 cột trên mobile
+                  
                   if(window.innerWidth <= 640) {
                       x1 = lRect.left + lRect.width/2 - cRect.left + scrollLeft; y1 = lRect.bottom - cRect.top;
                       x2 = rRect.left + rRect.width/2 - cRect.left + scrollLeft; y2 = rRect.top - cRect.top;
@@ -1530,14 +1527,4 @@ const app = {
       }
   </script>
 </body>
-</html>`;
-
-        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/\s+/g,'_') + ".html";
-        a.click();
-    }
-};
-
-document.addEventListener('DOMContentLoaded', () => app.init());
+</html>
