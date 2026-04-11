@@ -46,8 +46,11 @@
                 <button class="btn btn-outline whitespace-nowrap" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span></button>
                 <button class="btn btn-outline whitespace-nowrap" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden md:inline">Mở file</span></button>
                 <button class="btn btn-outline whitespace-nowrap" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden md:inline">Lưu lại</span></button>
+                <button class="btn btn-outline whitespace-nowrap" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-4 h-4 sm:mr-2"></i><span class="hidden md:inline">Nhập TXT</span></button>
                 <div class="w-px h-6 sm:h-8 bg-slate-200 mx-0.5 sm:mx-1 shrink-0"></div>
                 <button class="btn btn-green whitespace-nowrap" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Google Form</span><span class="sm:hidden">Form</span></button>
+                <button class="btn btn-outline whitespace-nowrap" onclick="app.exportWord()"><i data-lucide="file-text" class="w-4 h-4 sm:mr-2"></i><span class="hidden md:inline">Xuất Word</span></button>
+                <button class="btn btn-outline whitespace-nowrap" onclick="app.exportPDF()"><i data-lucide="printer" class="w-4 h-4 sm:mr-2"></i><span class="hidden md:inline">Xuất PDF</span></button>
                 <button class="btn btn-primary whitespace-nowrap" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span></button>
             </div>
         </div>
@@ -171,6 +174,7 @@
     </div>
 
     <input type="file" id="fileLoader" class="hidden">
+    <input type="file" id="txtLoader" accept=".txt" class="hidden" onchange="app.importTXT(event)">
     <script>
         // Kích hoạt mobile drag & drop polyfill
         window.addEventListener('touchmove', function() {}, {passive: false});
