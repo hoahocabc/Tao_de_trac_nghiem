@@ -428,6 +428,43 @@ const app = {
         };
         f.click();
     },
+    importTXT(event) {
+        const file = event.target.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+            const text = ev.target.result;
+            const chunks = text.split("##").map(c => c.trim()).filter(c => c.length > 0);
+            let count = 0;
+            chunks.forEach(c => {
+                const fullText = "##\n" + c;
+                let type = 1;
+                const lines = fullText.split(/\r?\n/);
+                
+                if (fullText.includes("Cột I:") && fullText.includes("Cột II:")) {
+                    type = 5;
+                } else if (fullText.match(/=\(\s*\d+\s*\)=/) && fullText.includes("Đáp án:")) {
+                    type = 4;
+                } else if (lines.some(l => l.match(/^.+?#.+$/) && !l.trimLeft().startsWith("#")) || fullText.includes("Từ khóa:")) {
+                    type = 6;
+                } else {
+                    const optionLines = lines.filter(l => l.match(/^\s*#?\s*[A-Ea-e]\.\s/));
+                    if (optionLines.length > 0) {
+                        const correctCount = optionLines.filter(l => l.trimLeft().startsWith("#")).length;
+                        type = correctCount > 1 ? 2 : 1;
+                    } else {
+                        type = 3;
+                    }
+                }
+                this.data['part'+type].push(fullText);
+                count++;
+            });
+            alert(`Đã nhập thành công ${count} câu hỏi từ file TXT.`);
+            this.switchTab(this.activeTab);
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+    },
 
     openGFSettings() {
         const modal = document.getElementById('gfModal');
@@ -676,7 +713,7 @@ const app = {
         }
     },
 
-    exportHTML() {
+    generateQuizHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
         const themeCss = THEMES[document.getElementById('themeSelect').value] || THEMES["Mặc định (Xanh hiện đại)"];
@@ -1529,11 +1566,45 @@ const app = {
 </body>
 </html>`;
 
+        return fullHTML;
+    },
+
+    exportHTML() {
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        const fullHTML = this.generateQuizHTML();
         const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.download = title.replace(/\s+/g,'_') + ".html";
         a.click();
+    },
+
+    exportWord() {
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        const fullHTML = this.generateQuizHTML();
+        const wordHTML = `
+            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head><meta charset='utf-8'><title>${title}</title></head>
+            <body>${fullHTML}</body>
+            </html>
+        `;
+        const blob = new Blob(['\ufeff', wordHTML], {type: "application/msword;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = title.replace(/\s+/g,'_') + ".doc";
+        a.click();
+    },
+
+    exportPDF() {
+        const fullHTML = this.generateQuizHTML();
+        const printWin = window.open('', '', 'width=900,height=800');
+        printWin.document.open();
+        printWin.document.write(fullHTML);
+        printWin.document.close();
+        setTimeout(() => {
+            printWin.focus();
+            printWin.print();
+        }, 1500); 
     }
 };
 
