@@ -713,6 +713,113 @@ const app = {
         }
     },
 
+    buildDocumentHTML(isWord = false) {
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        let html = '';
+        
+        if (isWord) {
+            // Cấu trúc HTML tối giản, sạch sẽ để MS Word có thể đọc và hiểu đúng
+            html += `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+            <head><meta charset='utf-8'><title>${title}</title>
+            <style>
+                body { font-family: 'Times New Roman', serif; font-size: 14pt; line-height: 1.5; }
+                .title { text-align: center; font-size: 16pt; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; }
+                .q-container { margin-bottom: 15px; }
+                .q-text { font-weight: bold; margin-bottom: 5px; }
+            </style>
+            </head><body><div class="title">${title}</div>`;
+        } else {
+            // Dành cho PDF
+            html += `<div style="font-family: 'Times New Roman', serif; font-size: 14pt; color: black; padding: 20px;">
+                <h1 style="text-align: center; font-size: 18pt; text-transform: uppercase; margin-bottom: 20px;">${title}</h1>`;
+        }
+
+        let qIndex = 1;
+        [1, 2, 3, 4, 5, 6].forEach(ptype => {
+            if(this.data['part'+ptype].length === 0) return;
+            
+            this.data['part'+ptype].forEach(rawQ => {
+                let lines = rawQ.split(/\r?\n/);
+                let parsed = this.parseQuestionLines(lines, ptype);
+                let qtext = parsed[0];
+                
+                if (isWord) {
+                    html += `<div class="q-container"><div class="q-text">Câu ${qIndex}: ${qtext}</div>`;
+                } else {
+                    html += `<div style="margin-bottom: 15px;"><div style="font-weight: bold; margin-bottom: 5px;">Câu ${qIndex}: ${qtext}</div>`;
+                }
+                
+                if (ptype === 1 || ptype === 2) {
+                    let opts = parsed[1];
+                    opts.forEach(opt => {
+                        let clean = opt.trimLeft().startsWith("#") ? opt.trimLeft().substring(1).trim() : opt.trimLeft();
+                        html += `<div>${clean}</div>`;
+                    });
+                } else if (ptype === 3) {
+                     html += `<div>Đáp án: ..........................................................................</div>`;
+                } else if (ptype === 4) {
+                     html += `<div><i>(Học sinh điền vào các vị trí trống tương ứng trong câu)</i></div>`;
+                } else if (ptype === 5) {
+                     let data = parsed[1];
+                     html += `<table style="width:100%; border-collapse: collapse; margin-top: 10px;"><tr><td style="width:50%; vertical-align:top;"><b>Cột I</b><br>`;
+                     data.leftCol.forEach(l => html += `${l.label ? l.label+'. ' : ''}${l.text}<br>`);
+                     html += `</td><td style="width:50%; vertical-align:top;"><b>Cột II</b><br>`;
+                     data.rightCol.forEach(r => html += `${r.label ? r.label+'. ' : ''}${r.text}<br>`);
+                     html += `</td></tr></table>`;
+                } else if (ptype === 6) {
+                     let clues = parsed[1];
+                     html += `<div><b>Các gợi ý hàng ngang:</b></div><ul>`;
+                     clues.forEach((c, idx) => {
+                         html += `<li>${idx + 1}. ${c.clue}</li>`;
+                     });
+                     html += `</ul>`;
+                }
+                html += `</div>`;
+                qIndex++;
+            });
+        });
+
+        if (isWord) {
+            html += `</body></html>`;
+        } else {
+            html += `</div>`;
+        }
+        return html;
+    },
+
+    exportWord() {
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        const wordHTML = this.buildDocumentHTML(true);
+        const blob = new Blob(['\ufeff', wordHTML], {type: "application/msword;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = title.replace(/\s+/g,'_') + ".doc";
+        a.click();
+    },
+
+    exportPDF() {
+        if (typeof html2pdf === 'undefined') {
+            alert("Thư viện xuất PDF đang được tải hoặc tải thất bại, vui lòng kiểm tra kết nối mạng và thử lại.");
+            return;
+        }
+
+        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
+        const contentHTML = this.buildDocumentHTML(false);
+        
+        const container = document.createElement('div');
+        container.innerHTML = contentHTML;
+        
+        const opt = {
+            margin:       10,
+            filename:     title.replace(/\s+/g,'_') + ".pdf",
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(container).save();
+    },
+
     generateQuizHTML() {
         const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
         const creator = document.getElementById('creatorName').value;
@@ -1376,7 +1483,7 @@ const app = {
          if (GF_URL) {
              let missing_fields = [];
              ${jsValid.join('\n             ')}
-             if (missing_fields.length > 0 && !window.isForceSubmit) { alert("⚠️ Vui lòng điền đầy đủ các thông tin bắt buộc: " + missing_fields.join(", ") + " trước khi nộp bài!"); return; }
+             if (missing_fields.length > 0 && !window.isForceSubmit) { alert("⚠️ Vui lòng điền đầy đủ các thông bắt buộc: " + missing_fields.join(", ") + " trước khi nộp bài!"); return; }
          }
          if (typeof timerInterval !== 'undefined') clearInterval(timerInterval); 
          let overlay = document.getElementById('loadingOverlay'); overlay.style.display = 'flex';
@@ -1567,44 +1674,6 @@ const app = {
 </html>`;
 
         return fullHTML;
-    },
-
-    exportHTML() {
-        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
-        const fullHTML = this.generateQuizHTML();
-        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/\s+/g,'_') + ".html";
-        a.click();
-    },
-
-    exportWord() {
-        const title = document.getElementById('quizTitle').value || "BÀI TẬP TRẮC NGHIỆM";
-        const fullHTML = this.generateQuizHTML();
-        const wordHTML = `
-            <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-            <head><meta charset='utf-8'><title>${title}</title></head>
-            <body>${fullHTML}</body>
-            </html>
-        `;
-        const blob = new Blob(['\ufeff', wordHTML], {type: "application/msword;charset=utf-8"});
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = title.replace(/\s+/g,'_') + ".doc";
-        a.click();
-    },
-
-    exportPDF() {
-        const fullHTML = this.generateQuizHTML();
-        const printWin = window.open('', '', 'width=900,height=800');
-        printWin.document.open();
-        printWin.document.write(fullHTML);
-        printWin.document.close();
-        setTimeout(() => {
-            printWin.focus();
-            printWin.print();
-        }, 1500); 
     }
 };
 
