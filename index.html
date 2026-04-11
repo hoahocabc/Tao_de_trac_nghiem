@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tạo đề trắc nghiệm - Hóa học ABC</title>
+    <script>
+        window.tailwind = { 
+            config: { 
+                theme: { 
+                    extend: { 
+                        fontFamily: { sans: ['Inter', 'sans-serif'] } 
+                    } 
+                } 
+            } 
+        }
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -22,7 +33,6 @@
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2 text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
     </style>
-    <script>tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } }</script>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
     <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
@@ -46,7 +56,6 @@
         <section class="bg-white p-3 lg:p-4 rounded-xl shadow-sm border border-slate-200 shrink-0">
             <h2 class="form-label mb-2 flex items-center gap-2"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4">
-                <!-- Cột 1 -->
                 <div class="flex flex-col gap-2">
                     <div>
                         <label class="form-label">Tên bài kiểm tra</label>
@@ -57,7 +66,6 @@
                         <input type="text" id="creatorName" class="form-input" placeholder="VD: Thầy A">
                     </div>
                 </div>
-                <!-- Cột 2 -->
                 <div class="flex flex-col gap-2">
                     <div>
                         <label class="form-label">Giờ bắt đầu</label>
@@ -68,7 +76,6 @@
                         <input type="text" id="endTime" class="form-input" placeholder="VD: 09:00 20/11/2026">
                     </div>
                 </div>
-                <!-- Cột 3 -->
                 <div class="flex flex-col gap-2">
                     <div>
                         <label class="form-label">Giao diện (Theme)</label>
@@ -114,7 +121,6 @@
         </section>
     </main>
 
-    <!-- Popup Google Form -->
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
             <div class="flex justify-between items-center mb-4 pb-3 border-b-2 border-slate-100 shrink-0">
@@ -146,7 +152,6 @@
         </div>
     </div>
 
-    <!-- Edit Modal -->
     <div id="editModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-2xl shadow-2xl p-6 w-full max-w-4xl transform transition-all duration-300 scale-95 translate-y-4">
             <h2 class="text-xl font-bold mb-4">Chỉnh sửa câu hỏi</h2>
