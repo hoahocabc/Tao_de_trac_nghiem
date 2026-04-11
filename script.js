@@ -74,7 +74,7 @@ const app = {
         let html = '';
         for(let i=1; i<=6; i++) {
             html += `
-            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-2" onclick="app.switchTab(${i})">
+            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i})">
                 <span class="text-center w-full truncate">Phần ${i}</span>
             </button>`;
         }
@@ -288,45 +288,85 @@ const app = {
         this.renderQList();
     },
 
+    /* ---- Xử lý hiệu ứng Kéo Thả ---- */
     handleDragStart(e, index) {
         this.draggedItemIndex = index;
-        e.target.style.opacity = '0.5';
         e.dataTransfer.effectAllowed = 'move';
+        setTimeout(() => e.target.classList.add('dragging-item'), 0);
     },
 
-    handleDragOver(e) {
+    handleDragOver(e, index) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
+        
+        if (index === this.draggedItemIndex) return false;
+
+        const rect = e.currentTarget.getBoundingClientRect();
+        const relY = e.clientY - rect.top;
+        const insertAfter = relY >= rect.height / 2;
+
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+
+        if (insertAfter) {
+            e.currentTarget.classList.add('drag-over-bottom');
+        } else {
+            e.currentTarget.classList.add('drag-over-top');
+        }
         return false;
+    },
+
+    handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
     },
 
     handleDrop(e, dropIndex) {
         e.stopPropagation();
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+        
         if (this.draggedItemIndex !== null && this.draggedItemIndex !== dropIndex) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const relY = e.clientY - rect.top;
+            const insertAfter = relY >= rect.height / 2;
+            
             const list = this.data['part' + this.activeTab];
+            let insertIndex = dropIndex;
+            
+            if (this.draggedItemIndex < dropIndex && insertAfter) insertIndex = dropIndex;
+            else if (this.draggedItemIndex < dropIndex && !insertAfter) insertIndex = dropIndex - 1;
+            else if (this.draggedItemIndex > dropIndex && insertAfter) insertIndex = dropIndex + 1;
+            else if (this.draggedItemIndex > dropIndex && !insertAfter) insertIndex = dropIndex;
+            
             const item = list.splice(this.draggedItemIndex, 1)[0];
-            list.splice(dropIndex, 0, item);
+            list.splice(insertIndex, 0, item);
             this.renderQList();
         }
         return false;
     },
 
     handleDragEnd(e) {
-        e.target.style.opacity = '1';
+        e.target.classList.remove('dragging-item');
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
         this.draggedItemIndex = null;
     },
 
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
-            <div draggable="true" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)" class="p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-20 cursor-default transform hover:-translate-y-0.5 mb-2">
+            <div draggable="true" 
+                 class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-20 cursor-default mb-2"
+                 ondragstart="app.handleDragStart(event, ${i})" 
+                 ondragover="app.handleDragOver(event, ${i})" 
+                 ondragleave="app.handleDragLeave(event)"
+                 ondrop="app.handleDrop(event, ${i})" 
+                 ondragend="app.handleDragEnd(event)">
+                 
                 <div class="flex items-center gap-1.5 mb-1.5 border-b border-slate-100 pb-1.5">
                     <div class="cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
-                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5"></i>
+                        <i data-lucide="grip-vertical" class="w-3.5 h-3.5 pointer-events-none"></i>
                     </div>
                     <span class="bg-blue-100 text-blue-700 text-[10px] font-black px-2 py-0.5 sm:px-2 sm:py-1 rounded-md">Câu ${i+1}</span>
                 </div>
-                <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium">${q.replace(/</g,'&lt;')}</div>
+                <div class="text-xs sm:text-sm text-slate-700 line-clamp-3 leading-relaxed font-medium pointer-events-none">${q.replace(/</g,'&lt;')}</div>
                 <div class="absolute top-2 right-2 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
                     <button class="p-1.5 sm:p-2 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
                     <button class="p-1.5 sm:p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i></button>
