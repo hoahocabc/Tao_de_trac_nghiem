@@ -11,30 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: {
-        rules: "• Bắt buộc bắt đầu mỗi câu bằng kí hiệu: <b>##</b><br>• Nội dung câu hỏi nằm ngay dưới.<br>• Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.<br>• Đặt dấu <b>#</b> và 1 dấu cách ở đầu phương án đúng nhất.<br>• Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích.",
-        example: "##\nChất nào sau đây là kim loại kiềm?\nA. Sắt\n# B. Natri\nC. Đồng\nD. Nhôm\nLời giải: Natri thuộc nhóm IA nên là kim loại kiềm."
-    },
-    2: {
-        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Nội dung câu hỏi nằm ở dòng dưới.<br>• Đặt dấu <b>#</b> và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.<br>• Các phương án không có dấu # sẽ được tính là phương án sai.",
-        example: "##\nCác khí nào sau đây nhẹ hơn không khí?\n# A. H2\nB. CO2\n# C. N2\nD. SO2"
-    },
-    3: {
-        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Nhập nội dung câu hỏi.<br>• Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu <b>#</b> ở đầu.",
-        example: "##\nCông thức hóa học của Axit sunfuric là gì?\n# H2SO4\n# h2so4"
-    },
-    4: {
-        rules: "• Bắt buộc bắt đầu mỗi câu bằng: <b>##</b><br>• Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: <b>=(1)=, =(2)=...</b><br>• Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.",
-        example: "##\nNước sôi ở =(1)= độ C và hóa rắn ở =(2)= độ C.\nĐáp án:\n=(1)=\n# 100\n=(2)=\n# 0\n# không"
-    },
-    5: {
-        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Dòng tiếp theo ghi tiêu đề.<br>• Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.<br>• Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.<br>• Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu <b>#</b> ở đầu.",
-        example: "##\nGhép các chất với trạng thái tương ứng:\nCột I:\n1. Nước\n2. Sắt\n3. Oxy\nCột II:\nA. Rắn\nB. Lỏng\nC. Khí\n# 1=B, 2=A, 3=C"
-    },
-    6: {
-        rules: "• Bắt buộc bắt đầu bằng: <b>##</b><br>• Nhập tiêu đề câu hỏi.<br>• Ghi lần lượt các gợi ý hàng ngang theo cú pháp: <b>[Nội dung gợi ý] # [ĐÁP ÁN]</b>.<br>• Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.",
-        example: "##\nGiải ô chữ hóa học sau:\nKhí duy trì sự cháy # OXY\nKim loại lỏng ở điều kiện thường # THUYNGAN\nTừ khóa: # ON"
-    }
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất (Ví dụ: # A. Đáp án đúng).\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án có dấu #.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=, =(3)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\nVí dụ:\n=(1)=\n# Nước\n# nước\n=(2)=\n# 100\n- Thêm 'Lời giải:' ở cuối nếu cần.",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu (VD: # 1=B, 2=A, 3=D).",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc xuyên suốt, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. (Lưu ý: Số lượng chữ cái của từ khóa phải bằng đúng số lưng hàng ngang).\n- Hệ thống tự động căn chỉnh và tạo lưới ô chữ."
 };
 
 const chem_symbols = [
@@ -89,12 +71,17 @@ const app = {
 
     renderTabs() {
         const c = document.getElementById('tabsContainer');
-        const titles = ["1 lựa chọn", "Nhiều lựa chọn", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Ô chữ"];
+        const titles = [
+            {text: '1 lựa chọn'}, {text: 'Nhiều lựa chọn'},
+            {text: 'Trả lời ngắn'}, {text: 'Điền khuyết'},
+            {text: 'Ghép đôi'}, {text: 'Ô chữ'}
+        ];
         c.innerHTML = titles.map((t, i) => `
-            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i+1})">
-                <span class="text-center w-full truncate">Phần ${i+1}: ${t}</span>
+            <button class="tab-btn ${this.activeTab === i+1 ? 'tab-active' : 'tab-inactive'} p-1.5 sm:p-3" onclick="app.switchTab(${i+1})">
+                <span class="text-center w-full truncate text-[10px] sm:text-sm">Phần ${i+1}</span>
             </button>
         `).join('');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     switchTab(tab) {
@@ -106,29 +93,12 @@ const app = {
         document.getElementById('qInput').value = '';
     },
 
-    showGuide() {
-        const modal = document.getElementById('guideModal');
-        const content = modal.querySelector('.modal-content');
-        
-        document.getElementById('guideRules').innerHTML = GUIDES[this.activeTab].rules;
-        document.getElementById('guideExample').innerText = GUIDES[this.activeTab].example;
-        
-        modal.classList.remove('opacity-0', 'pointer-events-none');
-        content.classList.remove('scale-95', 'translate-y-4');
-        content.classList.add('scale-100', 'translate-y-0');
-    },
-    
-    insertExample() {
-        const val = document.getElementById('qInput').value;
-        const prefix = val.trim() !== "" ? "\n\n" : "";
-        this.insertText(prefix + GUIDES[this.activeTab].example, '', '', 'qInput');
-        this.closeModal('guideModal');
-    },
+    showGuide() { alert(GUIDES[this.activeTab]); },
 
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
         if(!tb) return;
-        let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1 items-center">';
+        let html = '<div class="flex flex-wrap bg-white rounded-xl p-2 border border-slate-200 shadow-sm gap-2 items-center w-full">';
         chem_symbols.forEach(sym => {
             if(sym.action === 'arrow_right') {
                 html += `<button class="px-2 py-1 sm:px-2.5 sm:py-1.5 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-md transition-all active:scale-90 font-bold" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
@@ -143,13 +113,14 @@ const app = {
         extra_symbols.forEach(s => dropdownOpts += `<option value="${s}">${s}</option>`);
         html += `<select class="bg-slate-50 border border-slate-200 rounded-md text-slate-700 text-sm font-bold px-2 py-1.5 outline-none hover:border-blue-400 cursor-pointer ml-1" onchange="if(this.value) { app.insertText(this.value, '', '', '${inputId}'); this.selectedIndex=0; }">${dropdownOpts}</select>`;
         
-        html += `</div><div class="hidden sm:block w-px h-6 bg-slate-300 mx-2"></div>
-                 <div class="flex bg-white rounded-lg p-1 border-2 border-slate-200 shadow-[0_2px_0_0_#e2e8f0] gap-1">
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>
-                    <button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>
-                 </div>
-                 <button class="ml-auto px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border-2 border-red-200 shadow-[0_2px_0_0_#fecaca] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none mr-2" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn video</button>
-                 <button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border-2 border-indigo-200 shadow-[0_2px_0_0_#c7d2fe] rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:translate-y-1 active:shadow-none" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2"></i> Chèn ảnh</button>`;
+        html += `<div class="hidden sm:block w-px h-6 bg-slate-300 mx-1"></div>`;
+        html += `<button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md font-black transition-all active:scale-90" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 sm:px-3 sm:py-1.5 text-slate-700 hover:bg-slate-100 rounded-md italic font-black transition-all active:scale-90" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        html += `<div class="hidden sm:block w-px h-6 bg-slate-300 mx-1"></div>`;
+        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-red-50 text-red-600 hover:bg-red-100 border border-red-100 rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5"></i> Video</button>`;
+        html += `<button class="px-3 py-1.5 sm:px-4 sm:py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-100 rounded-lg text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-3 h-3 sm:w-4 sm:h-4 mr-1.5"></i> Ảnh</button>`;
+        html += `</div>`;
+        
         tb.innerHTML = html;
         if (typeof lucide !== 'undefined') lucide.createIcons();
     },
@@ -284,11 +255,6 @@ const app = {
         chunks.forEach(c => { if(c.split('\n').length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
         document.getElementById('qInput').value = '';
         this.renderQList();
-        
-        setTimeout(() => {
-            const listEl = document.getElementById('qList');
-            if(listEl) listEl.scrollTo({ top: listEl.scrollHeight, behavior: 'smooth' });
-        }, 100);
     },
 
     removeQuestion(idx) {
@@ -497,7 +463,7 @@ const app = {
 
         const btn = document.getElementById('btnAnalyze');
         const oldHtml = btn.innerHTML;
-        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-1.5 animate-spin"></i> Đang phân tích...';
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 mr-2 animate-spin"></i> Đang phân tích...';
         btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
         
         try {
@@ -530,7 +496,7 @@ const app = {
             document.getElementById('gfUrlInput').value = this.data.gf_config.url;
             this.renderGFFields();
             
-            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-1.5"></i>Xong!';
+            btn.innerHTML = '<i data-lucide="check" class="w-4 h-4 mr-2"></i>Xong!';
             btn.classList.replace('from-emerald-500', 'from-blue-500');
             setTimeout(() => { btn.innerHTML = oldHtml; btn.classList.replace('from-blue-500', 'from-emerald-500'); if (typeof lucide !== 'undefined') lucide.createIcons(); }, 2000);
 
@@ -546,10 +512,10 @@ const app = {
         const tb = document.getElementById('gfFieldsTable');
         tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
             <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
-                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-3"><input type="text" class="form-input py-1.5 sm:py-2 text-xs sm:text-sm font-bold" value="${f.title}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-3 hidden sm:table-cell"><input type="text" class="form-input py-1.5 sm:py-2 bg-slate-100 text-slate-500 font-mono text-[10px] sm:text-xs cursor-not-allowed" value="${f.id}" readonly></td>
                 <td class="p-2 sm:p-3">
-                    <select class="form-select py-1.5 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                    <select class="form-select py-1.5 sm:py-2 font-bold text-xs sm:text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value">
                         <option value="Học sinh tự nhập" ${f.type==="Học sinh tự nhập"||f.type==="Tự nhập"?"selected":""}>Học sinh tự nhập</option>
                         <option value="Điểm số (Tự động)" ${f.type==="Điểm số (Tự động)"?"selected":""}>Điểm số (Tự động)</option>
                         <option value="Điểm tối đa (Tự động)" ${f.type==="Điểm tối đa (Tự động)"?"selected":""}>Điểm tối đa (Tự động)</option>
@@ -560,7 +526,7 @@ const app = {
                 </td>
                 <td class="p-2 sm:p-3 text-center">
                     <div class="flex justify-center items-center h-full">
-                        <input type="checkbox" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                        <input type="checkbox" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
                     </div>
                 </td>
             </tr>
@@ -703,7 +669,7 @@ const app = {
         const acElem = document.getElementById('antiCheat');
         const psElem = document.getElementById('publishScore');
         const isAntiCheat = acElem ? acElem.checked : false;
-        const isPublishScore = psElem ? psElem.checked : false; // Default off
+        const isPublishScore = psElem ? psElem.checked : false;
         
         let jsBuilder=[], jsValid=[], studentInputsHtml=[];
         let hasStudentInputs = false;
@@ -888,7 +854,6 @@ const app = {
             studentFormHtml = `
             <div id="studentInfoBox" style="background: white; padding: 24px; border-radius: 12px; border: 2px solid var(--primary); margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                 <h3 style="margin-top:0; color: var(--primary); text-align: center; font-size: 1.3rem;">Thông tin học sinh</h3>
-                <div style="color: #ef4444; font-size: 0.9rem; text-align: center; margin-bottom: 15px; font-style: italic;">* Vui lòng điền các thông tin bắt buộc</div>
                 <div style="display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto;">
                     ${studentInputsHtml.join('')}
                 </div>
@@ -904,7 +869,7 @@ const app = {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${title}</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&subset=vietnamese&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
   <script>
       window.MathJax = { 
           loader: {load: ['[tex]/mhchem', '[tex]/extpfeil']},
@@ -1000,9 +965,9 @@ const app = {
         </div>
       </div>
       <div class='container'>
-        <div class='header'><h1>\${title}</h1>\${creatorHtml}</div>
-        \${studentFormHtml}
-        \${sectionsHTML.join('\\n')}
+        <div class='header'><h1>${title}</h1>${creatorHtml}</div>
+        ${studentFormHtml}
+        ${sectionsHTML.join('\n')}
         <button class='btn-submit' id='submitBtn' onclick='gradeQuiz();'>NỘP BÀI VÀ XEM KẾT QUẢ</button>
       </div>
   </div>
@@ -1031,12 +996,12 @@ const app = {
   </div>
 
   <script>
-      const START_TIME_STR = "\${startTime}";
-      const END_TIME_STR = "\${endTime}";
-      const EXAM_ID = "\${examUUID}";
-      const GF_URL = "\${this.data.gf_config.url}";
-      const IS_ANTI_CHEAT = \${isAntiCheat};
-      const IS_PUBLISH_SCORE = \${isPublishScore};
+      const START_TIME_STR = "${startTime}";
+      const END_TIME_STR = "${endTime}";
+      const EXAM_ID = "${examUUID}";
+      const GF_URL = "${this.data.gf_config.url}";
+      const IS_ANTI_CHEAT = ${isAntiCheat};
+      const IS_PUBLISH_SCORE = ${isPublishScore};
 
       window.isSystemAlert = false;
       const originalAlert = window.alert;
@@ -1064,15 +1029,15 @@ const app = {
           } catch(e) { return null; }
       }
       const START_TIME = parseDateVN(START_TIME_STR);
-      const absoluteEndTime = parseDateVN(END_TIME_STR);
-
+      let absoluteEndTime = parseDateVN(END_TIME_STR);
+      
       function lockExam(reason) {
           if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
-          document.documentElement.innerHTML = \\\`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
+          document.documentElement.innerHTML = \`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
               <h1 style="font-size:3rem; margin-bottom:10px;">⛔ TRUY CẬP BỊ TỪ CHỐI</h1>
-              <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\\\${reason}</h3>
+              <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\${reason}</h3>
               <p style="color:#888; margin-top:20px;">Mọi thắc mắc vui lòng liên hệ giáo viên của bạn.</p>
-          </body>\\\`;
+          </body>\`;
       }
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -1081,13 +1046,13 @@ const app = {
           else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
           else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
           else if (START_TIME && nowInit < START_TIME) {
-              document.documentElement.innerHTML = \\\`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
+              document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
                   <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
-                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\\\${START_TIME_STR}</b></p>
-                  \\\${END_TIME_STR ? \\\`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\\\${END_TIME_STR}</b></p>\\\` : ''}
+                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
+                  \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
                   <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
                   <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
-              </body>\\\`;
+              </body>\`;
               let waitInterval = setInterval(() => {
                   let r = Math.floor((START_TIME - new Date().getTime()) / 1000);
                   if (r <= 0) { clearInterval(waitInterval); location.reload(); }
@@ -1118,7 +1083,7 @@ const app = {
                               startTimer();
                           };
                       } else {
-                          btn.innerText = \\\`Tôi đã hiểu và đồng ý (\\\${warningWait}s)\\\`;
+                          btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
                       }
                   }, 1000);
               } else {
@@ -1140,7 +1105,7 @@ const app = {
                   window.isForceSubmit = true;
                   if (typeof gradeQuiz === 'function') gradeQuiz();
                   setTimeout(() => lockExam("Hủy bài thi do vi phạm quy chế nhiều lần."), 3500);
-              } else alert(\\\`⚠️ CẢNH BÁO GIAN LẬN (\\\${window.violationCount}/3)!\\\\nLý do: \\\${reason}.\\\\nHệ thống đã ghi nhận vào báo cáo!\\\`);
+              } else alert(\`⚠️ CẢNH BÁO GIAN LẬN (\${window.violationCount}/3)!\\nLý do: \${reason}.\\nHệ thống đã ghi nhận vào báo cáo!\`);
           }
       }
       
@@ -1180,7 +1145,7 @@ const app = {
               let questions = Array.from(section.querySelectorAll('.question'));
               if (questions.length > 1) {
                   shuffleArray(questions);
-                  questions.forEach((q, index) => { section.appendChild(q); let qText = q.querySelector('.q-text strong'); if (qText && qText.innerText.startsWith('Câu')) qText.innerText = \\\`Câu \\\${index + 1}:\\\`; });
+                  questions.forEach((q, index) => { section.appendChild(q); let qText = q.querySelector('.q-text strong'); if (qText && qText.innerText.startsWith('Câu')) qText.innerText = \`Câu \${index + 1}:\`; });
               }
           });
           document.querySelectorAll('.section[data-parttype="1"], .section[data-parttype="2"]').forEach(section => {
@@ -1195,7 +1160,7 @@ const app = {
                   let newCorrectAnswers = []; let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                   options.forEach((opt, index) => {
                       let newLetter = letters[index]; let input = opt.querySelector('input'); let oldVal = input.value;
-                      input.value = newLetter; let strongTag = opt.querySelector('div strong'); if (strongTag) strongTag.innerHTML = \\\`\\\${newLetter}.\\\`;
+                      input.value = newLetter; let strongTag = opt.querySelector('div strong'); if (strongTag) strongTag.innerHTML = \`\${newLetter}.\`;
                       if (correctAnswers.includes(oldVal)) newCorrectAnswers.push(newLetter);
                       q.insertBefore(opt, expl);
                   });
@@ -1265,8 +1230,8 @@ const app = {
           while(svg.firstChild) { svg.removeChild(svg.firstChild); }
           let cRect = container.getBoundingClientRect(); let primaryColor = getPrimaryColor(); let isGraded = container.classList.contains('graded');
           container.matchLinks.forEach((link) => {
-              let leftEl = container.querySelector(\`\.match-item-left[data-id="\\\${link.l}"]\`);
-              let rightEl = container.querySelector(\`\.match-item-right[data-id="\\\${link.r}"]\`);
+              let leftEl = container.querySelector(\`.match-item-left[data-id="\${link.l}"]\`);
+              let rightEl = container.querySelector(\`.match-item-right[data-id="\${link.r}"]\`);
               if (leftEl && rightEl) {
                   let lRect = leftEl.getBoundingClientRect(), rRect = rightEl.getBoundingClientRect();
                   let x1 = lRect.right - cRect.left, y1 = lRect.top + lRect.height/2 - cRect.top;
@@ -1334,32 +1299,23 @@ const app = {
           if (!GF_URL) return; 
           let violationReport = (window.violationCount > 0) ? "Vi phạm " + window.violationCount + " lần (" + window.violationDetails.join(" | ") + ")" : "Không vi phạm";
           const formData = new FormData();
-          \${jsBuilder.join('\\n          ')}
+          ${jsBuilder.join('\n          ')}
           try { await fetch(GF_URL, { method: 'POST', mode: 'no-cors', body: formData }); } catch (err) { console.error("Lỗi khi gửi Google Form:", err); }
       }
 
       async function gradeQuiz() {
          if (GF_URL) {
              let missing_fields = [];
-             \${jsValid.join('\\n             ')}
-             if (missing_fields.length > 0 && !window.isForceSubmit) { alert("⚠️ Vui lòng điền đầy đủ các thông bắt buộc: " + missing_fields.join(", ") + " trước khi nộp bài!"); return; }
+             ${jsValid.join('\n             ')}
+             if (missing_fields.length > 0 && !window.isForceSubmit) { alert("⚠️ Vui lòng điền đầy đủ các thông tin bắt buộc: " + missing_fields.join(", ") + " trước khi nộp bài!"); return; }
          }
          if (typeof timerInterval !== 'undefined') clearInterval(timerInterval); 
          let overlay = document.getElementById('loadingOverlay'); overlay.style.display = 'flex';
          let totalScore = 0; let maxPossibleScore = 0; let partStats = {};
-         let studentDetailsText = "--- CHI TIẾT BÀI LÀM ---\\\\n";
-
-         if (window.violationCount > 0) {
-             studentDetailsText += "[VI PHẠM QUY CHẾ] Số lần: " + window.violationCount + "\\\\n- Chi tiết: " + window.violationDetails.join(" | ") + "\\\\n\\\\n";
-         } else {
-             studentDetailsText += "[VI PHẠM QUY CHẾ] Không vi phạm\\\\n\\\\n";
-         }
+         let studentDetailsText = "--- CHI TIẾT BÀI LÀM ---\\n";
 
          document.querySelectorAll('.section').forEach(function(section) {
            let partType = section.getAttribute('data-parttype'); let partTitle = section.getAttribute('data-title'); partStats[partTitle] = { score: 0, max: 0 };
-           
-           studentDetailsText += "==== " + partTitle.toUpperCase() + " ====\\\\n";
-           
            section.querySelectorAll('.question').forEach(function(q) {
              let qid = q.id; let feedback = ""; let qScore = 0; let qMax = 1; 
              let userAnsText = ""; let correctAnsText = "";
@@ -1415,8 +1371,8 @@ const app = {
                    inp.disabled = true; 
                });
                
-               userAnsText = blankResults.map(r => \\\`(\\\${r.blank}) \\\${r.answered === false ? "Chưa điền" : r.answer}\\\`).join(' | ');
-               correctAnsText = blankResults.map(r => \\\`(\\\${r.blank}) \\\${r.accepted.join('/')}\\\`).join(' | ');
+               userAnsText = blankResults.map(r => \`(Vị trí \${r.blank}) \${r.answered === false ? "Chưa điền" : r.answer}\`).join(' | ');
+               correctAnsText = blankResults.map(r => \`(Vị trí \${r.blank}) \${r.accepted.join('/')}\`).join(' | ');
                
                let wrongBlanks = []; let unansweredBlanks = [];
                blankResults.forEach(function(r) { if (r.answered === false) unansweredBlanks.push(r.blank); else if (!r.correct) wrongBlanks.push(r.blank); });
@@ -1477,27 +1433,27 @@ const app = {
                          if (keywordCorrect && !usedHint) { rowPts = 2; bonusScore += 2; statusText = '<span style="color:#10b981;">(Từ khóa đúng, không xem gợi ý)</span>'; }
                          else { rowPts = 0; statusText = usedHint ? '<span style="color:#ef4444;">(Sai/Bỏ trống, đã xem gợi ý)</span>' : '<span style="color:#ef4444;">(Sai/Bỏ trống)</span>'; }
                      }
-                     rowDetailsHtml += \\\`<div style="margin-bottom: 6px;">- Hàng ngang số \\\${rIdx + 1}: <strong>\\\${rowPts} / 2</strong> điểm \\\${statusText}</div>\\\`;
+                     rowDetailsHtml += \`<div style="margin-bottom: 6px;">- Hàng ngang số \${rIdx + 1}: <strong>\${rowPts} / 2</strong> điểm \${statusText}</div>\`;
                  });
                  qScore = answeredScore + bonusScore;
-                 if (keywordCorrect && keyCells.length > 0) rowDetailsHtml += \\\`<div style="margin-top: 12px; color: #10b981; font-weight: bold; background: #ecfdf5; padding: 10px; border-radius: 8px;">⭐ Bạn đã trả lời đúng toàn bộ Từ khóa hàng dọc! Các hàng chưa trả lời (và không xem gợi ý) được tính trọn điểm.</div>\\\`;
-                 else if (keyCells.length > 0) rowDetailsHtml += \\\`<div style="margin-top: 12px; color: #ef4444; font-weight: bold; background: #fef2f2; padding: 10px; border-radius: 8px;">⚠ Trả lời sai/thiếu từ khóa hàng dọc. Chỉ tính điểm các hàng ngang đã trả lời.</div>\\\`;
+                 if (keywordCorrect && keyCells.length > 0) rowDetailsHtml += \`<div style="margin-top: 12px; color: #10b981; font-weight: bold; background: #ecfdf5; padding: 10px; border-radius: 8px;">⭐ Bạn đã trả lời đúng toàn bộ Từ khóa hàng dọc! Các hàng chưa trả lời (và không xem gợi ý) được tính trọn điểm.</div>\`;
+                 else if (keyCells.length > 0) rowDetailsHtml += \`<div style="margin-top: 12px; color: #ef4444; font-weight: bold; background: #fef2f2; padding: 10px; border-radius: 8px;">⚠ Trả lời sai/thiếu từ khóa hàng dọc. Chỉ tính điểm các hàng ngang đã trả lời.</div>\`;
                  cwContainer.querySelectorAll('.cw-num').forEach(numBtn => { numBtn.onclick = null; numBtn.style.cursor = 'default'; numBtn.style.opacity = '0.5'; });
                  let titleColor = (qScore === qMax) ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444');
-                 feedback = \\\`<span style="color:\\\${titleColor}; font-size:1.15rem; font-weight: bold;">Điểm đạt được: \\\${qScore} / \\\${qMax} điểm</span><div style="font-size:0.95rem; color:var(--text); margin-top:12px; padding:12px; background:white; border-radius:8px; border:1px solid var(--border);">\\\${rowDetailsHtml}</div>\\\`;
+                 feedback = \`<span style="color:\${titleColor}; font-size:1.15rem; font-weight: bold;">Điểm đạt được: \${qScore} / \${qMax} điểm</span><div style="font-size:0.95rem; color:var(--text); margin-top:12px; padding:12px; background:white; border-radius:8px; border:1px solid var(--border);">\${rowDetailsHtml}</div>\`;
                  
                  userAnsText = "Đạt " + qScore + "/" + qMax + " điểm";
                  correctAnsText = "Xem chi tiết trên màn hình bài làm";
              }
              
-             studentDetailsText += \\\`[\\\${qLabel}] Điểm: \\\${qScore}/\\\${qMax}\\\\n- HS Chọn: \\\${userAnsText}\\\\n- Đáp án: \\\${correctAnsText}\\\\n\\\\n\\\`;
+             studentDetailsText += \`\\n[\${qLabel}] Điểm: \${qScore}/\${qMax}\\n- HS Chọn: \${userAnsText}\\n- Đáp án: \${correctAnsText}\\n\`;
 
              partStats[partTitle].score += qScore; partStats[partTitle].max += qMax; totalScore += qScore; maxPossibleScore += qMax;
              
              if (IS_PUBLISH_SCORE) {
-                 let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\\\s*\\\\/?>/gi, '').trim();
-                 expl.innerHTML = \\\`<div style="margin-bottom: 8px;">\\\${feedback}</div>\\\`;
-                 if (cleanedSolution !== "") expl.innerHTML += \\\`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\\\${solution}</div>\\\`; 
+                 let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\s*\\/?>/gi, '').trim();
+                 expl.innerHTML = \`<div style="margin-bottom: 8px;">\${feedback}</div>\`;
+                 if (cleanedSolution !== "") expl.innerHTML += \`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\${solution}</div>\`; 
                  expl.style.display = "block";
                  if (partType === "6") q.style.borderLeftColor = qScore === qMax ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444'); 
                  else q.style.borderLeftColor = qScore > 0 ? '#10b981' : '#ef4444'; 
@@ -1515,20 +1471,20 @@ const app = {
          
          let violationReportHtml = "";
          if (IS_ANTI_CHEAT && window.violationCount > 0) {
-             violationReportHtml = \\\`<div style="color:#dc2626; background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fca5a5; font-weight:bold; margin-top:20px; font-size:1.05rem;">⚠️ Báo cáo vi phạm: \\\${window.violationCount} lần<br><span style="font-weight:normal; font-size:0.95rem;">Chi tiết: \\\${window.violationDetails.join(' | ')}</span></div>\\\`;
+             violationReportHtml = \`<div style="color:#dc2626; background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fca5a5; font-weight:bold; margin-top:20px; font-size:1.05rem;">⚠️ Báo cáo vi phạm: \${window.violationCount} lần<br><span style="font-weight:normal; font-size:0.95rem;">Chi tiết: \${window.violationDetails.join(' | ')}</span></div>\`;
          } else if (IS_ANTI_CHEAT) {
-             violationReportHtml = \\\`<div style="color:#10b981; background:#ecfdf5; padding:12px; border-radius:8px; border:1px solid #a7f3d0; font-weight:bold; margin-top:20px; font-size:1.05rem;">✅ Tuyệt vời! Bạn không vi phạm quy chế thi.</div>\\\`;
+             violationReportHtml = \`<div style="color:#10b981; background:#ecfdf5; padding:12px; border-radius:8px; border:1px solid #a7f3d0; font-weight:bold; margin-top:20px; font-size:1.05rem;">✅ Tuyệt vời! Bạn không vi phạm quy chế thi.</div>\`;
          }
 
          let summaryHtml = "";
          if (IS_PUBLISH_SCORE) {
-             summaryHtml = \\\`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\\\${totalScore} / \\\${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\\\`;
-             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \\\`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\\\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\\\${partStats[p].score} / \\\${partStats[p].max}</td></tr>\\\`;
-             summaryHtml += \\\`</table>\\\${violationReportHtml}</div>\\\`;
+             summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
+             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
+             summaryHtml += \`</table>\${violationReportHtml}</div>\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
          } else {
-             summaryHtml = \\\`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\\\${violationReportHtml}</div>\\\`;
+             summaryHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\${violationReportHtml}</div>\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Đã nộp bài';
          }
