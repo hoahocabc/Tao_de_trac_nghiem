@@ -1,21 +1,37 @@
-::-webkit-scrollbar { 
-    width: 8px; 
-    height: 8px; 
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ---- Hiệu ứng Kéo Thả (Drag & Drop) sinh động ---- */
+.q-item-drag {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-::-webkit-scrollbar-track { 
-    background: transparent; 
+
+/* Khi item đang bị kéo */
+.dragging-item {
+    opacity: 0.4;
+    transform: scale(0.96);
+    background-color: #eff6ff !important;
+    border-style: dashed !important;
+    border-color: #3b82f6 !important;
+    box-shadow: none !important;
 }
-::-webkit-scrollbar-thumb { 
-    background: #cbd5e1; 
-    border-radius: 10px; 
+
+/* Khi kéo đè lên phía trên câu hỏi khác: Tạo khoảng trống và đường kẻ chỉ thị */
+.drag-over-top {
+    border-top: 4px solid #3b82f6 !important;
+    padding-top: 1.5rem !important;
+    margin-top: 0.5rem !important;
 }
-::-webkit-scrollbar-thumb:hover { 
-    background: #94a3b8; 
-}
-.no-scrollbar::-webkit-scrollbar { 
-    display: none; 
-}
-.no-scrollbar { 
-    -ms-overflow-style: none; 
-    scrollbar-width: none; 
+
+/* Khi kéo đè xuống phía dưới câu hỏi khác */
+.drag-over-bottom {
+    border-bottom: 4px solid #3b82f6 !important;
+    padding-bottom: 1.5rem !important;
+    margin-bottom: 0.5rem !important;
 }
