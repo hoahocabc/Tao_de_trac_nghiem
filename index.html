@@ -25,10 +25,10 @@
     
     <style type="text/tailwindcss">
         @layer components {
-            .btn { @apply relative px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-xs sm:text-sm focus:outline-none active:translate-y-1; }
-            .btn-primary { @apply bg-blue-500 text-white shadow-[0_4px_0_0_#1d4ed8] hover:shadow-[0_6px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8]; }
-            .btn-green { @apply bg-emerald-500 text-white shadow-[0_4px_0_0_#047857] hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
-            .btn-outline { @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
+            .btn { @apply relative px-2.5 py-1.5 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-xl font-bold inline-flex items-center justify-center transition-all duration-200 text-[10px] sm:text-xs md:text-sm focus:outline-none active:translate-y-1 whitespace-nowrap shrink-0; }
+            .btn-primary { @apply bg-blue-500 text-white shadow-[0_3px_0_0_#1d4ed8] sm:shadow-[0_4px_0_0_#1d4ed8] hover:shadow-[0_5px_0_0_#1d4ed8] sm:hover:shadow-[0_6px_0_0_#1d4ed8] hover:-translate-y-0.5 hover:bg-blue-400 active:shadow-[0_0px_0_0_#1d4ed8]; }
+            .btn-green { @apply bg-emerald-500 text-white shadow-[0_3px_0_0_#047857] sm:shadow-[0_4px_0_0_#047857] hover:shadow-[0_5px_0_0_#047857] sm:hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
+            .btn-outline { @apply bg-white border sm:border-2 border-slate-200 text-slate-700 shadow-[0_3px_0_0_#e2e8f0] sm:shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_5px_0_0_#cbd5e1] sm:hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
             .tab-btn { @apply w-full flex flex-col items-center justify-center px-1 sm:px-2 py-1.5 sm:py-2 text-xs sm:text-base font-extrabold rounded-xl transition-all duration-200 border-2 active:translate-y-1; }
             .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_4px_0_0_#60a5fa] -translate-y-1 scale-105; }
             .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
@@ -38,23 +38,28 @@
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
-    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
-        <div class="max-w-[1500px] mx-auto px-3 sm:px-4 lg:px-6 min-h-[64px] py-2 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                <div class="bg-blue-500 p-2 sm:p-2.5 rounded-xl text-white shadow-[0_3px_0_0_#1d4ed8] shrink-0"><i data-lucide="flask-conical" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
-                <h1 class="text-base sm:text-xl font-bold text-slate-900 tracking-tight line-clamp-1">Tạo đề Hóa học ABC</h1>
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 w-full">
+        <div class="max-w-[1500px] mx-auto px-2 sm:px-4 lg:px-6 h-14 sm:h-16 flex items-center justify-between gap-2 sm:gap-4">
+            
+            <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                <div class="bg-blue-500 p-1.5 sm:p-2.5 rounded-lg sm:rounded-xl text-white shadow-[0_2px_0_0_#1d4ed8] sm:shadow-[0_3px_0_0_#1d4ed8] shrink-0"><i data-lucide="flask-conical" class="w-4 h-4 sm:w-5 sm:h-5"></i></div>
+                <h1 class="text-sm sm:text-lg md:text-xl font-extrabold text-slate-900 tracking-tight whitespace-nowrap">Tạo đề ABC</h1>
             </div>
-            <div class="flex items-center flex-wrap gap-1.5 sm:gap-2 justify-start sm:justify-end flex-1">
-                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Tạo mới</span></button>
-                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Mở file</span></button>
-                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Lưu lại</span></button>
-                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Nhập TXT</span></button>
-                <div class="w-full sm:w-px h-px sm:h-8 bg-slate-200 mx-0.5 sm:mx-1 shrink-0 hidden sm:block"></div>
-                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Google Form</span><span class="sm:hidden">Form</span></button>
-                <button class="btn btn-outline" onclick="app.exportWord()"><i data-lucide="file-text" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Xuất Word</span></button>
-                <button class="btn btn-outline" onclick="app.exportPDF()"><i data-lucide="printer" class="w-4 h-4 sm:mr-2"></i><span class="hidden sm:inline">Xuất PDF</span></button>
-                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-4 h-4 sm:mr-2"></i><span>Xuất HTML</span></button>
+            
+            <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar flex-nowrap flex-1 justify-end scroll-smooth py-1">
+                <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Tạo mới</span></button>
+                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Mở file</span></button>
+                <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden md:inline">Lưu lại</span></button>
+                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Nhập TXT</span></button>
+                
+                <div class="w-px h-5 sm:h-8 bg-slate-200 mx-0.5 shrink-0"></div>
+                
+                <button class="btn btn-green" onclick="app.openGFSettings()"><i data-lucide="database" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden xl:inline">Google Form</span><span class="hidden sm:inline xl:hidden">Form</span></button>
+                <button class="btn btn-outline" onclick="app.exportWord()"><i data-lucide="file-text" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Xuất Word</span></button>
+                <button class="btn btn-outline" onclick="app.exportPDF()"><i data-lucide="printer" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden lg:inline">Xuất PDF</span></button>
+                <button class="btn btn-primary" onclick="app.exportHTML()"><i data-lucide="rocket" class="w-3.5 h-3.5 sm:w-4 sm:h-4 sm:mr-1.5"></i><span class="hidden sm:inline">Xuất HTML</span></button>
             </div>
+            
         </div>
     </header>
 
