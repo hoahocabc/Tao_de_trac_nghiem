@@ -352,7 +352,7 @@ const app = {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
             const savedGF = this.data.gf_config; 
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
-            document.getElementById('quizTitle').value = "B��I TẬP TRẮC NGHIỆM";
+            document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
             document.getElementById('startTime').value = "";
             document.getElementById('endTime').value = "";
@@ -704,7 +704,7 @@ const app = {
                 jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
             } else if (f.type === "Vi phạm (Tự động)") {
                 jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
-            } else if (f.type === "Chi tiết bài làm (T�� động)") {
+            } else if (f.type === "Chi tiết bài làm (Tự động)") {
                 jsBuilder.push(`formData.append("entry.${f.id}", studentDetailsText);`);
             } else {
                 jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
@@ -1041,11 +1041,11 @@ const app = {
       
       function lockExam(reason) {
           if (IS_ANTI_CHEAT) localStorage.setItem(EXAM_ID + "_LOCKED", reason);
-          document.documentElement.innerHTML = \`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
+          document.documentElement.innerHTML = \\\`<body style="background:#111; color:#ef4444; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; user-select:none;">
               <h1 style="font-size:3rem; margin-bottom:10px;">⛔ TRUY CẬP BỊ TỪ CHỐI</h1>
-              <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\${reason}</h3>
+              <h3 style="color:#fff; font-weight:normal; max-width:80%; line-height:1.5;">\\\${reason}</h3>
               <p style="color:#888; margin-top:20px;">Mọi thắc mắc vui lòng liên hệ giáo viên của bạn.</p>
-          </body>\`;
+          </body>\\\`;
       }
 
       window.addEventListener('DOMContentLoaded', () => {
@@ -1054,13 +1054,13 @@ const app = {
           else if (IS_ANTI_CHEAT && localStorage.getItem(EXAM_ID + "_LOCKED")) lockExam("Bài thi đã bị khóa!<br>Lý do: " + localStorage.getItem(EXAM_ID + "_LOCKED"));
           else if (absoluteEndTime && nowInit >= absoluteEndTime) lockExam("Kỳ thi ĐÃ KẾT THÚC!<br>Thời gian đóng form: " + END_TIME_STR);
           else if (START_TIME && nowInit < START_TIME) {
-              document.documentElement.innerHTML = \`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
+              document.documentElement.innerHTML = \\\`<body style="background:#f8fafc; display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; margin:0; font-family:sans-serif; text-align:center; color:#0f172a; user-select:none;">
                   <h1 style="color:#2563eb; margin-bottom:10px;">KỲ THI CHƯA BẮT ĐẦU</h1>
-                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\${START_TIME_STR}</b></p>
-                  \${END_TIME_STR ? \`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\${END_TIME_STR}</b></p>\` : ''}
+                  <p style="font-size:1.2rem; margin:5px 0;">Thời gian mở đề: <b>\\\${START_TIME_STR}</b></p>
+                  \\\${END_TIME_STR ? \\\`<p style="font-size:1.2rem; margin:5px 0;">Thời gian đóng đề: <b>\\\${END_TIME_STR}</b></p>\\\` : ''}
                   <div id="countdownWatch" style="font-size:3.5rem; font-weight:bold; color:#ef4444; margin-top:20px; font-variant-numeric:tabular-nums; background:#fee2e2; padding:10px 30px; border-radius:12px; border:2px solid #fca5a5; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">--:--:--</div>
                   <p style="color:#64748b; margin-top:20px; font-style:italic;">Trang web sẽ tự động hiển thị bài thi khi thời gian đếm ngược kết thúc.</p>
-              </body>\`;
+              </body>\\\`;
               let waitInterval = setInterval(() => {
                   let r = Math.floor((START_TIME - new Date().getTime()) / 1000);
                   if (r <= 0) { clearInterval(waitInterval); location.reload(); }
@@ -1091,7 +1091,7 @@ const app = {
                               startTimer();
                           };
                       } else {
-                          btn.innerText = \`Tôi đã hiểu và đồng ý (\${warningWait}s)\`;
+                          btn.innerText = \\\`Tôi đã hiểu và đồng ý (\\\${warningWait}s)\\\`;
                       }
                   }, 1000);
               } else {
@@ -1113,7 +1113,7 @@ const app = {
                   window.isForceSubmit = true;
                   if (typeof gradeQuiz === 'function') gradeQuiz();
                   setTimeout(() => lockExam("Hủy bài thi do vi phạm quy chế nhiều lần."), 3500);
-              } else alert(\`⚠️ CẢNH BÁO GIAN LẬN (\${window.violationCount}/3)!\\nLý do: \${reason}.\\nHệ thống đã ghi nhận vào báo cáo!\`);
+              } else alert(\\\`⚠️ CẢNH BÁO GIAN LẬN (\\\${window.violationCount}/3)!\\\\nLý do: \\\${reason}.\\\\nHệ thống đã ghi nhận vào báo cáo!\\\`);
           }
       }
       
@@ -1153,7 +1153,7 @@ const app = {
               let questions = Array.from(section.querySelectorAll('.question'));
               if (questions.length > 1) {
                   shuffleArray(questions);
-                  questions.forEach((q, index) => { section.appendChild(q); let qText = q.querySelector('.q-text strong'); if (qText && qText.innerText.startsWith('Câu')) qText.innerText = \`Câu \${index + 1}:\`; });
+                  questions.forEach((q, index) => { section.appendChild(q); let qText = q.querySelector('.q-text strong'); if (qText && qText.innerText.startsWith('Câu')) qText.innerText = \\\`Câu \\\${index + 1}:\\\`; });
               }
           });
           document.querySelectorAll('.section[data-parttype="1"], .section[data-parttype="2"]').forEach(section => {
@@ -1168,7 +1168,7 @@ const app = {
                   let newCorrectAnswers = []; let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                   options.forEach((opt, index) => {
                       let newLetter = letters[index]; let input = opt.querySelector('input'); let oldVal = input.value;
-                      input.value = newLetter; let strongTag = opt.querySelector('div strong'); if (strongTag) strongTag.innerHTML = \`\${newLetter}.\`;
+                      input.value = newLetter; let strongTag = opt.querySelector('div strong'); if (strongTag) strongTag.innerHTML = \\\`\\\${newLetter}.\\\`;
                       if (correctAnswers.includes(oldVal)) newCorrectAnswers.push(newLetter);
                       q.insertBefore(opt, expl);
                   });
@@ -1238,8 +1238,8 @@ const app = {
           while(svg.firstChild) { svg.removeChild(svg.firstChild); }
           let cRect = container.getBoundingClientRect(); let primaryColor = getPrimaryColor(); let isGraded = container.classList.contains('graded');
           container.matchLinks.forEach((link) => {
-              let leftEl = container.querySelector(\`.match-item-left[data-id="\${link.l}"]\`);
-              let rightEl = container.querySelector(\`.match-item-right[data-id="\${link.r}"]\`);
+              let leftEl = container.querySelector(\`.match-item-left[data-id="\\\${link.l}"]\`);
+              let rightEl = container.querySelector(\`.match-item-right[data-id="\\\${link.r}"]\`);
               if (leftEl && rightEl) {
                   let lRect = leftEl.getBoundingClientRect(), rRect = rightEl.getBoundingClientRect();
                   let x1 = lRect.right - cRect.left, y1 = lRect.top + lRect.height/2 - cRect.top;
@@ -1320,7 +1320,7 @@ const app = {
          if (typeof timerInterval !== 'undefined') clearInterval(timerInterval); 
          let overlay = document.getElementById('loadingOverlay'); overlay.style.display = 'flex';
          let totalScore = 0; let maxPossibleScore = 0; let partStats = {};
-         let studentDetailsText = "--- CHI TIẾT BÀI LÀM ---\\n";
+         let studentDetailsText = "--- CHI TIẾT BÀI LÀM ---\\\\n";
 
          document.querySelectorAll('.section').forEach(function(section) {
            let partType = section.getAttribute('data-parttype'); let partTitle = section.getAttribute('data-title'); partStats[partTitle] = { score: 0, max: 0 };
@@ -1379,8 +1379,8 @@ const app = {
                    inp.disabled = true; 
                });
                
-               userAnsText = blankResults.map(r => \`(Vị trí \${r.blank}) \${r.answered === false ? "Chưa điền" : r.answer}\`).join(' | ');
-               correctAnsText = blankResults.map(r => \`(Vị trí \${r.blank}) \${r.accepted.join('/')}\`).join(' | ');
+               userAnsText = blankResults.map(r => \\\`(Vị trí \\\${r.blank}) \\\${r.answered === false ? "Chưa điền" : r.answer}\\\`).join(' | ');
+               correctAnsText = blankResults.map(r => \\\`(Vị trí \\\${r.blank}) \\\${r.accepted.join('/')}\\\`).join(' | ');
                
                let wrongBlanks = []; let unansweredBlanks = [];
                blankResults.forEach(function(r) { if (r.answered === false) unansweredBlanks.push(r.blank); else if (!r.correct) wrongBlanks.push(r.blank); });
@@ -1441,27 +1441,27 @@ const app = {
                          if (keywordCorrect && !usedHint) { rowPts = 2; bonusScore += 2; statusText = '<span style="color:#10b981;">(Từ khóa đúng, không xem gợi ý)</span>'; }
                          else { rowPts = 0; statusText = usedHint ? '<span style="color:#ef4444;">(Sai/Bỏ trống, đã xem gợi ý)</span>' : '<span style="color:#ef4444;">(Sai/Bỏ trống)</span>'; }
                      }
-                     rowDetailsHtml += \`<div style="margin-bottom: 6px;">- Hàng ngang số \${rIdx + 1}: <strong>\${rowPts} / 2</strong> điểm \${statusText}</div>\`;
+                     rowDetailsHtml += \\\`<div style="margin-bottom: 6px;">- Hàng ngang số \\\${rIdx + 1}: <strong>\\\${rowPts} / 2</strong> điểm \\\${statusText}</div>\\\`;
                  });
                  qScore = answeredScore + bonusScore;
-                 if (keywordCorrect && keyCells.length > 0) rowDetailsHtml += \`<div style="margin-top: 12px; color: #10b981; font-weight: bold; background: #ecfdf5; padding: 10px; border-radius: 8px;">⭐ Bạn đã trả lời đúng toàn bộ Từ khóa hàng dọc! Các hàng chưa trả lời (và không xem gợi ý) được tính trọn điểm.</div>\`;
-                 else if (keyCells.length > 0) rowDetailsHtml += \`<div style="margin-top: 12px; color: #ef4444; font-weight: bold; background: #fef2f2; padding: 10px; border-radius: 8px;">⚠ Trả lời sai/thiếu từ khóa hàng dọc. Chỉ tính điểm các hàng ngang đã trả lời.</div>\`;
+                 if (keywordCorrect && keyCells.length > 0) rowDetailsHtml += \\\`<div style="margin-top: 12px; color: #10b981; font-weight: bold; background: #ecfdf5; padding: 10px; border-radius: 8px;">⭐ Bạn đã trả lời đúng toàn bộ Từ khóa hàng dọc! Các hàng chưa trả lời (và không xem gợi ý) được tính trọn điểm.</div>\\\`;
+                 else if (keyCells.length > 0) rowDetailsHtml += \\\`<div style="margin-top: 12px; color: #ef4444; font-weight: bold; background: #fef2f2; padding: 10px; border-radius: 8px;">⚠ Trả lời sai/thiếu từ khóa hàng dọc. Chỉ tính điểm các hàng ngang đã trả lời.</div>\\\`;
                  cwContainer.querySelectorAll('.cw-num').forEach(numBtn => { numBtn.onclick = null; numBtn.style.cursor = 'default'; numBtn.style.opacity = '0.5'; });
                  let titleColor = (qScore === qMax) ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444');
-                 feedback = \`<span style="color:\${titleColor}; font-size:1.15rem; font-weight: bold;">Điểm đạt được: \${qScore} / \${qMax} điểm</span><div style="font-size:0.95rem; color:var(--text); margin-top:12px; padding:12px; background:white; border-radius:8px; border:1px solid var(--border);">\${rowDetailsHtml}</div>\`;
+                 feedback = \\\`<span style="color:\\\${titleColor}; font-size:1.15rem; font-weight: bold;">Điểm đạt được: \\\${qScore} / \\\${qMax} điểm</span><div style="font-size:0.95rem; color:var(--text); margin-top:12px; padding:12px; background:white; border-radius:8px; border:1px solid var(--border);">\\\${rowDetailsHtml}</div>\\\`;
                  
                  userAnsText = "Đạt " + qScore + "/" + qMax + " điểm";
                  correctAnsText = "Xem chi tiết trên màn hình bài làm";
              }
              
-             studentDetailsText += \`\\n[\${qLabel}] Điểm: \${qScore}/\${qMax}\\n- HS Chọn: \${userAnsText}\\n- Đáp án: \${correctAnsText}\\n\`;
+             studentDetailsText += \\\`\\\\n[\\\${qLabel}] Điểm: \\\${qScore}/\\\${qMax}\\\\n- HS Chọn: \\\${userAnsText}\\\\n- Đáp án: \\\${correctAnsText}\\\\n\\\`;
 
              partStats[partTitle].score += qScore; partStats[partTitle].max += qMax; totalScore += qScore; maxPossibleScore += qMax;
              
              if (IS_PUBLISH_SCORE) {
-                 let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\s*\\/?>/gi, '').trim();
-                 expl.innerHTML = \`<div style="margin-bottom: 8px;">\${feedback}</div>\`;
-                 if (cleanedSolution !== "") expl.innerHTML += \`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\${solution}</div>\`; 
+                 let expl = q.querySelector('.explanation'); let encodedSolution = expl.getAttribute('data-solution'); let solution = encodedSolution ? decodeURIComponent(encodedSolution) : ""; let cleanedSolution = solution.replace(/<br\\\\s*\\\\/?>/gi, '').trim();
+                 expl.innerHTML = \\\`<div style="margin-bottom: 8px;">\\\${feedback}</div>\\\`;
+                 if (cleanedSolution !== "") expl.innerHTML += \\\`<hr style="border: 0; border-top: 1px solid var(--border); margin: 12px 0;"><div style="color: var(--text-muted);"><strong>Lời giải chi tiết:</strong><br>\\\${solution}</div>\\\`; 
                  expl.style.display = "block";
                  if (partType === "6") q.style.borderLeftColor = qScore === qMax ? '#10b981' : (qScore > 0 ? '#f59e0b' : '#ef4444'); 
                  else q.style.borderLeftColor = qScore > 0 ? '#10b981' : '#ef4444'; 
@@ -1479,20 +1479,20 @@ const app = {
          
          let violationReportHtml = "";
          if (IS_ANTI_CHEAT && window.violationCount > 0) {
-             violationReportHtml = \`<div style="color:#dc2626; background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fca5a5; font-weight:bold; margin-top:20px; font-size:1.05rem;">⚠️ Báo cáo vi phạm: \${window.violationCount} lần<br><span style="font-weight:normal; font-size:0.95rem;">Chi tiết: \${window.violationDetails.join(' | ')}</span></div>\`;
+             violationReportHtml = \\\`<div style="color:#dc2626; background:#fef2f2; padding:12px; border-radius:8px; border:1px solid #fca5a5; font-weight:bold; margin-top:20px; font-size:1.05rem;">⚠️ Báo cáo vi phạm: \\\${window.violationCount} lần<br><span style="font-weight:normal; font-size:0.95rem;">Chi tiết: \\\${window.violationDetails.join(' | ')}</span></div>\\\`;
          } else if (IS_ANTI_CHEAT) {
-             violationReportHtml = \`<div style="color:#10b981; background:#ecfdf5; padding:12px; border-radius:8px; border:1px solid #a7f3d0; font-weight:bold; margin-top:20px; font-size:1.05rem;">✅ Tuyệt vời! Bạn không vi phạm quy chế thi.</div>\`;
+             violationReportHtml = \\\`<div style="color:#10b981; background:#ecfdf5; padding:12px; border-radius:8px; border:1px solid #a7f3d0; font-weight:bold; margin-top:20px; font-size:1.05rem;">✅ Tuyệt vời! Bạn không vi phạm quy chế thi.</div>\\\`;
          }
 
          let summaryHtml = "";
          if (IS_PUBLISH_SCORE) {
-             summaryHtml = \`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\${totalScore} / \${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\`;
-             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\${partStats[p].score} / \${partStats[p].max}</td></tr>\`;
-             summaryHtml += \`</table>\${violationReportHtml}</div>\`;
+             summaryHtml = \\\`<div id='resultSummary' style='background:var(--card); padding:24px; border-radius:16px; margin-bottom:30px; border:2px solid var(--primary); box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'><h2 style='margin-top:0; color:var(--primary); text-align:center;'>📊 BẢNG TỔNG HỢP ĐIỂM SỐ</h2><div style='font-size:1.8rem; text-align:center; font-weight:bold; margin-bottom:20px; color:var(--text);'>Tổng cộng: <span style='color:var(--primary);'>\\\${totalScore} / \\\${maxPossibleScore}</span></div><table style='width:100%; border-collapse:collapse; margin-top:10px;'>\\\`;
+             for (let p in partStats) if (partStats[p].max > 0) summaryHtml += \\\`<tr><td style='padding:12px 8px; border-bottom:1px solid var(--border); font-size:1.05rem;'>\\\${p}</td><td style='padding:12px 8px; border-bottom:1px solid var(--border); text-align:right; font-weight:bold; font-size:1.1rem; color:var(--primary);'>\\\${partStats[p].score} / \\\${partStats[p].max}</td></tr>\\\`;
+             summaryHtml += \\\`</table>\\\${violationReportHtml}</div>\\\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Tổng điểm: ' + totalScore + ' / ' + maxPossibleScore;
          } else {
-             summaryHtml = \`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\${violationReportHtml}</div>\`;
+             summaryHtml = \\\`<div id='resultSummary' style='background:#ecfdf5; color:#065f46; padding:30px 24px; border-radius:16px; margin-bottom:30px; text-align:center; border:2px solid #34d399; font-size:1.4rem; font-weight:bold; box-shadow:0 4px 6px rgba(0,0,0,0.05); animation: popIn 0.3s ease-out;'>🎉 ĐÃ NỘP BÀI THÀNH CÔNG!<div style='font-size:1rem; font-weight:normal; margin-top:10px; color:#047857;'>Điểm số và đáp án đã được ẩn theo cấu hình của giáo viên.</div>\\\${violationReportHtml}</div>\\\`;
              if (studentBox) studentBox.insertAdjacentHTML('afterend', summaryHtml); else header.insertAdjacentHTML('afterend', summaryHtml);
              document.getElementById('scoreDisplay').innerHTML = 'Đã nộp bài';
          }
@@ -1503,4 +1503,14 @@ const app = {
       }
   </script>
 </body>
-</html>
+</html>`;
+
+        const blob = new Blob([fullHTML], {type: "text/html;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = title.replace(/\s+/g,'_') + ".html";
+        a.click();
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => app.init());
