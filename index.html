@@ -27,11 +27,11 @@
             .btn-green { @apply bg-emerald-500 text-white shadow-[0_4px_0_0_#047857] hover:shadow-[0_6px_0_0_#047857] hover:-translate-y-0.5 hover:bg-emerald-400 active:shadow-[0_0px_0_0_#047857]; }
             .btn-outline { @apply bg-white border-2 border-slate-200 text-slate-700 shadow-[0_4px_0_0_#e2e8f0] hover:border-slate-300 hover:shadow-[0_6px_0_0_#cbd5e1] hover:-translate-y-0.5 hover:text-slate-900 active:shadow-[0_0px_0_0_#e2e8f0]; }
             
-            /* Tinh chỉnh Tab: Giảm chiều cao py để thanh thoát hơn */
+            /* Đã giảm py và text-size để Tab thanh thoát, bớt thô hơn */
             .tab-btn { @apply w-full flex flex-col items-center justify-center px-2 py-1.5 sm:py-2 text-sm sm:text-base font-extrabold rounded-xl transition-all duration-200 border-2 active:translate-y-1; }
+            
             .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_4px_0_0_#60a5fa] -translate-y-1 scale-105; }
             .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
-            
             .form-label { @apply block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1; }
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-4 py-2 text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
@@ -108,8 +108,8 @@
                     </div>
                     
                     <div class="flex-1 flex flex-col bg-white border-2 border-slate-200 rounded-2xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
-                        <div class="bg-slate-50/80 p-2 border-b-2 border-slate-200" id="editorToolbar"></div>
-                        <textarea id="qInput" class="w-full p-4 font-mono text-base flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[450px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
+                        <div class="bg-slate-100 p-2 border-b-2 border-slate-200" id="editorToolbar"></div>
+                        <textarea id="qInput" class="w-full p-4 font-mono text-base flex-1 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed min-h-[450px] lg:min-h-[500px]" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
                     
                     <div class="mt-3 flex justify-end shrink-0"><button class="btn btn-primary w-full sm:w-auto text-base py-2.5" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-5 h-5 mr-2"></i> Thêm vào danh sách</button></div>
@@ -134,7 +134,7 @@
             </div>
             
             <div class="flex flex-col sm:flex-row gap-3 mb-4 shrink-0">
-                <input type="text" id="gfUrlInput" class="form-input flex-1 text-sm sm:text-base py-2 sm:py-3" placeholder="Dán link Form vào đây...">
+                <input type="text" id="gfUrlInput" class="form-input flex-1 text-sm sm:text-base py-2 sm:py-3" placeholder="Dán link Form vào đây (Ctrl + V)...">
                 <button id="btnAnalyze" class="btn btn-green whitespace-nowrap" onclick="app.autoAnalyzeGF()"><i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2"></i>Phân tích</button>
             </div>
 
