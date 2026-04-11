@@ -434,14 +434,10 @@ const app = {
         const reader = new FileReader();
         reader.onload = ev => {
             let text = ev.target.result;
-            
-            // Xóa toàn bộ các dòng chứa tên phần/dạng trước khi xử lý (ví dụ: "Dạng 1: ...", "Phần 1: ...")
             text = text.replace(/^(Dạng|Phần)\s*\d+.*$/gim, '');
-            
             const chunks = text.split("##").map(c => c.trim()).filter(c => c.length > 0);
             let count = 0;
             chunks.forEach(c => {
-                // Biến c hiện tại không còn chứa "##", ta đẩy trực tiếp c vào mảng dữ liệu (không ghép thêm ## nữa)
                 const lines = c.split(/\r?\n/);
                 let type = 1;
                 
@@ -722,19 +718,17 @@ const app = {
         let html = '';
         
         if (isWord) {
-            // Cấu trúc HTML tối giản, sạch sẽ để MS Word có thể đọc và hiểu đúng
             html += `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
             <head><meta charset='utf-8'><title>${title}</title>
             <style>
                 body { font-family: 'Times New Roman', serif; font-size: 14pt; line-height: 1.5; }
                 .title { text-align: center; font-size: 16pt; font-weight: bold; text-transform: uppercase; margin-bottom: 20px; }
-                .q-container { margin-bottom: 15px; }
+                .q-container { margin-bottom: 15px; page-break-inside: avoid; }
                 .q-text { font-weight: bold; margin-bottom: 5px; }
                 .section-title { font-size: 15pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #1d4ed8; text-transform: uppercase;}
             </style>
             </head><body><div class="title">${title}</div>`;
         } else {
-            // Dành cho PDF
             html += `<div style="font-family: 'Times New Roman', serif; font-size: 14pt; color: black; padding: 20px;">
                 <h1 style="text-align: center; font-size: 18pt; text-transform: uppercase; margin-bottom: 20px;">${title}</h1>`;
         }
@@ -751,7 +745,7 @@ const app = {
             if (isWord) {
                 html += `<div class="section-title">${sectionTitle}</div>`;
             } else {
-                html += `<h2 style="font-size: 16pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #1d4ed8; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">${sectionTitle}</h2>`;
+                html += `<h2 style="page-break-after: avoid; font-size: 16pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #1d4ed8; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px;">${sectionTitle}</h2>`;
             }
 
             this.data['part'+ptype].forEach(rawQ => {
@@ -759,10 +753,19 @@ const app = {
                 let parsed = this.parseQuestionLines(lines, ptype);
                 let qtext = parsed[0];
                 
+                if (ptype === 4) {
+                     let blankAnswers = parsed[1];
+                     qtext = qtext.replace(/=\s*\(\s*(\d+)\s*\)\s*=/g, (match, num) => {
+                         let ansArray = blankAnswers[num] || [];
+                         let maxLen = ansArray.reduce((max, ans) => Math.max(max, ans.length), 5);
+                         return '.'.repeat(maxLen * 2 + 5);
+                     });
+                }
+                
                 if (isWord) {
                     html += `<div class="q-container"><div class="q-text">Câu ${qIndex}: ${qtext}</div>`;
                 } else {
-                    html += `<div style="margin-bottom: 15px;"><div style="font-weight: bold; margin-bottom: 5px;">Câu ${qIndex}: ${qtext}</div>`;
+                    html += `<div class="q-container" style="margin-bottom: 15px; page-break-inside: avoid;"><div style="font-weight: bold; margin-bottom: 5px;">Câu ${qIndex}: ${qtext}</div>`;
                 }
                 
                 if (ptype === 1 || ptype === 2) {
@@ -837,11 +840,12 @@ const app = {
         container.innerHTML = contentHTML;
         
         const opt = {
-            margin:       10,
+            margin:       [15, 15, 20, 15],
             filename:     title.replace(/\s+/g,'_') + ".pdf",
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+            pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
         html2pdf().set(opt).from(container).save();
@@ -1106,9 +1110,9 @@ const app = {
     .match-line-group:hover .visible-line { stroke: #ef4444 !important; stroke-width: 5px; }
     .btn-clear-match { margin-top: 15px; background: var(--hover-bg); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; display: block; margin-left: auto; margin-right: auto; z-index: 2; position: relative;}
     .match-tip { text-align: center; font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
-    .cw-container { overflow-x: auto; margin-top: 15px; padding-bottom: 10px; text-align: center; -webkit-overflow-scrolling: touch; }
-    .cw-grid { display: inline-flex; flex-direction: column; gap: 4px; font-family: monospace; }
-    .cw-row { display: flex; align-items: center; justify-content: center; }
+    .cw-container { overflow-x: auto; margin-top: 15px; padding-bottom: 10px; display: flex; justify-content: center; -webkit-overflow-scrolling: touch; }
+    .cw-grid { display: inline-flex; flex-direction: column; gap: 4px; font-family: monospace; align-items: flex-start; margin: 0 auto; }
+    .cw-row { display: flex; align-items: center; justify-content: flex-start; width: max-content; }
     .cw-num { width: 24px; height: 24px; text-align: center; line-height: 22px; margin-right: 8px; font-weight: bold; color: var(--primary); background: var(--bg); border-radius: 50%; cursor: pointer; border: 1px solid var(--primary); flex-shrink: 0; font-size: 0.85rem;}
     .cw-num:hover { background: var(--primary); color: white; transform: scale(1.1); }
     .cw-cell { width: 30px; height: 30px; text-align: center; text-transform: uppercase; font-size: 1rem; font-weight: bold; border: 2px solid var(--border); border-radius: 6px; margin-right: 2px; outline: none; background: var(--card); color: var(--text); transition: all 0.2s; padding: 0;}
