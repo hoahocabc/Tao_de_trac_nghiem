@@ -11,12 +11,12 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất (Ví dụ: # A. Đáp án đúng).\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.",
-    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án có dấu #.\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Trong nội dung câu hỏi, đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=, =(3)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\nVí dụ:\n=(1)=\n# Nước\n# nước\n=(2)=\n# 100\n- Thêm 'Lời giải:' ở cuối nếu cần.",
-    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Dòng tiếp theo ghi tiêu đề.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ghép nối ở cuối và BẮT BUỘC có dấu # ở đầu (VD: # 1=B, 2=A, 3=D).",
-    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang theo cú pháp: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc xuyên suốt, thêm dòng 'Từ khóa: # [TỪ KHÓA]'. (Lưu ý: Số lượng chữ cái của từ khóa phải bằng đúng số lưng hàng ngang).\n- Hệ thống tự động căn chỉnh và tạo lưới ô chữ."
+    1: "Phần 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ngay dưới.\n- Các phương án lựa chọn (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án đúng nhất.\n- Thêm 'Lời giải:' ở phía cuối câu nếu cần giải thích chi tiết.\n\nVí dụ:\n##\nChất nào sau đây là muối ăn?\nA. NaClO\n# B. NaCl\nC. Na2SO4\nD. Na2CO3\nLời giải: Muối ăn có thành phần chính là Natri clorua (NaCl).",
+    2: "Phần 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nội dung câu hỏi nằm ở dòng dưới.\n- Đặt dấu # và 1 khoảng trắng ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có dấu # sẽ được tính là phương án sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\n##\nTrong các kim loại sau, kim loại nào là kim loại kiềm?\n# A. Natri (Na)\n# B. Kali (K)\nC. Nhôm (Al)\nD. Sắt (Fe)",
+    3: "Phần 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Nhập nội dung câu hỏi.\n- Các đáp án được chấp nhận ghi ở dưới, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n- Hệ thống sẽ chấm đúng nếu học sinh nhập trùng khớp 1 trong các đáp án.\n\nVí dụ:\n##\nNguyên tố hóa học nào có ký hiệu là O?\n# Oxi\n# Oxygen\n# Khí oxi",
+    4: "Phần 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- Bắt buộc bắt đầu mỗi câu bằng: ##\n- Đặt các chỗ trống cần điền bằng cú pháp: =(1)=, =(2)=...\n- Tiếp theo xuống dòng ghi đúng cụm từ 'Đáp án:' rồi liệt kê các đáp án đúng cho từng vị trí.\n\nVí dụ:\n##\nNước có công thức hóa học là =(1)=. Phân tử nước gồm 2 nguyên tử =(2)= và 1 nguyên tử =(3)=.\nĐáp án:\n=(1)=\n# H2O\n=(2)=\n# Hidro\n# Hydrogen\n=(3)=\n# Oxi\n# Oxygen",
+    5: "Phần 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- Bắt buộc bắt đầu bằng: ##\n- Ghi tiêu đề câu hỏi.\n- Ghi 'Cột I:' (dùng số 1. 2. 3.) và liệt kê các ý bên trái.\n- Ghi 'Cột II:' (dùng chữ A. B. C.) và liệt kê các ý bên phải.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # ở đầu.\n\nVí dụ:\n##\nGhép tên nguyên tố với ký hiệu hóa học tương ứng:\nCột I:\n1. Sắt\n2. Đồng\n3. Bạc\nCột II:\nA. Ag\nB. Fe\nC. Cu\n# 1=B, 2=C, 3=A",
+    6: "Phần 6: GIẢI Ô CHỮ\n\n- Bắt buộc bắt đầu bằng: ##\n- Nhập tiêu đề câu hỏi.\n- Ghi lần lượt các gợi ý hàng ngang: [Nội dung gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm dòng 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\n##\nÔ chữ về các nguyên tố hóa học\nKim loại ở thể lỏng trong điều kiện thường? # THUYNGAN\nKhí không màu, không mùi, duy trì sự cháy? # OXI\nTừ khóa: # HO"
 };
 
 const chem_symbols = [
@@ -352,7 +352,7 @@ const app = {
         if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
             const savedGF = this.data.gf_config; 
             this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
-            document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
+            document.getElementById('quizTitle').value = "B��I TẬP TRẮC NGHIỆM";
             document.getElementById('creatorName').value = "";
             document.getElementById('startTime').value = "";
             document.getElementById('endTime').value = "";
@@ -704,7 +704,7 @@ const app = {
                 jsBuilder.push(`formData.append("entry.${f.id}", maxPossibleScore);`);
             } else if (f.type === "Vi phạm (Tự động)") {
                 jsBuilder.push(`formData.append("entry.${f.id}", violationReport);`);
-            } else if (f.type === "Chi tiết bài làm (Tự động)") {
+            } else if (f.type === "Chi tiết bài làm (T�� động)") {
                 jsBuilder.push(`formData.append("entry.${f.id}", studentDetailsText);`);
             } else {
                 jsBuilder.push(`formData.append("entry.${f.id}", totalScore);`);
