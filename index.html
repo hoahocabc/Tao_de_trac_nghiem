@@ -32,14 +32,14 @@
             .tab-btn { @apply w-full flex flex-col items-center justify-center px-1 sm:px-2 py-1.5 sm:py-2 text-xs sm:text-base font-extrabold rounded-xl transition-all duration-200 border-2 active:translate-y-1; }
             .tab-active { @apply bg-blue-50 text-blue-700 border-blue-400 shadow-[0_4px_0_0_#60a5fa] -translate-y-1 scale-105; }
             .tab-inactive { @apply bg-slate-50 text-slate-500 border-transparent hover:bg-white hover:border-slate-200 hover:shadow-[0_4px_0_0_#e2e8f0] hover:-translate-y-1 hover:text-slate-700 active:shadow-[0_0px_0_0_#e2e8f0]; }
-            .form-label { @apply block text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide mb-1; }
+            /* Đã tăng kích thước chữ cho form-label từ text-[10px] sm:text-xs lên text-xs sm:text-sm */
+            .form-label { @apply block text-xs sm:text-sm font-bold text-slate-600 uppercase tracking-wide mb-1; }
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
 
         /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI cân đối theo cả 2 chiều */
         @media (min-width: 1024px) {
             html {
-                /* Đã tăng giới hạn tối thiểu lên 13px và điều chỉnh tỷ lệ chia nhỏ hơn (80 thay vì 93.75, 45 thay vì 55) để các phần tử to, rõ ràng hơn */
                 font-size: clamp(13px, min(calc(100vw / 80), calc(100vh / 45)), 18px) !important;
             }
         }
@@ -123,11 +123,11 @@
                     <div class="flex flex-col gap-1.5 mt-1">
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="antiCheat" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
-                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Chống gian lận (Khóa chuyển tab)</span>
+                            <span class="text-sm sm:text-base font-semibold text-slate-700">Chống gian lận (Khóa chuyển tab)</span>
                         </label>
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="checkbox" id="publishScore" class="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer">
-                            <span class="text-xs sm:text-sm font-semibold text-slate-700">Công bố điểm sau nộp</span>
+                            <span class="text-sm sm:text-base font-semibold text-slate-700">Công bố điểm sau nộp</span>
                         </label>
                     </div>
                 </div>
