@@ -616,40 +616,61 @@ const app = {
         a.click();
     },
 
+    // -------------------------------------------------------------
+    // HÀM NHẬP CÂU HỎI TỪ FILE - ĐÃ ĐƯỢC CẢI TIẾN TRÁNH "KẸT" NÚT
+    // -------------------------------------------------------------
     importQuestions(event) {
-        const file = event.target.files[0];
+        const inputElement = event.target;
+        const file = inputElement.files[0];
         if(!file) return;
 
         const processText = (text) => {
-            text = text.replace(/^(Dạng|Phần)\s*\d+.*$/gim, '');
-            const chunks = text.split(/Câu\s+\d+[\.\:]\s*/i).map(c => c.trim()).filter(c => c.length > 0);
-            
-            let count = 0;
-            chunks.forEach(c => {
-                const lines = c.split(/\r?\n/);
-                let type = 1;
+            try {
+                // Xoá bỏ các từ khóa tiêu đề (Dạng 1, Phần 2...) để tránh lỗi
+                text = text.replace(/^(Dạng|Phần)\s*\d+.*$/gim, '');
                 
-                if (c.includes("Cột I:") && c.includes("Cột II:")) {
-                    type = 5;
-                } else if (c.match(/=\(\s*\d+\s*\)=/) && c.includes("Đáp án:")) {
-                    type = 4;
-                } else if (lines.some(l => l.match(/^.+?#.+$/) && !l.trimLeft().startsWith("#")) || c.includes("Từ khóa:")) {
-                    type = 6;
-                } else {
-                    const optionLines = lines.filter(l => l.match(/^\s*#?\s*[A-Ea-e]\.\s/));
-                    if (optionLines.length > 0) {
-                        const correctCount = optionLines.filter(l => l.trimLeft().startsWith("#")).length;
-                        type = correctCount > 1 ? 2 : 1;
+                // Thuật toán tách câu hỏi: Nhận diện "Câu 1:", "Câu 1.", "Câu 1", hoặc "##"
+                const chunks = text.split(/(?:^|\n)\s*(?:##|Câu\s+\d+[\.\:\-\s]?)\s*/i)
+                                   .map(c => c.trim())
+                                   .filter(c => c.length > 5); // Bỏ qua khoảng trắng ngắn
+                
+                let count = 0;
+                chunks.forEach(c => {
+                    const lines = c.split(/\r?\n/);
+                    let type = 1;
+                    
+                    if (c.includes("Cột I:") && c.includes("Cột II:")) {
+                        type = 5;
+                    } else if (c.match(/=\(\s*\d+\s*\)=/) && c.includes("Đáp án:")) {
+                        type = 4;
+                    } else if (lines.some(l => l.match(/^.+?#.+$/) && !l.trimLeft().startsWith("#")) || c.includes("Từ khóa:")) {
+                        type = 6;
                     } else {
-                        type = 3;
+                        const optionLines = lines.filter(l => l.match(/^\s*#?\s*[A-Ea-e]\.\s/));
+                        if (optionLines.length > 0) {
+                            const correctCount = optionLines.filter(l => l.trimLeft().startsWith("#")).length;
+                            type = correctCount > 1 ? 2 : 1;
+                        } else {
+                            type = 3;
+                        }
                     }
+                    this.data['part'+type].push(c);
+                    count++;
+                });
+                
+                if (count === 0) {
+                    alert("⚠️ Cảnh báo: Không tìm thấy câu hỏi nào.\nVui lòng đảm bảo mỗi câu bắt đầu bằng từ khóa (VD: Câu 1:, Câu 2:...)");
+                } else {
+                    alert(`✅ Đã nhập thành công ${count} câu hỏi.`);
+                    this.switchTab(this.activeTab);
                 }
-                this.data['part'+type].push(c);
-                count++;
-            });
-            alert(`Đã nhập thành công ${count} câu hỏi.`);
-            this.switchTab(this.activeTab);
-            event.target.value = '';
+            } catch(err) {
+                console.error(err);
+                alert("❌ Lỗi khi phân tích nội dung. Vui lòng kiểm tra lại định dạng file văn bản.");
+            } finally {
+                // Rất quan trọng: Reset giá trị input để có thể chọn lại chính file đó lần sau
+                inputElement.value = '';
+            }
         };
 
         const processJson = (text) => {
@@ -666,8 +687,7 @@ const app = {
                 if (acBox) acBox.checked = p.anti_cheat === true;
                 if (psBox) psBox.checked = p.publish_score === true;
                 
-                let loadedGF = p.gf_config;
-                if (!loadedGF || !loadedGF.url || loadedGF.fields.length === 0) { loadedGF = this.data.gf_config; }
+                let loadedGF = p.gf_config || { url: "", fields: [] };
                 
                 const cleanQuestions = (arr) => (arr || []).map(q => q.trim());
 
@@ -680,10 +700,13 @@ const app = {
                     part6: cleanQuestions(p.part6), 
                     gf_config: loadedGF 
                 };
-                alert("Đã phục hồi dữ liệu dự án từ file JSON.");
+                alert("✅ Đã phục hồi dữ liệu dự án từ file JSON thành công.");
                 this.switchTab(1);
-            } catch(err) { alert("Lỗi khi đọc file. File JSON không đúng định dạng phần mềm!"); }
-            event.target.value = '';
+            } catch(err) { 
+                alert("❌ Lỗi khi đọc file. File JSON không đúng cấu trúc của phần mềm!"); 
+            } finally {
+                inputElement.value = '';
+            }
         };
 
         const fileName = file.name.toLowerCase();
@@ -706,27 +729,32 @@ const app = {
                             processText(result.value);
                         })
                         .catch(function(err) {
-                            alert("Lỗi khi đọc file DOCX: " + err.message);
-                            event.target.value = '';
+                            alert("❌ Lỗi khi đọc nội dung file DOCX: " + err.message);
+                            inputElement.value = '';
                         });
                 };
                 reader.readAsArrayBuffer(file);
             };
 
+            // Nếu người dùng chia file rời, tự động gọi thư viện mammoth
             if (typeof mammoth === 'undefined') {
                 const script = document.createElement('script');
                 script.src = "https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js";
                 script.onload = processDocx;
+                script.onerror = () => {
+                    alert("❌ Không thể tải thư viện đọc file Word. Vui lòng kiểm tra kết nối mạng!");
+                    inputElement.value = '';
+                };
                 document.head.appendChild(script);
             } else {
                 processDocx();
             }
         } else if (fileName.endsWith('.doc')) {
-            alert("Định dạng .doc cũ không được hỗ trợ đọc trực tiếp do giới hạn trình duyệt. Vui lòng mở bằng Word và lưu lại (Save as) dưới dạng .docx hoặc .txt rồi thử lại.");
-            event.target.value = '';
+            alert("⚠️ Trình duyệt web không hỗ trợ đọc trực tiếp định dạng .doc cũ. Vui lòng mở bằng Word và lưu lại (Save as) dạng .docx hoặc .txt rồi nạp lại.");
+            inputElement.value = '';
         } else {
-            alert("Định dạng file không được hỗ trợ. Vui lòng chọn .txt, .docx, hoặc .json");
-            event.target.value = '';
+            alert("⚠️ Định dạng file không được hỗ trợ. Vui lòng chọn .txt, .docx, hoặc .json");
+            inputElement.value = '';
         }
     },
 
