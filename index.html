@@ -36,10 +36,11 @@
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
 
-        /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI cân đối theo cả 2 chiều */
+        /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI theo tỷ lệ màn hình mượt mà và AN TOÀN HƠN */
         @media (min-width: 1024px) {
             html {
-                font-size: clamp(14px, min(calc(100vw / 75), calc(100vh / 40)), 20px) !important;
+                /* Công thức giới hạn trần (16px) và sàn (11px) nghiêm ngặt để không làm tràn khung hay mất textarea */
+                font-size: clamp(11px, min(1.2vw, 1.8vh), 16px) !important;
             }
         }
     </style>
