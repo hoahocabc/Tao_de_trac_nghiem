@@ -11,13 +11,154 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: "Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Nội dung câu hỏi nằm ở dòng trên cùng.\n- Các phương án (A, B, C, D) ghi ở các dòng tiếp theo.\n- Đặt dấu # và 1 dấu cách ở đầu phương án ĐÚNG.\n- Thêm 'Lời giải:' ở cuối nếu cần giải thích.\n\nVí dụ:\nChất nào sau đây là muối ăn?\nA. NaOH\n# B. NaCl\nC. HCl\nD. H2SO4\nLời giải: NaCl là natri clorua, thành phần chính của muối ăn.",
-    2: "Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Đặt dấu # ở đầu TẤT CẢ các phương án đúng.\n- Các phương án không có # sẽ được tính là sai.\n- Thêm 'Lời giải:' ở cuối nếu cần.\n\nVí dụ:\nNhững chất nào sau đây là kim loại kiềm?\n# A. Na\n# B. K\nC. Mg\nD. Ca\nLời giải: Na và K thuộc nhóm IA.",
-    3: "Dạng 3: CÂU HỎI TRẢ LỜI NGẮN\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Các đáp án được chấp nhận ghi ở dưới cùng, mỗi đáp án 1 dòng và BẮT BUỘC có dấu # ở đầu.\n\nVí dụ:\nCông thức hóa học của axit sunfuric là gì?\n# H2SO4\n# h2so4",
-    4: "Dạng 4: CÂU HỎI ĐIỀN KHUYẾT\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Đặt các chỗ trống bằng cú pháp: =(1)=, =(2)=...\n- Ghi đúng cụm từ 'Đáp án:' rồi liệt kê đáp án đúng (dùng #) cho từng vị trí.\n\nVí dụ:\nPhản ứng giữa axit và bazơ gọi là phản ứng =(1)=. Phản ứng này luôn tạo ra =(2)= và nước.\nĐáp án:\n=(1)=\n# trung hòa\n# trung hoa\n=(2)=\n# muối\n# muoi",
-    5: "Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Ghi 'Cột I:' (dùng số 1. 2.) và liệt kê.\n- Ghi 'Cột II:' (dùng chữ A. B.) và liệt kê.\n- Ghi đáp án ở cuối, BẮT BUỘC có dấu # (VD: # 1=B, 2=C).\n\nVí dụ:\nHãy ghép tên gọi với công thức tương ứng:\nCột I:\n1. Axit clohidric\n2. Natri hiđroxit\nCột II:\nA. NaOH\nB. HCl\n# 1=B, 2=A",
-    6: "Dạng 6: GIẢI Ô CHỮ\n\n- (Nếu nhập nhiều câu cùng lúc, ngăn cách bằng ##)\n- Ghi lần lượt các gợi ý hàng ngang: [Gợi ý] # [ĐÁP ÁN].\n- Nếu có từ khóa cột dọc, thêm 'Từ khóa: # [TỪ KHÓA]'.\n\nVí dụ:\nHạt mang điện tích âm trong nguyên tử là gì? # ELECTRON\nHạt không mang điện trong hạt nhân? # NEUTRON\nTừ khóa: # NGUYEN TU"
+    1: `<div class="space-y-3"><p><b>Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Nội dung câu hỏi nằm ở dòng trên cùng.</li>
+            <li>Các phương án (A, B, C, D...) ghi ở các dòng tiếp theo.</li>
+            <li>Đặt dấu <code>#</code> và 1 dấu cách ở đầu phương án ĐÚNG.</li>
+            <li>Thêm <code>Lời giải:</code> ở cuối nếu cần giải thích cho học sinh.</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Chất nào sau đây là kim loại kiềm?
+A. Ag
+B. Cu
+# C. Na
+D. Fe
+Lời giải: Na thuộc nhóm IA nên là kim loại kiềm.</pre></div>`,
+
+    2: `<div class="space-y-3"><p><b>Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Nội dung câu hỏi nằm ở dòng trên cùng.</li>
+            <li>Đặt dấu <code>#</code> ở đầu <b>TẤT CẢ</b> các phương án đúng.</li>
+            <li>Các phương án không có <code>#</code> sẽ tự động được hệ thống tính là phương án sai.</li>
+            <li>Thêm <code>Lời giải:</code> ở cuối nếu cần.</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Những chất nào sau đây tác dụng được với dung dịch NaOH?
+# A. Al
+B. Fe
+# C. Al2O3
+D. CuO
+Lời giải: Al và Al2O3 là các chất có thể tan được trong dung dịch kiềm.</pre></div>`,
+
+    3: `<div class="space-y-3"><p><b>Dạng 3: CÂU HỎI TRẢ LỜI NGẮN</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Nhập nội dung câu hỏi ở trên cùng.</li>
+            <li>Các đáp án được chấp nhận ghi ở dưới cùng, mỗi đáp án 1 dòng và <b>BẮT BUỘC</b> có dấu <code>#</code> ở đầu.</li>
+            <li>(Ứng dụng tự động chấm không phân biệt hoa thường).</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Công thức hóa học của axit nitric là gì?
+# HNO3
+# hno3</pre></div>`,
+
+    4: `<div class="space-y-3"><p><b>Dạng 4: CÂU HỎI ĐIỀN KHUYẾT</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Đặt các chỗ trống trong câu hỏi bằng cú pháp: <code>=(1)=</code>, <code>=(2)=</code>...</li>
+            <li>Ghi đúng cụm từ <code>Đáp án:</code> ở dưới câu hỏi.</li>
+            <li>Bên dưới, ghi lại mã vị trí <code>=(1)=</code> và liệt kê các đáp án đúng cho vị trí đó (dùng <code>#</code> ở đầu mỗi đáp án). Tương tự cho các vị trí tiếp theo.</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Khí =(1)= là nguyên nhân chính gây ra hiệu ứng nhà kính. Khí =(2)= duy trì sự cháy.
+Đáp án:
+=(1)=
+# CO2
+# cacbon đioxit
+=(2)=
+# O2
+# oxi</pre></div>`,
+
+    5: `<div class="space-y-3"><p><b>Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Ghi <code>Cột I:</code> (dùng số 1. 2. 3...) và liệt kê nội dung vế trái.</li>
+            <li>Ghi <code>Cột II:</code> (dùng chữ A. B. C...) và liệt kê nội dung vế phải.</li>
+            <li>Ghi đáp án ở dòng cuối cùng, BẮT BUỘC có dấu <code>#</code> ở đầu câu (VD: <code># 1=B, 2=C</code>).</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Hãy ghép tên gọi với công thức tương ứng:
+Cột I:
+1. Canxi cacbonat
+2. Natri clorua
+Cột II:
+A. NaCl
+B. CaCO3
+# 1=B, 2=A</pre></div>`,
+
+    6: `<div class="space-y-3"><p><b>Dạng 6: GIẢI Ô CHỮ</b></p>
+        <ul class="list-disc pl-5 space-y-1">
+            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
+            <li>Ghi lần lượt các gợi ý hàng ngang theo cấu trúc: <code>[Gợi ý] # [ĐÁP ÁN]</code>.</li>
+            <li>Nếu có từ khóa cột dọc, thêm dòng <code>Từ khóa: # [TỪ KHÓA]</code> ở cuối.</li>
+        </ul>
+        <div class="mt-2"><b>Ví dụ:</b></div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Hạt mang điện tích âm trong nguyên tử là gì? # ELECTRON
+Hạt không mang điện trong hạt nhân? # NEUTRON
+Hạt mang điện tích dương trong hạt nhân? # PROTON
+Từ khóa: # NGUYEN TU</pre></div>`
 };
+
+const FULL_GUIDE = `
+<div class="space-y-5">
+    <div class="text-center mb-6">
+        <h3 class="text-xl sm:text-2xl font-black text-blue-700 uppercase tracking-wide">Hướng dẫn sử dụng phần mềm tạo đề trắc nghiệm</h3>
+        <p class="text-slate-500 text-sm mt-1">Nền tảng hỗ trợ giáo viên xây dựng bài kiểm tra tương tác toàn diện.</p>
+    </div>
+    
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="folder" class="w-5 h-5"></i> 1. Quản lý dự án</h4>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+            <li><b>Tạo mới:</b> Xóa trắng toàn bộ dữ liệu hiện tại để bắt đầu một đề thi mới.</li>
+            <li><b>Mở file:</b> Mở file dự án (định dạng <code>.json</code>) đã lưu trước đó trên máy tính.</li>
+            <li><b>Lưu lại:</b> Lưu toàn bộ nội dung đề thi, thiết lập và cấu hình Form hiện tại thành file <code>.json</code> để chỉnh sửa sau.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i> 2. Nhập dữ liệu và Cấu hình</h4>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+            <li><b>Nhập TXT:</b> Hỗ trợ nhập hàng loạt câu hỏi từ file văn bản <code>.txt</code>. Lưu ý: Giữa các câu hỏi phải được ngăn cách bằng ký hiệu <code>##</code>.</li>
+            <li><b>Cấu hình đề thi:</b> Thiết lập tên bài kiểm tra, tên người tạo, và thời gian bắt đầu/kết thúc làm bài.</li>
+            <li><b>Cấu hình Giao diện & Chế độ:</b> Chọn chủ đề (màu sắc giao diện), bật/tắt tính năng Chống gian lận (khóa tab) và tự động Công bố điểm sau khi học sinh nộp bài.</li>
+            <li><b>Kết nối Google Form:</b> Bấm nút "Form", dán link Google Form (đang mở quyền truy cập) để ứng dụng tự động phân tích các trường dữ liệu và liên kết nộp điểm tự động.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="edit-3" class="w-5 h-5"></i> 3. Trình soạn thảo câu hỏi</h4>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+            <li>Ứng dụng hỗ trợ 6 dạng câu hỏi linh hoạt. Xem hướng dẫn cú pháp cụ thể tại nút <b>"HD Nhập"</b> ở từng tab.</li>
+            <li>Thanh công cụ hỗ trợ chèn nhanh các kí tự hóa học, mũi tên phản ứng (có hỗ trợ ghi điều kiện nhiệt độ/xúc tác), in đậm, in nghiêng.</li>
+            <li><b>Chèn Ảnh / Video:</b> Hỗ trợ tải ảnh từ máy tính hoặc chèn trực tiếp link video (YouTube / MP4) vào nội dung câu hỏi.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="list" class="w-5 h-5"></i> 4. Quản lý danh sách câu hỏi</h4>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+            <li>Bạn có thể xem trước, Sửa (biểu tượng cây bút), hoặc Xóa (biểu tượng thùng rác) từng câu hỏi trực tiếp trên danh sách bên phải.</li>
+            <li><b>Kéo thả:</b> Nhấn giữ biểu tượng 6 dấu chấm ở cạnh câu hỏi để kéo và thả thay đổi thứ tự dễ dàng.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="share" class="w-5 h-5"></i> 5. Xuất bản đề thi</h4>
+        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
+            <li><b>Xuất Word / PDF:</b> In đề thi ra định dạng giấy để học sinh làm bài truyền thống (hỗ trợ hiển thị bảng biểu, chỗ trống nối, ô chữ...).</li>
+            <li><b>Xuất HTML (Đề thi Online):</b> Đóng gói toàn bộ câu hỏi, hình ảnh, tính năng tính giờ, chấm điểm tự động, và liên kết gửi dữ liệu vào một file <code>.html</code> duy nhất. Có thể gửi file này cho học sinh để làm bài trên mọi thiết bị.</li>
+        </ul>
+    </div>
+
+    <div class="mt-8 pt-6 border-t-2 border-slate-200 text-right">
+        <p class="font-black text-blue-700 text-xl tracking-wider">HÓA HỌC ABC</p>
+        <p class="text-slate-500 text-sm">Phiên bản 2.0</p>
+    </div>
+</div>
+`;
 
 const chem_symbols = [
     {t: "+"}, {t: "-"}, {t: "×"}, {t: "÷"}, {t: "±"}, {t: "⇌"}, {t: "→"}, {t: "↑"}, {t: "↓"}, {t: "Δ"},
@@ -114,7 +255,27 @@ const app = {
         if(qInput) qInput.value = '';
     },
 
-    showGuide() { alert(GUIDES[this.activeTab]); },
+    showGuide() { 
+        document.getElementById('guideModalTitle').innerHTML = '<i data-lucide="help-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500"></i> Hướng dẫn nhập liệu';
+        document.getElementById('guideModalContent').innerHTML = GUIDES[this.activeTab];
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        const modal = document.getElementById('guideModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+    },
+
+    openFullGuide() {
+        document.getElementById('guideModalTitle').innerHTML = '<i data-lucide="book-open" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500"></i> Hướng dẫn sử dụng';
+        document.getElementById('guideModalContent').innerHTML = FULL_GUIDE;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+        const modal = document.getElementById('guideModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+    },
 
     renderToolbar(toolbarId, inputId) {
         const tb = document.getElementById(toolbarId);
