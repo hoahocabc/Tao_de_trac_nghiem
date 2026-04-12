@@ -20,6 +20,17 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
+    <script>
+        window.MathJax = { 
+            loader: {load: ['[tex]/mhchem', '[tex]/extpfeil']},
+            tex: { packages: {'[+]': ['mhchem', 'extpfeil']}, inlineMath: [['$', '$']] }, 
+            chtml: { scale: 0.9, mtextInheritFont: true }, 
+            svg: { fontCache: 'global', mtextInheritFont: true } 
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
