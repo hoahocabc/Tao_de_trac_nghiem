@@ -36,17 +36,17 @@
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
 
-        /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI (nút, bảng, tab, input...) theo tỷ lệ màn hình Desktop (1024px - 1500px) */
-        @media (min-width: 1024px) and (max-width: 1500px) {
+        /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI cân đối theo cả 2 chiều */
+        @media (min-width: 1024px) {
             html {
-                /* Sử dụng đơn vị vw cho root font-size. Tailwind sẽ lấy rem nhân với số này, co giãn toàn bộ kích thước mượt mà */
-                font-size: calc(100vw / 93.75) !important;
+                /* Tính toán lấy tỷ lệ nhỏ nhất giữa chiều dọc và chiều ngang để nội dung LUÔN vừa vặn màn hình, không bị che khuất chân trang */
+                font-size: clamp(10px, min(calc(100vw / 93.75), calc(100vh / 55)), 20px) !important;
             }
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
-    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 w-full relative">
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen lg:h-screen lg:overflow-hidden flex flex-col">
+    <header class="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 w-full relative shrink-0">
         <div class="max-w-[1500px] mx-auto px-3 sm:px-4 lg:px-6 h-14 sm:h-16 flex items-center justify-between">
             
             <div class="flex items-center gap-2 sm:gap-3 shrink-0 overflow-hidden">
@@ -91,7 +91,7 @@
         </div>
     </header>
 
-    <main class="flex-1 max-w-[1500px] mx-auto w-full px-2 sm:px-4 lg:px-6 py-2 sm:py-3 flex flex-col gap-3">
+    <main class="flex-1 max-w-[1500px] mx-auto w-full px-2 sm:px-4 lg:px-6 py-2 sm:py-3 flex flex-col gap-3 min-h-0">
         <section class="bg-white p-3 lg:p-4 rounded-xl shadow-sm border border-slate-200 shrink-0">
             <h2 class="form-label mb-2 flex items-center gap-2 text-sm"><i data-lucide="settings-2" class="w-4 h-4 text-blue-600"></i> Cấu hình đề thi</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 lg:gap-4">
@@ -134,11 +134,11 @@
             </div>
         </section>
 
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 flex-1 items-start">
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 flex-1 items-start lg:items-stretch min-h-0 pb-2 lg:pb-0">
             
-            <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden h-auto lg:h-[calc(100vh-14rem)] lg:sticky lg:top-20">
+            <div class="lg:col-span-8 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col overflow-hidden h-auto lg:h-full min-h-0">
                 <div class="bg-slate-100 p-1.5 sm:p-2 border-b border-slate-200 grid grid-cols-3 sm:grid-cols-6 gap-1 sm:gap-2 shrink-0" id="tabsContainer"></div>
-                <div class="p-2 sm:p-4 flex-1 flex flex-col bg-slate-50 min-h-[400px] lg:min-h-0">
+                <div class="p-2 sm:p-4 flex-1 flex flex-col bg-slate-50 min-h-[400px] lg:min-h-0 overflow-hidden">
                     <div class="flex justify-between items-center mb-2 shrink-0">
                         <h2 class="text-base sm:text-lg font-extrabold text-blue-700 flex items-center gap-2" id="partTitle">Dạng 1</h2>
                         <button class="btn btn-outline py-1 px-2 sm:px-3 text-[10px] sm:text-xs" onclick="app.showGuide()"><i data-lucide="help-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 text-blue-600"></i> HD nhập</button>
@@ -146,19 +146,19 @@
                     
                     <div class="flex-1 flex flex-col min-h-0 bg-white border-2 border-slate-200 rounded-xl sm:rounded-2xl overflow-hidden focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-500/20 transition-all shadow-sm">
                         <div class="bg-slate-100 p-1.5 sm:p-2 border-b-2 border-slate-200 shrink-0" id="editorToolbar"></div>
-                        <textarea id="qInput" class="w-full p-3 sm:p-4 font-mono text-sm sm:text-base flex-1 min-h-[200px] outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed overflow-y-auto" placeholder="Nhập câu hỏi tại đây..."></textarea>
+                        <textarea id="qInput" class="w-full p-3 sm:p-4 font-mono text-sm sm:text-base flex-1 min-h-[200px] lg:min-h-0 outline-none resize-none bg-transparent placeholder-slate-400 leading-relaxed overflow-y-auto" placeholder="Nhập câu hỏi tại đây..."></textarea>
                     </div>
                     
                     <div class="mt-2 sm:mt-3 flex justify-end shrink-0"><button class="btn btn-primary w-full sm:w-auto text-sm sm:text-base py-2 sm:py-2.5" onclick="app.addQuestion()"><i data-lucide="plus-circle" class="w-4 h-4 sm:w-5 sm:h-5 mr-1.5 sm:mr-2"></i> Thêm vào danh sách</button></div>
                 </div>
             </div>
 
-            <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px] lg:h-[calc(100vh-14rem)] lg:sticky lg:top-20 mt-2 lg:mt-0">
+            <div class="lg:col-span-4 bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px] lg:h-full min-h-0 mt-2 lg:mt-0">
                 <div class="p-2 sm:p-4 border-b border-slate-200 bg-slate-50 rounded-t-xl flex justify-between items-center shrink-0">
                     <h3 class="font-bold text-slate-800 flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base"><i data-lucide="list-checks" class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500"></i> Danh sách câu hỏi</h3>
                     <span id="qCountBadge" class="bg-emerald-100 text-emerald-700 text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-[0_2px_0_0_#a7f3d0]">0 câu</span>
                 </div>
-                <div id="qList" class="p-2 sm:p-4 space-y-2 sm:space-y-3 overflow-y-auto flex-1 bg-slate-50/50"></div>
+                <div id="qList" class="p-2 sm:p-4 space-y-2 sm:space-y-3 overflow-y-auto flex-1 bg-slate-50/50 min-h-0"></div>
             </div>
         </section>
     </main>
