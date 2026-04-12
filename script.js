@@ -11,15 +11,166 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li><li>Các phương án (A, B, C, D...) ghi ở các dòng tiếp theo (bắt buộc có dấu chấm sau chữ cái, VD: <code>A. </code>).</li><li>Đặt dấu <code>#</code> và một khoảng trắng ở ngay trước phương án <b>ĐÚNG</b>.</li><li>Thêm dòng <code>Lời giải:</code> (hoặc <code>Giải thích:</code>) ở cuối cùng để cung cấp đáp án chi tiết cho học sinh (không bắt buộc).</li><li><i>Mẹo: Nếu nhập hàng loạt câu từ file, phần mềm sẽ nhận diện câu mới bằng từ khóa <code>Câu 1:</code>, <code>Câu 2.</code>...</i></li></ul></div>`,
-    2: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Hộp kiểm)</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li><li>Các phương án ghi ở các dòng tiếp theo (A., B., C., D...).</li><li>Đặt dấu <code>#</code> ở đầu <b>TẤT CẢ</b> các phương án đúng. Các phương án không có <code>#</code> hệ thống sẽ tự hiểu là sai.</li><li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích chi tiết.</li><li><i>Nhận diện câu mới từ file bằng <code>Câu 1:</code>, <code>Câu 2:</code>...</i></li></ul></div>`,
-    3: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 3: CÂU HỎI TRẢ LỜI NGẮN (Điền từ)</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li><li>Các đáp án được chấp nhận ghi ở dưới cùng, <b>mỗi đáp án 1 dòng</b> và <b>BẮT BUỘC</b> có dấu <code>#</code> ở đầu. (Hệ thống chấm không phân biệt chữ hoa/thường).</li><li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích.</li><li><i>Nhận diện câu mới từ file bằng <code>Câu 1:</code>, <code>Câu 2:</code>...</i></li></ul></div>`,
-    4: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 4: CÂU HỎI ĐIỀN KHUYẾT (Nhiều chỗ trống)</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Trong câu hỏi, đánh dấu các chỗ trống cần điền bằng cú pháp: <code>=(1)=</code>, <code>=(2)=</code>...</li><li>Sau câu hỏi, bắt buộc ghi một dòng chữ: <code>Đáp án:</code></li><li>Bên dưới, liệt kê lần lượt các vị trí (VD: <code>=(1)=</code>) và bên dưới nó là các phương án được chấp nhận (có dấu <code>#</code> ở đầu).</li><li>Cuối cùng, ghi <code>Lời giải:</code> (nếu có).</li></ul></div>`,
-    5: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Ghi câu dẫn (nếu có). Sau đó ghi chính xác chữ <code>Cột I:</code> và liệt kê các ý (dùng số 1., 2., 3...).</li><li>Ghi chính xác chữ <code>Cột II:</code> và liệt kê các ý (dùng chữ A., B., C...).</li><li>Dòng đáp án bắt buộc có dấu <code>#</code> ở đầu, định dạng: <code># 1=A, 2=B, 3=C</code>.</li><li>Dòng <code>Lời giải:</code> đặt ở cuối cùng.</li></ul></div>`,
-    6: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 6: GIẢI Ô CHỮ</b></p><ul class="list-disc pl-5 space-y-1.5"><li>Ghi câu dẫn đầu tiên (nếu có).</li><li>Ghi lần lượt các gợi ý hàng ngang theo cấu trúc: <code>[Gợi ý] # [ĐÁP ÁN KHÔNG DẤU TIẾNG VIỆT]</code>. (Nên viết liền không khoảng trắng).</li><li>Thêm dòng <code>Từ khóa: # [TỪ KHÓA]</code> ở cuối. <b>Lưu ý quan trọng:</b> Số chữ cái của từ khóa phải bằng số hàng ngang, và mỗi chữ cái của từ khóa phải xuất hiện trong đáp án hàng ngang tương ứng (để hệ thống tự xếp dọc).</li><li>Cuối cùng ghi <code>Lời giải:</code> (nếu có).</li></ul></div>`
+    1: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các phương án (A, B, C, D...) ghi ở các dòng tiếp theo (bắt buộc có dấu chấm sau chữ cái, VD: <code>A. </code>).</li>
+            <li>Đặt dấu <code>#</code> và một khoảng trắng ở ngay trước phương án <b>ĐÚNG</b>.</li>
+            <li>Thêm dòng <code>Lời giải:</code> (hoặc <code>Giải thích:</code>) ở cuối cùng để cung cấp đáp án chi tiết cho học sinh (không bắt buộc).</li>
+            <li><i>Mẹo: Nếu nhập hàng loạt câu từ file, phần mềm sẽ nhận diện câu mới bằng từ khóa <code>Câu 1:</code>, <code>Câu 2.</code>...</i></li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Kim loại nào sau đây ở trạng thái lỏng ở điều kiện thường?
+A. Sắt (Fe)
+B. Đồng (Cu)
+# C. Thủy ngân (Hg)
+D. Bạc (Ag)
+Lời giải: Thủy ngân (Hg) là kim loại duy nhất tồn tại ở trạng thái lỏng ở nhiệt độ phòng.</pre></div>`,
+
+    2: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Hộp kiểm)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các phương án ghi ở các dòng tiếp theo (A., B., C., D...).</li>
+            <li>Đặt dấu <code>#</code> ở đầu <b>TẤT CẢ</b> các phương án đúng. Các phương án không có <code>#</code> hệ thống sẽ tự hiểu là sai.</li>
+            <li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích chi tiết.</li>
+            <li><i>Nhận diện câu mới từ file bằng <code>Câu 1:</code>, <code>Câu 2:</code>...</i></li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Những khí nào sau đây nhẹ hơn không khí (M = 29)?
+# A. H2 (M = 2)
+B. CO2 (M = 44)
+# C. N2 (M = 28)
+D. O2 (M = 32)
+Lời giải: Khí H2 (2 < 29) và N2 (28 < 29) nhẹ hơn không khí.</pre></div>`,
+
+    3: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 3: CÂU HỎI TRẢ LỜI NGẮN (Điền từ)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các đáp án được chấp nhận ghi ở dưới cùng, <b>mỗi đáp án 1 dòng</b> và <b>BẮT BUỘC</b> có dấu <code>#</code> ở đầu. (Hệ thống chấm không phân biệt chữ hoa/thường).</li>
+            <li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích.</li>
+            <li><i>Nhận diện câu mới từ file bằng <code>Câu 1:</code>, <code>Câu 2:</code>...</i></li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Công thức hóa học của nước là gì?
+# H2O
+# h2o
+Lời giải: Nước được tạo thành từ 2 nguyên tử Hidro và 1 nguyên tử Oxi, công thức là H2O.</pre></div>`,
+
+    4: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 4: CÂU HỎI ĐIỀN KHUYẾT (Nhiều chỗ trống)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Trong câu hỏi, đánh dấu các chỗ trống cần điền bằng cú pháp: <code>=(1)=</code>, <code>=(2)=</code>...</li>
+            <li>Sau câu hỏi, bắt buộc ghi một dòng chữ: <code>Đáp án:</code></li>
+            <li>Bên dưới, liệt kê lần lượt các vị trí (VD: <code>=(1)=</code>) và bên dưới nó là các phương án được chấp nhận (có dấu <code>#</code> ở đầu).</li>
+            <li>Cuối cùng, ghi <code>Lời giải:</code> (nếu có).</li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Phản ứng hóa học là quá trình biến đổi từ =(1)= thành =(2)=.
+Đáp án:
+=(1)=
+# chất ban đầu
+# chất tham gia
+=(2)=
+# chất mới
+# sản phẩm
+Lời giải: Theo định nghĩa SGK, phản ứng hóa học biến đổi chất tham gia (chất ban đầu) thành sản phẩm (chất mới).</pre></div>`,
+
+    5: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Ghi câu dẫn (nếu có). Sau đó ghi chính xác chữ <code>Cột I:</code> và liệt kê các ý (dùng số 1., 2., 3...).</li>
+            <li>Ghi chính xác chữ <code>Cột II:</code> và liệt kê các ý (dùng chữ A., B., C...).</li>
+            <li>Dòng đáp án bắt buộc có dấu <code>#</code> ở đầu, định dạng: <code># 1=A, 2=B, 3=C</code>.</li>
+            <li>Dòng <code>Lời giải:</code> đặt ở cuối cùng.</li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Hãy nối tên gọi ở Cột I với công thức ở Cột II cho phù hợp:
+Cột I:
+1. Axit clohidric
+2. Natri hiđroxit
+Cột II:
+A. NaOH
+B. HCl
+# 1=B, 2=A
+Lời giải: HCl là axit clohidric, NaOH là natri hiđroxit (xút).</pre></div>`,
+
+    6: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 6: GIẢI Ô CHỮ</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Ghi câu dẫn đầu tiên (nếu có).</li>
+            <li>Ghi lần lượt các gợi ý hàng ngang theo cấu trúc: <code>[Gợi ý] # [ĐÁP ÁN KHÔNG DẤU TIẾNG VIỆT]</code>. (Nên viết liền không khoảng trắng).</li>
+            <li>Thêm dòng <code>Từ khóa: # [TỪ KHÓA]</code> ở cuối. <b>Lưu ý quan trọng:</b> Số chữ cái của từ khóa phải bằng số hàng ngang, và mỗi chữ cái của từ khóa phải xuất hiện trong đáp án hàng ngang tương ứng (để hệ thống tự xếp dọc).</li>
+            <li>Cuối cùng ghi <code>Lời giải:</code> (nếu có).</li>
+        </ul>
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Câu 1: Giải ô chữ sau đây:
+Hạt không mang điện trong hạt nhân? # NEUTRON
+Ký hiệu hóa học của Đồng? # CU
+Khí duy trì sự cháy? # OXI
+Ký hiệu hóa học của Canxi? # CA
+Từ khóa: # NUOC
+Lời giải: 
+- Hàng 1: NEUTRO[N] (Chữ N)
+- Hàng 2: C[U] (Chữ U)
+- Hàng 3: [O]XI (Chữ O)
+- Hàng 4: [C]A (Chữ C)
+=> Từ khóa ghép dọc lại là NUOC.</pre></div>`
 };
 
-const FULL_GUIDE = `<div class="space-y-6 text-slate-800 leading-relaxed"><div class="text-center mb-6"><h3 class="text-xl sm:text-2xl font-black text-blue-700 uppercase tracking-wide">Hướng dẫn sử dụng chi tiết</h3></div><p>Xem chi tiết tại phần mềm.</p></div>`;
+const FULL_GUIDE = `
+<div class="space-y-6 text-slate-800 leading-relaxed">
+    <div class="text-center mb-6">
+        <h3 class="text-xl sm:text-2xl font-black text-blue-700 uppercase tracking-wide">Hướng dẫn sử dụng chi tiết</h3>
+        <p class="text-slate-600 text-sm mt-1">Dành cho mọi giáo viên, không yêu cầu am hiểu kỹ thuật.</p>
+    </div>
+    
+    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+        <h4 class="font-bold text-blue-800 text-lg mb-2 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5"></i> Tổng quan quy trình</h4>
+        <p class="text-sm">Ứng dụng này giúp thầy cô tạo ra một <b>Trang web làm bài kiểm tra Online</b> hoặc <b>File Word/PDF</b> để in ra giấy. Quy trình gồm 3 bước: <b>(1) Nhập câu hỏi -> (2) Cấu hình điểm/thời gian -> (3) Xuất file đề thi.</b></p>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="edit-3" class="w-5 h-5"></i> Bước 1: Nhập và soạn thảo câu hỏi</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><b>Cách 1 (Soạn trực tiếp):</b> Chọn loại câu hỏi ở các Tab (Dạng 1 đến Dạng 6). Gõ nội dung vào ô trống lớn, sau đó bắt buộc bấm nút xanh <b>"Thêm vào danh sách"</b>. Câu hỏi sẽ chạy sang danh sách bên phải. Thầy cô có thể bôi đen chữ rồi dùng thanh công cụ để <b>In đậm</b>, <i>In nghiêng</i>, hoặc chèn công thức hóa học.</li>
+            <li><b>Cách 2 (Nhập nhanh từ file):</b> Thầy cô có thể soạn sẵn hàng chục câu hỏi trên máy tính, lưu thành file <code>.txt</code> hoặc <code>.docx</code> rồi bấm nút <b>"Nhập câu hỏi"</b> trên cùng để đưa tất cả vào phần mềm. <i>Lưu ý: Ngăn cách và nhận diện các câu hỏi bằng từ khóa <code>Câu 1:</code>, <code>Câu 2:</code>... ở đầu mỗi câu.</i> File dữ liệu đã lưu <code>.json</code> cũng có thể phục hồi bằng chính nút này.</li>
+            <li><b>Chèn Ảnh/Video:</b> Đặt con trỏ chuột vào vị trí muốn chèn trong ô soạn thảo, bấm nút "Ảnh" hoặc "Video" trên thanh công cụ.</li>
+            <li><b>Sửa/Xóa:</b> Nhìn sang danh sách câu hỏi bên phải, rê chuột vào từng câu sẽ thấy biểu tượng cây bút (để sửa) và thùng rác (để xóa). Có thể giữ chuột để kéo thả thay đổi thứ tự câu hỏi.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i> Bước 2: Thiết lập chung & Chống gian lận</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li>Điền đầy đủ <b>Tên bài kiểm tra</b>, <b>Người tạo</b>, <b>Thời gian bắt đầu/kết thúc</b> (đúng định dạng VD: 08:00 20/11/2026). Trẻ sẽ không thể làm bài nếu chưa tới giờ.</li>
+            <li><b>Chống gian lận:</b> Nếu tích chọn, khi học sinh đang làm bài mà mở sang Tab khác hoặc mở ứng dụng khác quá 3 lần, hệ thống sẽ <b>khóa bài và nộp bài bắt buộc</b>.</li>
+            <li><b>Công bố điểm:</b> Nếu tích chọn, học sinh nộp bài xong sẽ xem được ngay điểm số, câu đúng, câu sai và lời giải chi tiết. Nếu tắt đi, các em chỉ nhận được thông báo "Đã nộp bài".</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-emerald-600 text-lg border-b-2 border-emerald-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="database" class="w-5 h-5"></i> Bước 3: Liên kết Google Form (Để lấy điểm)</h4>
+        <p class="text-sm mb-2 italic text-slate-600">Lưu ý: Nếu chỉ in ra Word/PDF thì bỏ qua bước này. Nếu thi Online, thầy cô PHẢI làm bước này để học sinh nộp bài điểm sẽ bay về Google Sheet của thầy cô.</p>
+        <ul class="list-decimal pl-5 space-y-2">
+            <li>Mở Google Form, tạo một Form mới. Tạo các câu hỏi ngắn yêu cầu học sinh điền tên, lớp... (KHÔNG tạo câu hỏi trắc nghiệm ở đây). Cài đặt form sang chế độ "Cho phép mọi người xem/trả lời" (Bỏ yêu cầu đăng nhập email).</li>
+            <li>Bấm biểu tượng con mắt (Xem trước) của Google Form, copy đường link dài trên trình duyệt.</li>
+            <li>Quay lại phần mềm này, bấm nút <b>"Form"</b> màu xanh lá ở góc phải trên. Dán link vừa copy vào ô trống, bấm <b>"Phân tích"</b>.</li>
+            <li>Hệ thống sẽ tự động quét các ô điền tên, lớp. Thầy cô chỉ cần tích chọn ô nào "Bắt buộc điền", ô nào là "Tự nhập" hoặc "Tự động" (Tự động lưu điểm trắc nghiệm vào cột đó). Cuối cùng bấm <b>"Lưu thông tin"</b>.</li>
+        </ul>
+    </div>
+
+    <div>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="share" class="w-5 h-5"></i> Bước 4: Xuất đề thi và Lưu trữ</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><b>Xuất HTML (Thi Online):</b> Bấm nút này, hệ thống sẽ tải về máy thầy cô một file có đuôi <code>.html</code>. Thầy cô chỉ cần gửi trực tiếp file này cho học sinh (qua Zalo, Facebook...). Học sinh tải về, bấm đúp chuột mở bằng trình duyệt web (Chrome, Safari, Cốc Cốc) là có thể làm bài.</li>
+            <li><b>Xuất Word / PDF:</b> Dùng để in ra giấy.</li>
+            <li><b>Lưu lại:</b> Bấm nút "Lưu lại" để lưu toàn bộ dự án đang làm dở thành 1 file <code>Project_HoaHoc.json</code>. Lần sau muốn sửa đề, thầy cô chỉ cần mở phần mềm lên, bấm <b>"Nhập câu hỏi"</b> và chọn file json này là dữ liệu sẽ phục hồi đầy đủ.</li>
+        </ul>
+    </div>
+
+    <div class="mt-8 pt-6 border-t-2 border-slate-200 text-right">
+        <p class="font-black text-blue-700 text-xl tracking-wider">HÓA HỌC ABC</p>
+        <p class="text-slate-500 text-sm">Nền tảng hỗ trợ giáo dục 4.0 - Phiên bản 2.0</p>
+    </div>
+</div>
+`;
 
 const chem_symbols = [
     {t: "+"}, {t: "-"}, {t: "×"}, {t: "÷"}, {t: "±"}, {t: "⇌"}, {t: "→"}, {t: "↑"}, {t: "↓"}, {t: "Δ"},
@@ -28,8 +179,12 @@ const chem_symbols = [
 ];
 
 const extra_symbols = [
-    "α","β","γ","π","μ","ρ","σ","ω","≈","≠","≤","≥","∞","∑","∫","√","°C","e⁻",
-    "⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹","₀","₁","₂","₃","₄","₅","₆","₇","₈","₉","⟶","⟷","⟹","⟺"
+    "α","β","γ","π","μ","ρ","σ","ω",
+    "≈","≠","≤","≥","∞","∑","∫","√",
+    "°C","e⁻",
+    "⁰","¹","²","³","⁴","⁵","⁶","⁷","⁸","⁹",
+    "₀","₁","₂","₃","₄","₅","₆","₇","₈","₉",
+    "⟶","⟷","⟹","⟺"
 ];
 
 const app = {
@@ -37,200 +192,432 @@ const app = {
         part1: [], part2: [], part3: [], part4: [], part5: [], part6: [],
         gf_config: { url: "", fields: [] }
     },
-    activeTab: 1, editingIndex: -1, draggedItemIndex: null,
+    activeTab: 1,
+    editingIndex: -1,
+    draggedItemIndex: null,
 
     init() {
         if (typeof lucide !== 'undefined') lucide.createIcons();
-        this.renderThemes(); this.renderTabs();
-        this.renderToolbar('editorToolbar', 'qInput'); this.renderToolbar('editorToolbarEdit', 'qInputEdit');
-        this.switchTab(1); this.setupEventListeners();
+        this.renderThemes();
+        this.renderTabs();
+        this.renderToolbar('editorToolbar', 'qInput');
+        this.renderToolbar('editorToolbarEdit', 'qInputEdit');
+        this.switchTab(1);
+        this.setupEventListeners();
     },
 
     toggleMenu() {
-        const menu = document.getElementById('mobileMenu'); const icon = document.querySelector('#mobileMenuBtn i');
-        if (menu.classList.contains('hidden')) { menu.classList.remove('hidden'); menu.classList.add('flex'); if(typeof lucide !== 'undefined') { icon.setAttribute('data-lucide', 'x'); lucide.createIcons(); } } 
-        else { menu.classList.add('hidden'); menu.classList.remove('flex'); if(typeof lucide !== 'undefined') { icon.setAttribute('data-lucide', 'menu'); lucide.createIcons(); } }
+        const menu = document.getElementById('mobileMenu');
+        const icon = document.querySelector('#mobileMenuBtn i');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+            if(typeof lucide !== 'undefined') {
+                icon.setAttribute('data-lucide', 'x');
+                lucide.createIcons();
+            }
+        } else {
+            menu.classList.add('hidden');
+            menu.classList.remove('flex');
+            if(typeof lucide !== 'undefined') {
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
+            }
+        }
     },
 
     setupEventListeners() {
         const gfInput = document.getElementById('gfUrlInput');
-        if (gfInput) gfInput.addEventListener('paste', () => { setTimeout(() => { if (gfInput.value.includes('google.com/forms')) this.autoAnalyzeGF(); }, 100); });
+        if (gfInput) {
+            gfInput.addEventListener('paste', () => {
+                setTimeout(() => { if (gfInput.value.includes('google.com/forms')) this.autoAnalyzeGF(); }, 100);
+            });
+        }
     },
 
-    renderThemes() { document.getElementById('themeSelect').innerHTML = Object.keys(THEMES).map(k => `<option value="${k}">${k}</option>`).join(''); },
-    
+    renderThemes() {
+        const sel = document.getElementById('themeSelect');
+        sel.innerHTML = Object.keys(THEMES).map(k => `<option value="${k}">${k}</option>`).join('');
+    },
+
     renderTabs() {
+        const c = document.getElementById('tabsContainer');
         let html = '';
-        for(let i=1; i<=6; i++) html += `<button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i})"><span class="text-center w-full truncate">Dạng ${i}</span></button>`;
-        document.getElementById('tabsContainer').innerHTML = html; if (typeof lucide !== 'undefined') lucide.createIcons();
+        for(let i=1; i<=6; i++) {
+            html += `
+            <button class="tab-btn ${this.activeTab === i ? 'tab-active' : 'tab-inactive'}" onclick="app.switchTab(${i})">
+                <span class="text-center w-full truncate">Dạng ${i}</span>
+            </button>`;
+        }
+        c.innerHTML = html;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     switchTab(tab) {
         const qInput = document.getElementById('qInput');
-        if(qInput && qInput.value.trim().length > 5 && this.activeTab !== tab) if(!confirm("Bạn đang có câu hỏi chưa được 'Thêm vào danh sách'. Chuyển tab sẽ làm mất nội dung này. Tiếp tục?")) return;
+        if(qInput && qInput.value.trim().length > 5 && this.activeTab !== tab) {
+            if(!confirm("Bạn đang có câu hỏi chưa được 'Thêm vào danh sách'. Chuyển tab sẽ làm mất nội dung này. Tiếp tục?")) return;
+        }
+
         this.activeTab = tab;
         const titles = ["Một phương án đúng", "Nhiều đáp án đúng", "Trả lời ngắn", "Điền khuyết", "Ghép đôi", "Giải ô chữ"];
         document.getElementById('partTitle').innerHTML = `Dạng ${tab}: <span class="text-slate-700 font-semibold ml-1.5 text-sm sm:text-lg">${titles[tab-1]}</span>`;
-        this.renderTabs(); this.renderQList(); if(qInput) qInput.value = '';
+        this.renderTabs();
+        this.renderQList();
+        if(qInput) qInput.value = '';
     },
 
     showGuide() { 
         document.getElementById('guideModalTitle').innerHTML = '<i data-lucide="help-circle" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500"></i> Hướng dẫn nhập liệu';
         document.getElementById('guideModalContent').innerHTML = GUIDES[this.activeTab];
         if (typeof lucide !== 'undefined') lucide.createIcons();
-        const modal = document.getElementById('guideModal'); const content = modal.querySelector('.modal-content');
-        modal.classList.remove('opacity-0', 'pointer-events-none'); content.classList.remove('scale-95', 'translate-y-4'); content.classList.add('scale-100', 'translate-y-0');
+        const modal = document.getElementById('guideModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
     },
 
     openFullGuide() {
         document.getElementById('guideModalTitle').innerHTML = '<i data-lucide="book-open" class="w-5 h-5 sm:w-6 sm:h-6 text-blue-500"></i> Hướng dẫn sử dụng';
         document.getElementById('guideModalContent').innerHTML = FULL_GUIDE;
         if (typeof lucide !== 'undefined') lucide.createIcons();
-        const modal = document.getElementById('guideModal'); const content = modal.querySelector('.modal-content');
-        modal.classList.remove('opacity-0', 'pointer-events-none'); content.classList.remove('scale-95', 'translate-y-4'); content.classList.add('scale-100', 'translate-y-0');
+        const modal = document.getElementById('guideModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
     },
 
     renderToolbar(toolbarId, inputId) {
-        const tb = document.getElementById(toolbarId); if(!tb) return;
+        const tb = document.getElementById(toolbarId);
+        if(!tb) return;
         let html = '<div class="flex flex-wrap bg-white rounded-lg p-1 border border-slate-200 shadow-sm gap-1 items-center w-full">';
+        
         chem_symbols.forEach(sym => {
-            if(sym.action === 'arrow_right') html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
-            else if(sym.action === 'arrow_eq') html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
-            else html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+            if(sym.action === 'arrow_right') {
+                html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" title="Mũi tên có chữ ở trên/dưới" onclick="app.insertArrow('right', '${inputId}')">${sym.t}</button>`;
+            } else if(sym.action === 'arrow_eq') {
+                html += `<button class="px-1.5 py-1 text-blue-700 bg-blue-50 hover:bg-blue-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" title="Mũi tên thuận nghịch có chữ ở trên/dưới" onclick="app.insertArrow('eq', '${inputId}')">${sym.t}</button>`;
+            } else {
+                html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertText('${sym.t}', '${sym.s||''}', '${sym.e||''}', '${inputId}')">${sym.t}</button>`;
+            }
         });
+        
         html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
-        extra_symbols.forEach(s => html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`);
+        
+        extra_symbols.forEach(s => {
+            html += `<button class="px-1.5 py-1 text-slate-700 hover:bg-slate-100 rounded transition-all active:scale-90 font-bold text-sm sm:text-base" onclick="app.insertText('${s}', '', '', '${inputId}')">${s}</button>`;
+        });
+        
         html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
-        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded font-black bg-white border border-slate-200 text-sm sm:text-base" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
-        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded italic font-black bg-white border border-slate-200 text-sm sm:text-base" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        
+        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm sm:text-base" onclick="app.insertText('Bold', '<b>', '</b>', '${inputId}')">B</button>`;
+        html += `<button class="px-2 py-1 text-slate-700 hover:bg-slate-100 rounded italic font-black transition-all active:scale-90 bg-white border border-slate-200 text-sm sm:text-base" onclick="app.insertText('Italic', '<i>', '</i>', '${inputId}')">I</button>`;
+        
         html += `<div class="w-px h-4 bg-slate-300 mx-0.5"></div>`;
-        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-xs sm:text-sm font-bold flex items-center" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-4 h-4 mr-1"></i> Ảnh</button>`;
-        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-xs sm:text-sm font-bold flex items-center" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-4 h-4 mr-1"></i> Video</button>`;
+        
+        html += `<button class="px-2 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertImage('${inputId}')"><i data-lucide="image" class="w-4 h-4 mr-1"></i> Ảnh</button>`;
+        html += `<button class="px-2 py-1 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 rounded text-xs sm:text-sm font-bold flex items-center transition-all active:scale-90" onclick="app.insertVideo('${inputId}')"><i data-lucide="youtube" class="w-4 h-4 mr-1"></i> Video</button>`;
+        
         html += `</div>`;
-        tb.innerHTML = html; if (typeof lucide !== 'undefined') lucide.createIcons();
+        tb.innerHTML = html;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
     },
 
     insertText(t, startTag, endTag, inputId = 'qInput') {
-        const el = document.getElementById(inputId); const s = el.selectionStart, e = el.selectionEnd;
+        const el = document.getElementById(inputId);
+        const s = el.selectionStart, e = el.selectionEnd;
         if(startTag || endTag) {
             const r = startTag + el.value.substring(s, e) + endTag;
-            el.value = el.value.substring(0, s) + r + el.value.substring(e); el.setSelectionRange(s, s + r.length);
+            el.value = el.value.substring(0, s) + r + el.value.substring(e);
+            el.setSelectionRange(s, s + r.length);
         } else {
-            el.value = el.value.substring(0, s) + t + el.value.substring(e); el.setSelectionRange(s + t.length, s + t.length);
+            el.value = el.value.substring(0, s) + t + el.value.substring(e);
+            el.setSelectionRange(s + t.length, s + t.length);
         }
         el.focus();
     },
 
     insertArrow(type, inputId = 'qInput') {
-        const el = document.getElementById(inputId); const s = el.selectionStart, e = el.selectionEnd;
+        const el = document.getElementById(inputId);
+        const s = el.selectionStart, e = el.selectionEnd;
+
         const overlay = document.createElement('div');
         overlay.className = 'fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4';
         overlay.innerHTML = `
-            <div class="bg-white rounded-2xl shadow-xl p-4 w-full max-w-sm flex flex-col gap-3">
-                <h3 class="font-bold text-slate-900">Chèn mũi tên</h3>
-                <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2 py-1 text-sm outline-none" placeholder="Phía TRÊN (VD: t°)">
-                <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2 py-1 text-sm outline-none" placeholder="Phía DƯỚI (VD: xt)">
-                <div class="flex justify-end gap-2 mt-1"><button id="arrowCancelBtn" class="px-3 py-1 bg-slate-100 font-bold rounded-lg text-sm">Hủy</button><button id="arrowConfirmBtn" class="px-3 py-1 bg-blue-500 text-white font-bold rounded-lg text-sm">Chèn</button></div>
+            <div class="bg-white rounded-2xl shadow-xl p-4 sm:p-5 w-full max-w-sm flex flex-col gap-3 transform transition-all">
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-1.5">
+                    <i data-lucide="arrow-right-circle" class="w-5 h-5 text-blue-500"></i> Chèn mũi tên
+                </h3>
+                <div>
+                    <label class="block text-sm sm:text-base font-bold text-slate-700 mb-1">Chữ phía TRÊN mũi tên:</label>
+                    <input type="text" id="arrowTopInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2.5 py-1.5 text-base outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: t°">
+                </div>
+                <div>
+                    <label class="block text-sm sm:text-base font-bold text-slate-700 mb-1">Chữ phía DƯỚI mũi tên:</label>
+                    <input type="text" id="arrowBottomInput" class="w-full bg-slate-50 border-2 border-slate-200 rounded-lg px-2.5 py-1.5 text-base outline-none focus:border-blue-500 focus:bg-white transition-colors" placeholder="VD: xt">
+                </div>
+                <div class="flex justify-end gap-2 mt-1">
+                    <button id="arrowCancelBtn" class="px-3 py-1.5 bg-slate-100 text-slate-700 font-bold rounded-lg hover:bg-slate-200 transition-colors text-sm sm:text-base">Hủy</button>
+                    <button id="arrowConfirmBtn" class="px-3 py-1.5 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition-colors text-sm sm:text-base shadow-[0_2px_0_0_#1d4ed8] active:translate-y-0.5 active:shadow-none">Chèn vào</button>
+                </div>
             </div>
         `;
+
         document.body.appendChild(overlay);
-        const topInput = document.getElementById('arrowTopInput'); const bottomInput = document.getElementById('arrowBottomInput');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        const topInput = document.getElementById('arrowTopInput');
+        const bottomInput = document.getElementById('arrowBottomInput');
+        const cancelBtn = document.getElementById('arrowCancelBtn');
+        const confirmBtn = document.getElementById('arrowConfirmBtn');
+
         topInput.focus();
+
         const closePopup = () => { document.body.removeChild(overlay); el.focus(); };
+
         const confirmInsert = () => {
-            let text = `$${type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons'}${bottomInput.value.trim() ? \`[\\text{${bottomInput.value.trim()}}]\` : ""}${topInput.value.trim() ? \`{\\text{${topInput.value.trim()}}}\` : "{}"}$`;
-            el.value = el.value.substring(0, s) + text + el.value.substring(e); el.setSelectionRange(s + text.length, s + text.length);
+            let topText = topInput.value.trim();
+            let bottomText = bottomInput.value.trim();
+            let arrowBase = type === 'right' ? '\\xrightarrow' : '\\xrightleftharpoons';
+            let bottomPart = bottomText ? `[\\text{${bottomText}}]` : "";
+            let topPart = topText ? `{\\text{${topText}}}` : "{}";
+            let text = `$${arrowBase}${bottomPart}${topPart}$`;
+            
+            el.value = el.value.substring(0, s) + text + el.value.substring(e);
+            el.setSelectionRange(s + text.length, s + text.length);
             closePopup();
         };
-        document.getElementById('arrowCancelBtn').onclick = closePopup; document.getElementById('arrowConfirmBtn').onclick = confirmInsert;
+
+        cancelBtn.onclick = closePopup; confirmBtn.onclick = confirmInsert;
+        const handleKey = (ev) => { if (ev.key === 'Enter') confirmInsert(); if (ev.key === 'Escape') closePopup(); };
+        topInput.addEventListener('keydown', handleKey); bottomInput.addEventListener('keydown', handleKey);
     },
 
     insertImage(inputId = 'qInput') {
         const f = document.getElementById('fileLoader');
         f.onchange = e => {
-            if(!e.target.files[0]) return;
+            const file = e.target.files[0];
+            if(!file) return;
             const reader = new FileReader();
-            reader.onload = ev => this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
-            reader.readAsDataURL(e.target.files[0]); f.value = ''; 
-        }; f.click();
+            reader.onload = ev => {
+                this.insertText('', `<img src="${ev.target.result}" style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;">`, '', inputId);
+            };
+            reader.readAsDataURL(file);
+            f.value = ''; 
+        };
+        f.click();
     },
 
     insertVideo(inputId = 'qInput') {
-        const url = prompt("Nhập link Video (YouTube hoặc .mp4):", ""); if (!url) return;
-        let html = "";
-        if (url.includes("youtube") || url.includes("youtu.be")) {
-            let id = url.includes("youtu.be/") ? url.split("youtu.be/")[1].split("?")[0] : (url.includes("watch?v=") ? url.split("watch?v=")[1].split("&")[0] : "");
-            if(id) html = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:10px 0;"><iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe></div>`;
-        } else if (url.includes(".mp4")) html = `<video controls style="max-width:100%; border-radius:8px; margin:10px 0;"><source src="${url}" type="video/mp4"></video>`;
-        if(html) this.insertText('', html, '', inputId);
+        const url = prompt("Nhập đường link Video (Hỗ trợ YouTube hoặc link file .mp4 trực tiếp):", "");
+        if (!url) return;
+        let embedHtml = "";
+        if (url.includes("youtube.com") || url.includes("youtu.be")) {
+            let videoId = "";
+            if (url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0];
+            else if (url.includes("watch?v=")) videoId = url.split("watch?v=")[1].split("&")[0];
+            
+            if (videoId) embedHtml = `<div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:10px 0;"><iframe style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/${videoId}" allowfullscreen></iframe></div>`;
+            else { alert("Không thể nhận diện ID YouTube!"); return; }
+        } else if (url.toLowerCase().endsWith(".mp4") || url.toLowerCase().includes(".mp4?")) {
+            embedHtml = `<video controls style="max-width:100%; border-radius:8px; border:2px solid #e2e8f0; margin:10px 0;"><source src="${url}" type="video/mp4">Trình duyệt không hỗ trợ xem video.</video>`;
+        } else { alert("Vui lòng nhập link YouTube hoặc .mp4 hợp lệ!"); return; }
+        
+        this.insertText('', embedHtml, '', inputId);
     },
 
     addQuestion() {
         const val = document.getElementById('qInput').value.trim();
         if(!val) return alert("Vui lòng nhập nội dung câu hỏi!");
-        this.data['part'+this.activeTab].push(val);
-        document.getElementById('qInput').value = ''; this.renderQList();
-    },
-    removeQuestion(idx) { if(confirm("Bạn có chắc muốn xóa?")) { this.data['part'+this.activeTab].splice(idx, 1); this.renderQList(); } },
-    editQuestion(idx) {
-        this.editingIndex = idx;
-        const m = document.getElementById('editModal'); m.classList.remove('opacity-0', 'pointer-events-none'); m.querySelector('.modal-content').classList.remove('scale-95', 'translate-y-4');
-        document.getElementById('qInputEdit').value = this.data['part'+this.activeTab][idx];
-    },
-    saveEditQuestion() {
-        if(this.editingIndex === -1) return;
-        const val = document.getElementById('qInputEdit').value.trim(); if(!val) return alert("Không được để trống!");
-        this.data['part'+this.activeTab][this.editingIndex] = val; this.closeModal('editModal'); this.renderQList();
+        const chunks = val.includes("##") ? val.split("##").filter(x => x.trim()) : [val];
+        chunks.forEach(c => { if(c.split(/\r?\n/).length >= 2) this.data['part'+this.activeTab].push(c.trim()); });
+        document.getElementById('qInput').value = '';
+        this.renderQList();
     },
 
-    handleDragStart(e, i) { this.draggedItemIndex = i; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', i); setTimeout(() => e.target.classList.add('dragging-item'), 0); },
-    handleDragOver(e, i) { e.preventDefault(); if (i === this.draggedItemIndex) return; const rect = e.currentTarget.getBoundingClientRect(); document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom')); if (e.clientY - rect.top >= rect.height / 2) e.currentTarget.classList.add('drag-over-bottom'); else e.currentTarget.classList.add('drag-over-top'); },
-    handleDragLeave(e) { e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom'); },
-    handleDrop(e, dropI) {
-        e.stopPropagation(); document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
-        let dragI = this.draggedItemIndex !== null ? this.draggedItemIndex : parseInt(e.dataTransfer.getData('text/plain'));
-        if (dragI !== null && !isNaN(dragI) && dragI !== dropI) {
-            const list = this.data['part' + this.activeTab]; const rect = e.currentTarget.getBoundingClientRect(); const insertAfter = e.clientY - rect.top >= rect.height / 2;
-            let insI = dropI;
-            if (dragI < dropI && insertAfter) insI = dropI; else if (dragI < dropI && !insertAfter) insI = dropI - 1; else if (dragI > dropI && insertAfter) insI = dropI + 1; else if (dragI > dropI && !insertAfter) insI = dropI;
-            list.splice(insI, 0, list.splice(dragI, 1)[0]); this.renderQList();
+    removeQuestion(idx) {
+        if(confirm("Bạn có chắc muốn xóa câu hỏi này?")) {
+            this.data['part'+this.activeTab].splice(idx, 1);
+            this.renderQList();
         }
     },
-    handleDragEnd(e) { e.target.classList.remove('dragging-item'); document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom')); this.draggedItemIndex = null; },
+
+    editQuestion(idx) {
+        this.editingIndex = idx;
+        const modal = document.getElementById('editModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+        document.getElementById('qInputEdit').value = this.data['part'+this.activeTab][idx];
+    },
+
+    saveEditQuestion() {
+        if(this.editingIndex === -1) return;
+        const val = document.getElementById('qInputEdit').value.trim();
+        if(!val) return alert("Nội dung không được để trống!");
+        this.data['part'+this.activeTab][this.editingIndex] = val;
+        this.closeModal('editModal');
+        this.renderQList();
+    },
+
+    handleDragStart(e, index) {
+        this.draggedItemIndex = index;
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/plain', index);
+        setTimeout(() => e.target.classList.add('dragging-item'), 0);
+    },
+
+    handleDragOver(e, index) {
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if (index === this.draggedItemIndex) return false;
+        const rect = e.currentTarget.getBoundingClientRect();
+        const relY = e.clientY - rect.top;
+        const insertAfter = relY >= rect.height / 2;
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+        if (insertAfter) e.currentTarget.classList.add('drag-over-bottom');
+        else e.currentTarget.classList.add('drag-over-top');
+        return false;
+    },
+
+    handleDragLeave(e) {
+        e.currentTarget.classList.remove('drag-over-top', 'drag-over-bottom');
+    },
+
+    handleDrop(e, dropIndex) {
+        e.stopPropagation();
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+        
+        let dragIndex = this.draggedItemIndex !== null ? this.draggedItemIndex : parseInt(e.dataTransfer.getData('text/plain'));
+        
+        if (dragIndex !== null && !isNaN(dragIndex) && dragIndex !== dropIndex) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const relY = e.clientY - rect.top;
+            const insertAfter = relY >= rect.height / 2;
+            
+            const list = this.data['part' + this.activeTab];
+            let insertIndex = dropIndex;
+            
+            if (dragIndex < dropIndex && insertAfter) insertIndex = dropIndex;
+            else if (dragIndex < dropIndex && !insertAfter) insertIndex = dropIndex - 1;
+            else if (dragIndex > dropIndex && insertAfter) insertIndex = dropIndex + 1;
+            else if (dragIndex > dropIndex && !insertAfter) insertIndex = dropIndex;
+            
+            const item = list.splice(dragIndex, 1)[0];
+            list.splice(insertIndex, 0, item);
+            this.renderQList();
+        }
+        return false;
+    },
+
+    handleDragEnd(e) {
+        e.target.classList.remove('dragging-item');
+        document.querySelectorAll('.q-item-drag').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+        this.draggedItemIndex = null;
+    },
+
+    convertLatexForWord(text) {
+        if(!text) return text;
+        return text.replace(/\$(.*?)\$/g, (match, formula) => {
+            let html = formula.trim();
+            html = html.replace(/_\{([^}]+)\}/g, '<sub>$1</sub>');
+            html = html.replace(/_([a-zA-Z0-9])/g, '<sub>$1</sub>');
+            html = html.replace(/\^\{([^}]+)\}/g, '<sup>$1</sup>');
+            html = html.replace(/\^([a-zA-Z0-9])/g, '<sup>$1</sup>');
+            html = html.replace(/\\rightarrow/g, '→');
+            html = html.replace(/\\rightleftharpoons/g, '⇌');
+            html = html.replace(/\\xrightarrow\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' → (xt: $1, t°: $2) ');
+            html = html.replace(/\\xrightarrow\s*\{\\text\{([^}]+)\}\}/g, ' → (t°: $1) ');
+            html = html.replace(/\\xrightleftharpoons\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (xt: $1, t°: $2) ');
+            html = html.replace(/\\xrightleftharpoons\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (t°: $1) ');
+            html = html.replace(/\\text\{([^}]+)\}/g, '$1');
+            html = html.replace(/\\[a-zA-Z]+/g, ''); 
+            return html;
+        });
+    },
 
     renderQList() {
         const arr = this.data['part'+this.activeTab];
-        document.getElementById('qList').innerHTML = arr.map((q, i) => `
-            <div draggable="true" class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white hover:border-blue-400 group relative pr-16 mb-2" ondragstart="app.handleDragStart(event, ${i})" ondragover="app.handleDragOver(event, ${i})" ondragleave="app.handleDragLeave(event)" ondrop="app.handleDrop(event, ${i})" ondragend="app.handleDragEnd(event)">
-                <div class="flex items-center gap-1.5 mb-1.5 border-b border-slate-100 pb-1.5"><div class="drag-handle cursor-grab text-slate-400 p-1"><i data-lucide="grip-vertical" class="w-4 h-4 pointer-events-none"></i></div><span class="bg-blue-100 text-blue-700 text-xs font-black px-2 py-0.5 rounded-md">Câu ${i+1}</span></div>
-                <div class="text-sm sm:text-base text-slate-700 line-clamp-3 pointer-events-none">${q.replace(/</g,'&lt;')}</div>
+        const html = arr.map((q, i) => `
+            <div draggable="true" 
+                 class="q-item-drag p-2 sm:p-3 border-2 border-slate-200 rounded-xl bg-white shadow-[0_3px_0_0_#e2e8f0] hover:border-blue-400 hover:shadow-[0_3px_0_0_#60a5fa] transition-all group relative pr-16 sm:pr-20 cursor-default mb-2"
+                 ondragstart="app.handleDragStart(event, ${i})" 
+                 ondragover="app.handleDragOver(event, ${i})" 
+                 ondragleave="app.handleDragLeave(event)"
+                 ondrop="app.handleDrop(event, ${i})" 
+                 ondragend="app.handleDragEnd(event)">
+                 
+                <div class="flex items-center gap-1.5 mb-1.5 border-b border-slate-100 pb-1.5">
+                    <div class="drag-handle cursor-grab active:cursor-grabbing text-slate-400 hover:text-blue-500 transition-colors p-1 -ml-1 rounded flex items-center justify-center bg-slate-50 hover:bg-blue-50" title="Kéo thả để di chuyển">
+                        <i data-lucide="grip-vertical" class="w-4 h-4 sm:w-5 sm:h-5 pointer-events-none"></i>
+                    </div>
+                    <span class="bg-blue-100 text-blue-700 text-xs sm:text-sm font-black px-2 py-0.5 sm:px-2 sm:py-1 rounded-md">Câu ${i+1}</span>
+                </div>
+                <div class="text-sm sm:text-base text-slate-700 line-clamp-3 leading-relaxed font-medium pointer-events-none">${q.replace(/</g,'&lt;')}</div>
                 <div class="absolute top-2 right-2 flex gap-1 sm:opacity-0 sm:group-hover:opacity-100 transition-all">
-                    <button class="p-1.5 bg-blue-50 text-blue-500 rounded-lg" onclick="app.editQuestion(${i})"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
-                    <button class="p-1.5 bg-red-50 text-red-500 rounded-lg" onclick="app.removeQuestion(${i})"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    <button class="p-1.5 sm:p-2 bg-blue-50 text-blue-500 hover:text-white hover:bg-blue-500 border border-blue-100 hover:border-blue-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.editQuestion(${i})" title="Sửa câu hỏi"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                    <button class="p-1.5 sm:p-2 bg-red-50 text-red-500 hover:text-white hover:bg-red-500 border border-red-100 hover:border-red-600 rounded-lg transition-all active:scale-90 shadow-sm" onclick="app.removeQuestion(${i})" title="Xóa"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                 </div>
             </div>
-        `).join('') || `<div class="text-center py-8 text-slate-400">Chưa có câu hỏi</div>`;
-        if(document.getElementById('qCountBadge')) document.getElementById('qCountBadge').innerText = `${arr.length} câu`;
+        `).join('');
+        
+        document.getElementById('qList').innerHTML = html || `
+            <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3 py-8">
+                <div class="bg-slate-100 p-3 sm:p-4 rounded-xl shadow-inner"><i data-lucide="inbox" class="w-8 h-8 sm:w-10 sm:h-10 text-slate-300"></i></div>
+                <p class="text-sm sm:text-base font-bold text-slate-400">Chưa có câu hỏi nào</p>
+            </div>`;
+        const badge = document.getElementById('qCountBadge');
+        if(badge) badge.innerText = `${arr.length} câu`;
         if (typeof lucide !== 'undefined') lucide.createIcons();
-        if (window.MathJax) MathJax.typesetPromise([document.getElementById('qList')]).catch(err => {});
+
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([document.getElementById('qList')]).catch(err => console.log(err));
+        }
     },
 
     newProject() {
-        if(confirm("Xóa toàn bộ nội dung hiện tại để tạo mới?")) {
-            this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: this.data.gf_config };
-            document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM"; document.getElementById('creatorName').value = ""; document.getElementById('startTime').value = ""; document.getElementById('endTime').value = "";
-            if (document.getElementById('antiCheat')) document.getElementById('antiCheat').checked = false;
-            if (document.getElementById('publishScore')) document.getElementById('publishScore').checked = false;
+        if(confirm("Tạo dự án mới sẽ xóa toàn bộ nội dung đề hiện tại. Bạn có chắc chắn?")) {
+            const savedGF = this.data.gf_config; 
+            this.data = { part1:[], part2:[], part3:[], part4:[], part5:[], part6:[], gf_config: savedGF };
+            document.getElementById('quizTitle').value = "BÀI TẬP TRẮC NGHIỆM";
+            document.getElementById('creatorName').value = "";
+            document.getElementById('startTime').value = "";
+            document.getElementById('endTime').value = "";
+            
+            const acBox = document.getElementById('antiCheat');
+            const psBox = document.getElementById('publishScore');
+            if (acBox) acBox.checked = false;
+            if (psBox) psBox.checked = false;
+            
             this.switchTab(1);
         }
     },
+    
     saveProject() {
-        const p = { title: document.getElementById('quizTitle').value, creator: document.getElementById('creatorName').value, theme: document.getElementById('themeSelect').value, start_time: document.getElementById('startTime').value, end_time: document.getElementById('endTime').value, anti_cheat: document.getElementById('antiCheat')?.checked, publish_score: document.getElementById('publishScore')?.checked, ...this.data };
-        const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([JSON.stringify(p, null, 2)], {type: "application/json"})); a.download = "Project_HoaHoc.json"; a.click();
+        const acBox = document.getElementById('antiCheat');
+        const psBox = document.getElementById('publishScore');
+        const p = {
+            title: document.getElementById('quizTitle').value,
+            creator: document.getElementById('creatorName').value,
+            theme: document.getElementById('themeSelect').value,
+            start_time: document.getElementById('startTime').value,
+            end_time: document.getElementById('endTime').value,
+            anti_cheat: acBox ? acBox.checked : false,
+            publish_score: psBox ? psBox.checked : false,
+            ...this.data
+        };
+        const blob = new Blob([JSON.stringify(p, null, 2)], {type: "application/json;charset=utf-8"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Project_HoaHoc.json";
+        a.click();
     },
 
     // ==============================================================
-    // THUẬT TOÁN NHẬN DIỆN "DẠNG" VÀ "CÂU HỎI" SIÊU THÔNG MINH
+    // THUẬT TOÁN NHẬN DIỆN "DẠNG" VÀ "CÂU HỎI" THÔNG MINH
     // ==============================================================
     importQuestions(event) {
         const inputElement = event.target;
@@ -243,7 +630,7 @@ const app = {
             try {
                 let count = 0;
                 
-                // 1. Kiểm tra xem file có tựa đề "Dạng 1", "Phần 2"... rõ ràng không
+                // Kiểm tra xem file có tựa đề "Dạng 1", "Phần 2"... rõ ràng không
                 const hasSections = /^\s*(?:Dạng|Phần)\s*\d+/im.test(text);
 
                 // Regex siêu việt để nhận diện từ khóa bắt đầu câu:
@@ -296,7 +683,7 @@ const app = {
                 if (count === 0) {
                     alert("⚠️ Không tìm thấy câu hỏi nào.\nVui lòng đảm bảo các câu được bắt đầu bằng: 'Câu 1:', 'Câu 2.' hoặc '##'.");
                 } else {
-                    alert(`✅ Đã phân tích và xếp thành công ${count} câu hỏi vào đúng các Dạng.`);
+                    alert(`✅ Đã phân tích và nạp thành công ${count} câu hỏi vào đúng các Dạng.`);
                     this.switchTab(this.activeTab); // Cập nhật lại UI
                 }
             } catch(err) {
@@ -374,7 +761,7 @@ const app = {
                 processDocx();
             }
         } else if (fileName.endsWith('.doc')) {
-            alert("⚠️ Không hỗ trợ file .doc loại cũ. Vui lòng mở bằng Word, Save As thành .docx hoặc .txt rồi thử lại.");
+            alert("⚠️ Không hỗ trợ trực tiếp file .doc loại cũ. Vui lòng mở bằng Word, Save As thành .docx hoặc .txt rồi thử lại.");
             inputElement.value = '';
         } else {
             alert("⚠️ Định dạng file không hỗ trợ. Vui lòng chọn .txt, .docx, hoặc .json");
@@ -382,86 +769,132 @@ const app = {
         }
     },
 
-    // Các hàm xử lý API Google Form
     openGFSettings() {
-        const m = document.getElementById('gfModal'); m.classList.remove('opacity-0', 'pointer-events-none'); m.querySelector('.modal-content').classList.remove('scale-95', 'translate-y-4');
+        const modal = document.getElementById('gfModal');
+        const content = modal.querySelector('.modal-content');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-95', 'translate-y-4');
+        content.classList.add('scale-100', 'translate-y-0');
+
         document.getElementById('gfUrlInput').value = this.data.gf_config.url;
         if(this.data.gf_config.fields.length > 0) this.renderGFFields();
-        else document.getElementById('gfFieldsTable').innerHTML = `<tr><td colspan="4" class="text-center py-5 text-slate-400 italic">Dán link Form vào ô phía trên để bắt đầu phân tích</td></tr>`;
+        else {
+            document.getElementById('gfFieldsTable').innerHTML = `<tr><td colspan="4" class="text-center py-5 sm:py-8 text-slate-400 font-medium italic"><i data-lucide="link" class="w-6 h-6 sm:w-8 sm:h-8 mx-auto mb-2 text-slate-300"></i>Dán link Form vào ô phía trên để bắt đầu phân tích</td></tr>`;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
     },
-    closeModal(id) { const m = document.getElementById(id); m.classList.add('opacity-0', 'pointer-events-none'); m.querySelector('.modal-content').classList.add('scale-95', 'translate-y-4'); },
+    
+    closeModal(id) { 
+        const modal = document.getElementById(id);
+        const content = modal.querySelector('.modal-content');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        content.classList.remove('scale-100', 'translate-y-0');
+        content.classList.add('scale-95', 'translate-y-4');
+    },
+
     async fetchHtmlWithCors(url) {
-        const proxies = [ { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' }, { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' }, { url: `https://corsproxy.io/?${encodeURIComponent(url)}`, type: 'text' } ];
+        const proxies = [
+            { url: `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, type: 'json' },
+            { url: `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`, type: 'text' },
+            { url: `https://corsproxy.io/?${encodeURIComponent(url)}`, type: 'text' }
+        ];
+        
+        const fetchWithTimeout = (resource, options) => {
+            const { timeout = 8000 } = options;
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+            return fetch(resource, { ...options, signal: controller.signal }).finally(() => clearTimeout(id));
+        };
+
         for (const proxy of proxies) {
             try {
-                const res = await fetch(proxy.url, { cache: "no-store", timeout: 10000 });
-                if (!res.ok) throw new Error();
-                if (proxy.type === 'json') { const d = await res.json(); if (d.contents) return d.contents; } else return await res.text();
-            } catch (err) {}
-        } throw new Error("Không thể kết nối Form qua máy chủ trung gian.");
+                const response = await fetchWithTimeout(proxy.url, { cache: "no-store", timeout: 10000 });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                if (proxy.type === 'json') {
+                    const data = await response.json();
+                    if (data.contents) return data.contents;
+                } else return await response.text();
+            } catch (err) { continue; }
+        }
+        throw new Error("Không thể kết nối đến Google Form qua các máy chủ trung gian. Vui lòng thử lại sau.");
     },
+
     async autoAnalyzeGF() {
-        let url = document.getElementById('gfUrlInput').value.trim(); if(!url) return alert("Vui lòng nhập link Form!");
-        if(url.includes("forms.gle")) return alert("⚠️ Mở link rút gọn bằng trình duyệt, copy link dài rồi dán lại vào đây.");
-        const btn = document.getElementById('btnAnalyze'); const oldHtml = btn.innerHTML;
-        btn.innerHTML = 'Đang phân tích...'; btn.disabled = true;
+        let url = document.getElementById('gfUrlInput').value.trim();
+        if(!url) return alert("Vui lòng nhập link Form!");
+        if(url.includes("forms.gle")) return alert("⚠️ Vui lòng mở link rút gọn bằng trình duyệt, copy đường link dài (docs.google.com/forms...) rồi dán lại vào đây.");
+
+        const btn = document.getElementById('btnAnalyze');
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 mr-2 animate-spin"></i> Đang phân tích...';
+        btn.disabled = true; document.getElementById('gfUrlInput').disabled = true;
+        
         try {
-            const html = await this.fetchHtmlWithCors(url); const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
-            if(!match) throw new Error("Không tìm thấy dữ liệu. Form phải 'Công khai'.");
-            const qs = JSON.parse(match[1])[1][1]; let fields = [];
+            const html = await this.fetchHtmlWithCors(url);
+            const match = html.match(/var FB_PUBLIC_LOAD_DATA_\s*=\s*(\[.*\])\s*;/s);
+            if(!match) throw new Error("Không tìm thấy dữ liệu. Đảm bảo Form đang được thiết lập 'Công khai' (Public).");
+            
+            const jsonData = JSON.parse(match[1]);
+            const qs = jsonData[1][1];
+            let fields = [];
+            
             qs.forEach(q => {
                 if(q[4] && q[4][0]) {
                     let title = q[1] || ""; let t = title.toLowerCase(); let type = "Tự nhập";
-                    if(t.includes('điểm') || t.includes('tổng') || t.includes('max') || t.includes('vi phạm') || t.includes('chi tiết')) type = "Tự động";
+                    if(t.includes('điểm') || t.includes('score') || t.includes('tổng') || 
+                       t.includes('tối đa') || t.includes('max') || 
+                       t.includes('vi phạm') || t.includes('gian lận') || 
+                       t.includes('chi tiết') || t.includes('thống kê') || t.includes('bài làm') || t.includes('lỗi')) {
+                        type = "Tự động";
+                    }
                     fields.push({ id: q[4][0][0].toString(), title: title, type: type, required: q[4][0][2] == 1 });
                 }
             });
-            this.data.gf_config.fields = fields; this.data.gf_config.url = url.split('?')[0].replace('/edit', '/formResponse').replace('/viewform', '/formResponse');
+
+            this.data.gf_config.fields = fields;
+            this.data.gf_config.url = url.split('?')[0].replace('/edit', '/formResponse').replace('/viewform', '/formResponse');
             if(!this.data.gf_config.url.endsWith('/formResponse')) this.data.gf_config.url += '/formResponse';
-            document.getElementById('gfUrlInput').value = this.data.gf_config.url; this.renderGFFields();
-            btn.innerHTML = 'Xong!'; setTimeout(() => { btn.innerHTML = oldHtml; }, 2000);
-        } catch(e) { alert("❌ Lỗi: " + e.message); btn.innerHTML = oldHtml; } finally { btn.disabled = false; }
+            
+            document.getElementById('gfUrlInput').value = this.data.gf_config.url;
+            this.renderGFFields();
+            
+            btn.innerHTML = '<i data-lucide="check" class="w-5 h-5 mr-2"></i>Xong!';
+            btn.classList.replace('from-emerald-500', 'from-blue-500');
+            setTimeout(() => { btn.innerHTML = oldHtml; btn.classList.replace('from-blue-500', 'from-emerald-500'); if (typeof lucide !== 'undefined') lucide.createIcons(); }, 2000);
+
+        } catch(e) {
+            alert("❌ Lỗi: " + e.message);
+            btn.innerHTML = oldHtml;
+        } finally {
+            btn.disabled = false; document.getElementById('gfUrlInput').disabled = false; if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
     },
+
     renderGFFields() {
-        document.getElementById('gfFieldsTable').innerHTML = this.data.gf_config.fields.map((f, i) => `
-            <tr class="border-b border-slate-100">
-                <td class="p-2"><input type="text" class="form-input py-1 text-sm font-bold" value="${f.title.replace(/"/g, '&quot;')}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
-                <td class="p-2 hidden sm:table-cell"><input type="text" class="form-input py-1 bg-slate-100 text-slate-500 font-mono text-sm cursor-not-allowed" value="${f.id}" readonly></td>
-                <td class="p-2"><select class="form-select py-1 font-bold text-sm" onchange="app.data.gf_config.fields[${i}].type=this.value"><option value="Tự nhập" ${f.type==="Tự nhập"?"selected":""}>Tự nhập</option><option value="Tự động" ${f.type==="Tự động"?"selected":""}>Tự động</option></select></td>
-                <td class="p-2 text-center"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked"></td>
+        const tb = document.getElementById('gfFieldsTable');
+        tb.innerHTML = this.data.gf_config.fields.map((f, i) => `
+            <tr class="hover:bg-blue-50/50 transition-colors border-b border-slate-100">
+                <td class="p-2 sm:p-2.5"><input type="text" class="form-input py-1 sm:py-1.5 text-xs sm:text-base font-bold" value="${f.title.replace(/"/g, '&quot;')}" onchange="app.data.gf_config.fields[${i}].title=this.value"></td>
+                <td class="p-2 sm:p-2.5 hidden sm:table-cell"><input type="text" class="form-input py-1 sm:py-1.5 bg-slate-100 text-slate-500 font-mono text-sm cursor-not-allowed" value="${f.id}" readonly></td>
+                <td class="p-2 sm:p-2.5">
+                    <select class="form-select py-1 sm:py-1.5 font-bold text-xs sm:text-base" onchange="app.data.gf_config.fields[${i}].type=this.value">
+                        <option value="Tự nhập" ${f.type==="Tự nhập"||f.type==="Học sinh tự nhập"?"selected":""}>Tự nhập</option>
+                        <option value="Tự động" ${f.type==="Tự động"||f.type!=="Tự nhập"?"selected":""}>Tự động</option>
+                    </select>
+                </td>
+                <td class="p-2 sm:p-2.5 text-center">
+                    <div class="flex justify-center items-center h-full">
+                        <input type="checkbox" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 rounded-md border-2 border-slate-300 focus:ring-blue-500 cursor-pointer shadow-sm" ${f.required?"checked":""} onchange="app.data.gf_config.fields[${i}].required=this.checked">
+                    </div>
+                </td>
             </tr>
         `).join('');
     },
-    saveGFConfig() { this.data.gf_config.url = document.getElementById('gfUrlInput').value; this.closeModal('gfModal'); alert("✅ Đã lưu cấu hình."); },
 
-    // Các tính năng xuất chưa xử lý HTML vì HTML sẽ gọi ở phiên bản đầy đủ
-    exportWord() { alert("Chức năng đang được tích hợp..."); },
-    exportPDF() { alert("Chức năng đang được tích hợp..."); },
-    exportHTML() { alert("Chức năng đang được tích hợp..."); }
-};
-
-document.addEventListener('DOMContentLoaded', () => app.init());
-
-// Tích hợp lại các đoạn code render Document và HTML
-Object.assign(app, {
-    convertLatexForWord(text) {
-        if(!text) return text;
-        return text.replace(/\$(.*?)\$/g, (match, formula) => {
-            let html = formula.trim();
-            html = html.replace(/_\{([^}]+)\}/g, '<sub>$1</sub>');
-            html = html.replace(/_([a-zA-Z0-9])/g, '<sub>$1</sub>');
-            html = html.replace(/\^\{([^}]+)\}/g, '<sup>$1</sup>');
-            html = html.replace(/\^([a-zA-Z0-9])/g, '<sup>$1</sup>');
-            html = html.replace(/\\rightarrow/g, '→');
-            html = html.replace(/\\rightleftharpoons/g, '⇌');
-            html = html.replace(/\\xrightarrow\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' → (xt: $1, t°: $2) ');
-            html = html.replace(/\\xrightarrow\s*\{\\text\{([^}]+)\}\}/g, ' → (t°: $1) ');
-            html = html.replace(/\\xrightleftharpoons\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (xt: $1, t°: $2) ');
-            html = html.replace(/\\xrightleftharpoons\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (t°: $1) ');
-            html = html.replace(/\\text\{([^}]+)\}/g, '$1');
-            html = html.replace(/\\[a-zA-Z]+/g, ''); 
-            return html;
-        });
+    saveGFConfig() {
+        this.data.gf_config.url = document.getElementById('gfUrlInput').value;
+        this.closeModal('gfModal');
+        alert("✅ Đã lưu cấu hình Google Form.\nBạn hãy bấm 'XUẤT HTML' để tạo file đề thi.");
     },
 
     parseQuestionLines(lines, partType) {
@@ -1595,4 +2028,6 @@ Object.assign(app, {
 
         return fullHTML;
     }
-});
+};
+
+document.addEventListener('DOMContentLoaded', () => app.init());
