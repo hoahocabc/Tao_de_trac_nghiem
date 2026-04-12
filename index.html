@@ -35,6 +35,26 @@
             .form-label { @apply block text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wide mb-1; }
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
+
+        /* CSS tự động phóng to/thu nhỏ nút trên Header theo tỷ lệ màn hình (từ màn laptop 1024px đến 1450px) để chống đè chữ */
+        @media (min-width: 1024px) and (max-width: 1450px) {
+            .header-actions {
+                gap: 0.5vw !important;
+            }
+            .header-actions .btn {
+                padding: 0.7vw 0.85vw !important;
+                font-size: 0.85vw !important;
+            }
+            .header-actions .btn i {
+                width: 1.2vw !important;
+                height: 1.2vw !important;
+                margin-right: 0.3vw !important;
+            }
+            .header-actions .w-px {
+                margin-left: 0.1vw !important;
+                margin-right: 0.1vw !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
@@ -46,7 +66,7 @@
                 <h1 class="text-sm sm:text-lg md:text-xl font-extrabold text-slate-900 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">Tạo đề trắc nghiệm - Hóa học ABC</h1>
             </div>
             
-            <div class="hidden lg:flex items-center gap-2 flex-1 justify-end">
+            <div class="header-actions hidden lg:flex items-center gap-2 flex-1 justify-end">
                 <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
                 <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
                 <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
