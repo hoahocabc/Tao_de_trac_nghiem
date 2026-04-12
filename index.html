@@ -36,10 +36,8 @@
             .form-input, .form-select { @apply w-full bg-slate-50 border-2 border-slate-200 text-slate-900 rounded-xl px-3 py-2 sm:px-4 sm:py-2 text-sm sm:text-base outline-none transition-all duration-200 hover:border-blue-400 focus:bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-500/20 shadow-inner; }
         }
 
-        /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI theo tỷ lệ màn hình mượt mà và AN TOÀN HƠN */
         @media (min-width: 1024px) {
             html {
-                /* Công thức được tăng trần, sàn và tỷ lệ lên "một chút xíu" so với phiên bản trước */
                 font-size: clamp(12px, min(1.3vw, 2vh), 17.5px) !important;
             }
         }
@@ -55,6 +53,7 @@
             </div>
             
             <div class="hidden lg:flex items-center gap-2 flex-1 justify-end">
+                <button class="btn btn-outline" onclick="app.openFullGuide()"><i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-blue-500"></i>Hướng dẫn</button>
                 <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
                 <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
                 <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
@@ -75,7 +74,8 @@
         </div>
 
         <div id="mobileMenu" class="lg:hidden hidden border-t border-slate-200 bg-slate-50 absolute top-full left-0 w-full shadow-2xl transition-all duration-200 flex-col p-3 gap-3 z-50">
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
+                <button class="btn btn-outline w-full" onclick="app.openFullGuide(); app.toggleMenu()"><i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-blue-500"></i>Hướng dẫn</button>
                 <button class="btn btn-outline w-full" onclick="app.newProject(); app.toggleMenu()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
                 <button class="btn btn-outline w-full" onclick="app.loadProject(); app.toggleMenu()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
                 <button class="btn btn-outline w-full" onclick="app.saveProject(); app.toggleMenu()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
@@ -163,6 +163,20 @@
         </section>
     </main>
 
+    <div id="guideModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[60] p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white rounded-xl sm:rounded-2xl shadow-2xl p-4 sm:p-6 w-full max-w-4xl transform transition-all duration-300 scale-95 translate-y-4 flex flex-col max-h-[95vh] sm:max-h-[90vh]">
+            <div class="flex justify-between items-center mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-slate-100 shrink-0">
+                <h2 id="guideModalTitle" class="text-lg sm:text-2xl font-bold text-slate-900 flex items-center gap-2"></h2>
+                <button onclick="app.closeModal('guideModal')" class="text-slate-400 hover:text-red-500 bg-slate-100 hover:bg-red-50 p-1.5 sm:p-2 rounded-xl active:scale-90"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i></button>
+            </div>
+            <div id="guideModalContent" class="flex-1 overflow-y-auto min-h-0 pr-2 text-sm sm:text-base text-slate-800 leading-relaxed">
+            </div>
+            <div class="flex justify-end pt-3 sm:pt-4 border-t-2 border-slate-100 shrink-0 mt-2">
+                <button class="btn btn-primary px-6 sm:px-8 w-full sm:w-auto" onclick="app.closeModal('guideModal')">Đã hiểu</button>
+            </div>
+        </div>
+    </div>
+
     <div id="gfModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4 transition-all duration-300 opacity-0 pointer-events-none">
         <div class="modal-content bg-white rounded-xl sm:rounded-2xl shadow-2xl p-3 sm:p-6 transform transition-all duration-300 scale-95 translate-y-4 w-full max-w-4xl flex flex-col max-h-[95vh] sm:max-h-[90vh]">
             <div class="flex justify-between items-center mb-3 sm:mb-4 pb-2 sm:pb-3 border-b-2 border-slate-100 shrink-0">
@@ -211,7 +225,6 @@
     <input type="file" id="fileLoader" class="hidden">
     <input type="file" id="txtLoader" accept=".txt" class="hidden" onchange="app.importTXT(event)">
     <script>
-        // Kích hoạt mobile drag & drop polyfill
         window.addEventListener('touchmove', function() {}, {passive: false});
         mobileDragDrop.polyfill({ dragImageTranslateOverride: mobileDragDrop.scrollBehaviourDragImageTranslateOverride });
     </script>
