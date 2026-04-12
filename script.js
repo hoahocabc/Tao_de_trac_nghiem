@@ -11,151 +11,163 @@ const THEMES = {
 };
 
 const GUIDES = {
-    1: `<div class="space-y-3"><p><b>Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Nội dung câu hỏi nằm ở dòng trên cùng.</li>
-            <li>Các phương án (A, B, C, D...) ghi ở các dòng tiếp theo.</li>
-            <li>Đặt dấu <code>#</code> và 1 dấu cách ở đầu phương án ĐÚNG.</li>
-            <li>Thêm <code>Lời giải:</code> ở cuối nếu cần giải thích cho học sinh.</li>
+    1: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 1: CÂU HỎI TRẮC NGHIỆM (1 đáp án đúng)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các phương án (A, B, C, D...) ghi ở các dòng tiếp theo (bắt buộc có dấu chấm sau chữ cái, VD: <code>A. </code>).</li>
+            <li>Đặt dấu <code>#</code> và một khoảng trắng ở ngay trước phương án <b>ĐÚNG</b>.</li>
+            <li>Thêm dòng <code>Lời giải:</code> (hoặc <code>Giải thích:</code>) ở cuối cùng để cung cấp đáp án chi tiết cho học sinh (không bắt buộc).</li>
+            <li><i>Mẹo: Nếu nhập nhiều câu cùng lúc từ ngoài vào, hãy ngăn cách các câu bằng <code>##</code>.</i></li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Chất nào sau đây là kim loại kiềm?
-A. Ag
-B. Cu
-# C. Na
-D. Fe
-Lời giải: Na thuộc nhóm IA nên là kim loại kiềm.</pre></div>`,
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Kim loại nào sau đây ở trạng thái lỏng ở điều kiện thường?
+A. Sắt (Fe)
+B. Đồng (Cu)
+# C. Thủy ngân (Hg)
+D. Bạc (Ag)
+Lời giải: Thủy ngân (Hg) là kim loại duy nhất tồn tại ở trạng thái lỏng ở nhiệt độ phòng.</pre></div>`,
 
-    2: `<div class="space-y-3"><p><b>Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Đúng/Sai)</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Nội dung câu hỏi nằm ở dòng trên cùng.</li>
-            <li>Đặt dấu <code>#</code> ở đầu <b>TẤT CẢ</b> các phương án đúng.</li>
-            <li>Các phương án không có <code>#</code> sẽ tự động được hệ thống tính là phương án sai.</li>
-            <li>Thêm <code>Lời giải:</code> ở cuối nếu cần.</li>
+    2: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 2: CÂU HỎI NHIỀU ĐÁP ÁN ĐÚNG (Hộp kiểm)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các phương án ghi ở các dòng tiếp theo (A., B., C., D...).</li>
+            <li>Đặt dấu <code>#</code> ở đầu <b>TẤT CẢ</b> các phương án đúng. Các phương án không có <code>#</code> hệ thống sẽ tự hiểu là sai.</li>
+            <li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích chi tiết.</li>
+            <li><i>Ngăn cách nhiều câu bằng <code>##</code>.</i></li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Những chất nào sau đây tác dụng được với dung dịch NaOH?
-# A. Al
-B. Fe
-# C. Al2O3
-D. CuO
-Lời giải: Al và Al2O3 là các chất có thể tan được trong dung dịch kiềm.</pre></div>`,
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Những khí nào sau đây nhẹ hơn không khí (M = 29)?
+# A. H2 (M = 2)
+B. CO2 (M = 44)
+# C. N2 (M = 28)
+D. O2 (M = 32)
+Lời giải: Khí H2 (2 < 29) và N2 (28 < 29) nhẹ hơn không khí.</pre></div>`,
 
-    3: `<div class="space-y-3"><p><b>Dạng 3: CÂU HỎI TRẢ LỜI NGẮN</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Nhập nội dung câu hỏi ở trên cùng.</li>
-            <li>Các đáp án được chấp nhận ghi ở dưới cùng, mỗi đáp án 1 dòng và <b>BẮT BUỘC</b> có dấu <code>#</code> ở đầu.</li>
-            <li>(Ứng dụng tự động chấm không phân biệt hoa thường).</li>
+    3: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 3: CÂU HỎI TRẢ LỜI NGẮN (Điền từ)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Nhập nội dung câu hỏi ở dòng đầu tiên.</li>
+            <li>Các đáp án được chấp nhận ghi ở dưới cùng, <b>mỗi đáp án 1 dòng</b> và <b>BẮT BUỘC</b> có dấu <code>#</code> ở đầu. (Hệ thống chấm không phân biệt chữ hoa/thường).</li>
+            <li>Thêm dòng <code>Lời giải:</code> ở cuối cùng để giải thích.</li>
+            <li><i>Ngăn cách nhiều câu bằng <code>##</code>.</i></li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Công thức hóa học của axit nitric là gì?
-# HNO3
-# hno3</pre></div>`,
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Công thức hóa học của nước là gì?
+# H2O
+# h2o
+Lời giải: Nước được tạo thành từ 2 nguyên tử Hidro và 1 nguyên tử Oxi, công thức là H2O.</pre></div>`,
 
-    4: `<div class="space-y-3"><p><b>Dạng 4: CÂU HỎI ĐIỀN KHUYẾT</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Đặt các chỗ trống trong câu hỏi bằng cú pháp: <code>=(1)=</code>, <code>=(2)=</code>...</li>
-            <li>Ghi đúng cụm từ <code>Đáp án:</code> ở dưới câu hỏi.</li>
-            <li>Bên dưới, ghi lại mã vị trí <code>=(1)=</code> và liệt kê các đáp án đúng cho vị trí đó (dùng <code>#</code> ở đầu mỗi đáp án). Tương tự cho các vị trí tiếp theo.</li>
+    4: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 4: CÂU HỎI ĐIỀN KHUYẾT (Nhiều chỗ trống)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Trong câu hỏi, đánh dấu các chỗ trống cần điền bằng cú pháp: <code>=(1)=</code>, <code>=(2)=</code>...</li>
+            <li>Sau câu hỏi, bắt buộc ghi một dòng chữ: <code>Đáp án:</code></li>
+            <li>Bên dưới, liệt kê lần lượt các vị trí (VD: <code>=(1)=</code>) và bên dưới nó là các phương án được chấp nhận (có dấu <code>#</code> ở đầu).</li>
+            <li>Cuối cùng, ghi <code>Lời giải:</code> (nếu có).</li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Khí =(1)= là nguyên nhân chính gây ra hiệu ứng nhà kính. Khí =(2)= duy trì sự cháy.
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Phản ứng hóa học là quá trình biến đổi từ =(1)= thành =(2)=.
 Đáp án:
 =(1)=
-# CO2
-# cacbon đioxit
+# chất ban đầu
+# chất tham gia
 =(2)=
-# O2
-# oxi</pre></div>`,
+# chất mới
+# sản phẩm
+Lời giải: Theo định nghĩa SGK, phản ứng hóa học biến đổi chất tham gia (chất ban đầu) thành sản phẩm (chất mới).</pre></div>`,
 
-    5: `<div class="space-y-3"><p><b>Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Ghi <code>Cột I:</code> (dùng số 1. 2. 3...) và liệt kê nội dung vế trái.</li>
-            <li>Ghi <code>Cột II:</code> (dùng chữ A. B. C...) và liệt kê nội dung vế phải.</li>
-            <li>Ghi đáp án ở dòng cuối cùng, BẮT BUỘC có dấu <code>#</code> ở đầu câu (VD: <code># 1=B, 2=C</code>).</li>
+    5: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 5: CÂU HỎI GHÉP ĐÔI (NỐI)</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Ghi câu dẫn (nếu có). Sau đó ghi chính xác chữ <code>Cột I:</code> và liệt kê các ý (dùng số 1., 2., 3...).</li>
+            <li>Ghi chính xác chữ <code>Cột II:</code> và liệt kê các ý (dùng chữ A., B., C...).</li>
+            <li>Dòng đáp án bắt buộc có dấu <code>#</code> ở đầu, định dạng: <code># 1=A, 2=B, 3=C</code>.</li>
+            <li>Dòng <code>Lời giải:</code> đặt ở cuối cùng.</li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Hãy ghép tên gọi với công thức tương ứng:
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Hãy nối tên gọi ở Cột I với công thức ở Cột II cho phù hợp:
 Cột I:
-1. Canxi cacbonat
-2. Natri clorua
+1. Axit clohidric
+2. Natri hiđroxit
 Cột II:
-A. NaCl
-B. CaCO3
-# 1=B, 2=A</pre></div>`,
+A. NaOH
+B. HCl
+# 1=B, 2=A
+Lời giải: HCl là axit clohidric, NaOH là natri hiđroxit (xút).</pre></div>`,
 
-    6: `<div class="space-y-3"><p><b>Dạng 6: GIẢI Ô CHỮ</b></p>
-        <ul class="list-disc pl-5 space-y-1">
-            <li>(Nếu nhập nhiều câu cùng lúc, ngăn cách bằng <code>##</code>)</li>
-            <li>Ghi lần lượt các gợi ý hàng ngang theo cấu trúc: <code>[Gợi ý] # [ĐÁP ÁN]</code>.</li>
-            <li>Nếu có từ khóa cột dọc, thêm dòng <code>Từ khóa: # [TỪ KHÓA]</code> ở cuối.</li>
+    6: `<div class="space-y-3 text-slate-700 leading-relaxed"><p class="text-blue-700 text-lg"><b>Dạng 6: GIẢI Ô CHỮ</b></p>
+        <ul class="list-disc pl-5 space-y-1.5">
+            <li>Ghi câu dẫn đầu tiên (nếu có).</li>
+            <li>Ghi lần lượt các gợi ý hàng ngang theo cấu trúc: <code>[Gợi ý] # [ĐÁP ÁN KHÔNG DẤU TIẾNG VIỆT]</code>. (Nên viết liền không khoảng trắng).</li>
+            <li>Thêm dòng <code>Từ khóa: # [TỪ KHÓA]</code> ở cuối. <b>Lưu ý quan trọng:</b> Số chữ cái của từ khóa phải bằng số hàng ngang, và mỗi chữ cái của từ khóa phải xuất hiện trong đáp án hàng ngang tương ứng (để hệ thống tự xếp dọc).</li>
+            <li>Cuối cùng ghi <code>Lời giải:</code> (nếu có).</li>
         </ul>
-        <div class="mt-2"><b>Ví dụ:</b></div>
-        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Hạt mang điện tích âm trong nguyên tử là gì? # ELECTRON
+        <div class="mt-3 font-semibold text-slate-800">Ví dụ chuẩn:</div>
+        <pre class="bg-slate-100 p-3 rounded-lg border border-slate-200 text-sm font-mono whitespace-pre-wrap">Giải ô chữ sau đây:
 Hạt không mang điện trong hạt nhân? # NEUTRON
-Hạt mang điện tích dương trong hạt nhân? # PROTON
-Từ khóa: # NGUYEN TU</pre></div>`
+Ký hiệu hóa học của Đồng? # CU
+Khí duy trì sự cháy? # OXI
+Ký hiệu hóa học của Canxi? # CA
+Từ khóa: # NUOC
+Lời giải: 
+- Hàng 1: NEUTRO[N] (Chữ N)
+- Hàng 2: C[U] (Chữ U)
+- Hàng 3: [O]XI (Chữ O)
+- Hàng 4: [C]A (Chữ C)
+=> Từ khóa ghép dọc lại là NUOC.</pre></div>`
 };
 
 const FULL_GUIDE = `
-<div class="space-y-5">
+<div class="space-y-6 text-slate-800 leading-relaxed">
     <div class="text-center mb-6">
-        <h3 class="text-xl sm:text-2xl font-black text-blue-700 uppercase tracking-wide">Hướng dẫn sử dụng phần mềm tạo đề trắc nghiệm</h3>
-        <p class="text-slate-500 text-sm mt-1">Nền tảng hỗ trợ giáo viên xây dựng bài kiểm tra tương tác toàn diện.</p>
+        <h3 class="text-xl sm:text-2xl font-black text-blue-700 uppercase tracking-wide">Hướng dẫn sử dụng chi tiết</h3>
+        <p class="text-slate-600 text-sm mt-1">Dành cho mọi giáo viên, không yêu cầu am hiểu kỹ thuật.</p>
     </div>
     
+    <div class="bg-blue-50 p-4 rounded-xl border border-blue-100">
+        <h4 class="font-bold text-blue-800 text-lg mb-2 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5"></i> Tổng quan quy trình</h4>
+        <p class="text-sm">Ứng dụng này giúp thầy cô tạo ra một <b>Trang web làm bài kiểm tra Online</b> hoặc <b>File Word/PDF</b> để in ra giấy. Quy trình gồm 3 bước: <b>(1) Nhập câu hỏi -> (2) Cấu hình điểm/thời gian -> (3) Xuất file đề thi.</b></p>
+    </div>
+
     <div>
-        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="folder" class="w-5 h-5"></i> 1. Quản lý dự án</h4>
-        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-            <li><b>Tạo mới:</b> Xóa trắng toàn bộ dữ liệu hiện tại để bắt đầu một đề thi mới.</li>
-            <li><b>Mở file:</b> Mở file dự án (định dạng <code>.json</code>) đã lưu trước đó trên máy tính.</li>
-            <li><b>Lưu lại:</b> Lưu toàn bộ nội dung đề thi, thiết lập và cấu hình Form hiện tại thành file <code>.json</code> để chỉnh sửa sau.</li>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="edit-3" class="w-5 h-5"></i> Bước 1: Nhập và soạn thảo câu hỏi</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><b>Cách 1 (Soạn trực tiếp):</b> Chọn loại câu hỏi ở các Tab (Dạng 1 đến Dạng 6). Gõ nội dung vào ô trống lớn, sau đó bắt buộc bấm nút xanh <b>"Thêm vào danh sách"</b>. Câu hỏi sẽ chạy sang danh sách bên phải. Thầy cô có thể bôi đen chữ rồi dùng thanh công cụ để <b>In đậm</b>, <i>In nghiêng</i>, hoặc chèn công thức hóa học.</li>
+            <li><b>Cách 2 (Nhập nhanh từ file TXT):</b> Thầy cô có thể soạn sẵn hàng chục câu hỏi trên máy tính, lưu thành file <code>.txt</code> rồi bấm nút <b>"Nhập TXT"</b> trên cùng để đưa tất cả vào phần mềm trong 1 giây. (Nên dùng tính năng này cho nhanh).</li>
+            <li><b>Chèn Ảnh/Video:</b> Đặt con trỏ chuột vào vị trí muốn chèn trong ô soạn thảo, bấm nút "Ảnh" hoặc "Video" trên thanh công cụ.</li>
+            <li><b>Sửa/Xóa:</b> Nhìn sang danh sách câu hỏi bên phải, rê chuột vào từng câu sẽ thấy biểu tượng cây bút (để sửa) và thùng rác (để xóa). Có thể giữ chuột để kéo thả thay đổi thứ tự câu hỏi.</li>
         </ul>
     </div>
 
     <div>
-        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i> 2. Nhập dữ liệu và Cấu hình</h4>
-        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-            <li><b>Nhập TXT:</b> Hỗ trợ nhập hàng loạt câu hỏi từ file văn bản <code>.txt</code>. Lưu ý: Giữa các câu hỏi phải được ngăn cách bằng ký hiệu <code>##</code>.</li>
-            <li><b>Cấu hình đề thi:</b> Thiết lập tên bài kiểm tra, tên người tạo, và thời gian bắt đầu/kết thúc làm bài.</li>
-            <li><b>Cấu hình Giao diện & Chế độ:</b> Chọn chủ đề (màu sắc giao diện), bật/tắt tính năng Chống gian lận (khóa tab) và tự động Công bố điểm sau khi học sinh nộp bài.</li>
-            <li><b>Kết nối Google Form:</b> Bấm nút "Form", dán link Google Form (đang mở quyền truy cập) để ứng dụng tự động phân tích các trường dữ liệu và liên kết nộp điểm tự động.</li>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5"></i> Bước 2: Thiết lập chung & Chống gian lận</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li>Điền đầy đủ <b>Tên bài kiểm tra</b>, <b>Người tạo</b>, <b>Thời gian bắt đầu/kết thúc</b> (đúng định dạng VD: 08:00 20/11/2026). Trẻ sẽ không thể làm bài nếu chưa tới giờ.</li>
+            <li><b>Chống gian lận:</b> Nếu tích chọn, khi học sinh đang làm bài mà mở sang Tab khác hoặc mở ứng dụng khác quá 3 lần, hệ thống sẽ <b>khóa bài và nộp bài bắt buộc</b>.</li>
+            <li><b>Công bố điểm:</b> Nếu tích chọn, học sinh nộp bài xong sẽ xem được ngay điểm số, câu đúng, câu sai và lời giải chi tiết. Nếu tắt đi, các em chỉ nhận được thông báo "Đã nộp bài".</li>
         </ul>
     </div>
 
     <div>
-        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="edit-3" class="w-5 h-5"></i> 3. Trình soạn thảo câu hỏi</h4>
-        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-            <li>Ứng dụng hỗ trợ 6 dạng câu hỏi linh hoạt. Xem hướng dẫn cú pháp cụ thể tại nút <b>"HD Nhập"</b> ở từng tab.</li>
-            <li>Thanh công cụ hỗ trợ chèn nhanh các kí tự hóa học, mũi tên phản ứng (có hỗ trợ ghi điều kiện nhiệt độ/xúc tác), in đậm, in nghiêng.</li>
-            <li><b>Chèn Ảnh / Video:</b> Hỗ trợ tải ảnh từ máy tính hoặc chèn trực tiếp link video (YouTube / MP4) vào nội dung câu hỏi.</li>
+        <h4 class="font-bold text-emerald-600 text-lg border-b-2 border-emerald-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="database" class="w-5 h-5"></i> Bước 3: Liên kết Google Form (Để lấy điểm)</h4>
+        <p class="text-sm mb-2 italic text-slate-600">Lưu ý: Nếu chỉ in ra Word/PDF thì bỏ qua bước này. Nếu thi Online, thầy cô PHẢI làm bước này để học sinh nộp bài điểm sẽ bay về Google Sheet của thầy cô.</p>
+        <ul class="list-decimal pl-5 space-y-2">
+            <li>Mở Google Form, tạo một Form mới. Tạo các câu hỏi ngắn yêu cầu học sinh điền tên, lớp... (KHÔNG tạo câu hỏi trắc nghiệm ở đây). Cài đặt form sang chế độ "Cho phép mọi người xem/trả lời" (Bỏ yêu cầu đăng nhập email).</li>
+            <li>Bấm biểu tượng con mắt (Xem trước) của Google Form, copy đường link dài trên trình duyệt.</li>
+            <li>Quay lại phần mềm này, bấm nút <b>"Form"</b> màu xanh lá ở góc phải trên. Dán link vừa copy vào ô trống, bấm <b>"Phân tích"</b>.</li>
+            <li>Hệ thống sẽ tự động quét các ô điền tên, lớp. Thầy cô chỉ cần tích chọn ô nào "Bắt buộc điền", ô nào là "Tự nhập" hoặc "Tự động" (Tự động lưu điểm trắc nghiệm vào cột đó). Cuối cùng bấm <b>"Lưu thông tin"</b>.</li>
         </ul>
     </div>
 
     <div>
-        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="list" class="w-5 h-5"></i> 4. Quản lý danh sách câu hỏi</h4>
-        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-            <li>Bạn có thể xem trước, Sửa (biểu tượng cây bút), hoặc Xóa (biểu tượng thùng rác) từng câu hỏi trực tiếp trên danh sách bên phải.</li>
-            <li><b>Kéo thả:</b> Nhấn giữ biểu tượng 6 dấu chấm ở cạnh câu hỏi để kéo và thả thay đổi thứ tự dễ dàng.</li>
-        </ul>
-    </div>
-
-    <div>
-        <h4 class="font-bold text-blue-600 text-lg border-b border-blue-100 pb-1 mb-2 flex items-center gap-2"><i data-lucide="share" class="w-5 h-5"></i> 5. Xuất bản đề thi</h4>
-        <ul class="list-disc pl-5 space-y-1.5 text-slate-700">
-            <li><b>Xuất Word / PDF:</b> In đề thi ra định dạng giấy để học sinh làm bài truyền thống (hỗ trợ hiển thị bảng biểu, chỗ trống nối, ô chữ...).</li>
-            <li><b>Xuất HTML (Đề thi Online):</b> Đóng gói toàn bộ câu hỏi, hình ảnh, tính năng tính giờ, chấm điểm tự động, và liên kết gửi dữ liệu vào một file <code>.html</code> duy nhất. Có thể gửi file này cho học sinh để làm bài trên mọi thiết bị.</li>
+        <h4 class="font-bold text-blue-600 text-lg border-b-2 border-blue-100 pb-1 mb-3 flex items-center gap-2"><i data-lucide="share" class="w-5 h-5"></i> Bước 4: Xuất đề thi và Lưu trữ</h4>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><b>Xuất HTML (Thi Online):</b> Bấm nút này, hệ thống sẽ tải về máy thầy cô một file có đuôi <code>.html</code>. Thầy cô chỉ cần gửi trực tiếp file này cho học sinh (qua Zalo, Facebook...). Học sinh tải về, bấm đúp chuột mở bằng trình duyệt web (Chrome, Safari, Cốc Cốc) là có thể làm bài.</li>
+            <li><b>Xuất Word / PDF:</b> Dùng để in ra giấy.</li>
+            <li><b>Lưu lại:</b> Bấm nút "Lưu lại" để lưu toàn bộ dự án đang làm dở thành 1 file <code>Project_HoaHoc.json</code>. Lần sau muốn sửa đề, thầy cô chỉ cần mở phần mềm lên, bấm <b>"Mở file"</b> và chọn file json này là dữ liệu sẽ phục hồi đầy đủ.</li>
         </ul>
     </div>
 
     <div class="mt-8 pt-6 border-t-2 border-slate-200 text-right">
         <p class="font-black text-blue-700 text-xl tracking-wider">HÓA HỌC ABC</p>
-        <p class="text-slate-500 text-sm">Phiên bản 2.0</p>
+        <p class="text-slate-500 text-sm">Nền tảng hỗ trợ giáo dục 4.0 - Phiên bản 2.0</p>
     </div>
 </div>
 `;
