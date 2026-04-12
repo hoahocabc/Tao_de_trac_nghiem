@@ -519,6 +519,27 @@ const app = {
         this.draggedItemIndex = null;
     },
 
+    // Hàm chuyển đổi Công thức Hóa học sang dạng văn bản HTML cho Word
+    convertLatexForWord(text) {
+        if(!text) return text;
+        return text.replace(/\$(.*?)\$/g, (match, formula) => {
+            let html = formula.trim();
+            html = html.replace(/_\{([^}]+)\}/g, '<sub>$1</sub>');
+            html = html.replace(/_([a-zA-Z0-9])/g, '<sub>$1</sub>');
+            html = html.replace(/\^\{([^}]+)\}/g, '<sup>$1</sup>');
+            html = html.replace(/\^([a-zA-Z0-9])/g, '<sup>$1</sup>');
+            html = html.replace(/\\rightarrow/g, '→');
+            html = html.replace(/\\rightleftharpoons/g, '⇌');
+            html = html.replace(/\\xrightarrow\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' → (xt: $1, t°: $2) ');
+            html = html.replace(/\\xrightarrow\s*\{\\text\{([^}]+)\}\}/g, ' → (t°: $1) ');
+            html = html.replace(/\\xrightleftharpoons\s*\[\\text\{([^}]+)\}\]\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (xt: $1, t°: $2) ');
+            html = html.replace(/\\xrightleftharpoons\s*\{\\text\{([^}]+)\}\}/g, ' ⇌ (t°: $1) ');
+            html = html.replace(/\\text\{([^}]+)\}/g, '$1');
+            html = html.replace(/\\[a-zA-Z]+/g, ''); 
+            return html;
+        });
+    },
+
     renderQList() {
         const arr = this.data['part'+this.activeTab];
         const html = arr.map((q, i) => `
@@ -552,6 +573,11 @@ const app = {
         const badge = document.getElementById('qCountBadge');
         if(badge) badge.innerText = `${arr.length} câu`;
         if (typeof lucide !== 'undefined') lucide.createIcons();
+
+        // Kích hoạt MathJax để vẽ lại công thức hóa học vừa load vào danh sách hiển thị
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([document.getElementById('qList')]).catch(err => console.log(err));
+        }
     },
 
     newProject() {
@@ -937,6 +963,9 @@ const app = {
                 <h1 style="text-align: center; font-size: 18pt; text-transform: uppercase; margin-bottom: 20px;">${title}</h1>`;
         }
 
+        // Helper để chuyển đổi cho file Word nếu cần, bỏ qua cho PDF để MathJax lo
+        const formatText = (txt) => isWord ? this.convertLatexForWord(txt) : txt;
+
         let leTitles = {1: "Một phương án đúng", 2: "Nhiều đáp án đúng", 3: "Trả lời ngắn", 4: "Điền khuyết", 5: "Ghép đôi (Nối)", 6: "Giải ô chữ"};
         let qIndex = 1;
         let partCounter = 1;
@@ -955,7 +984,7 @@ const app = {
             this.data['part'+ptype].forEach(rawQ => {
                 let lines = rawQ.split(/\r?\n/);
                 let parsed = this.parseQuestionLines(lines, ptype);
-                let qtext = parsed[0];
+                let qtext = formatText(parsed[0]);
                 
                 if (ptype === 4) {
                      let blankAnswers = parsed[1];
@@ -976,7 +1005,7 @@ const app = {
                     let opts = parsed[1];
                     opts.forEach(opt => {
                         let clean = opt.trimLeft().startsWith("#") ? opt.trimLeft().substring(1).trim() : opt.trimLeft();
-                        html += `<div>${clean}</div>`;
+                        html += `<div>${formatText(clean)}</div>`;
                     });
                 } else if (ptype === 3) {
                      html += `<div>Đáp án: ..........................................................................</div>`;
@@ -985,15 +1014,15 @@ const app = {
                 } else if (ptype === 5) {
                      let data = parsed[1];
                      html += `<table style="width:100%; border-collapse: collapse; margin-top: 10px;"><tr><td style="width:50%; vertical-align:top;"><b>Cột I</b><br>`;
-                     data.leftCol.forEach(l => html += `${l.label ? l.label+'. ' : ''}${l.text}<br>`);
+                     data.leftCol.forEach(l => html += `${l.label ? l.label+'. ' : ''}${formatText(l.text)}<br>`);
                      html += `</td><td style="width:50%; vertical-align:top;"><b>Cột II</b><br>`;
-                     data.rightCol.forEach(r => html += `${r.label ? r.label+'. ' : ''}${r.text}<br>`);
+                     data.rightCol.forEach(r => html += `${r.label ? r.label+'. ' : ''}${formatText(r.text)}<br>`);
                      html += `</td></tr></table>`;
                 } else if (ptype === 6) {
                      let clues = parsed[1];
                      html += `<div><b>Các gợi ý hàng ngang:</b></div><ul>`;
                      clues.forEach((c, idx) => {
-                         html += `<li>${idx + 1}. ${c.clue}</li>`;
+                         html += `<li>${idx + 1}. ${formatText(c.clue)}</li>`;
                      });
                      html += `</ul>`;
                 }
@@ -1043,16 +1072,34 @@ const app = {
         const container = document.createElement('div');
         container.innerHTML = contentHTML;
         
+        // Gắn vào DOM ở vị trí ẩn để MathJax đo lường font chữ và render chính xác
+        container.style.position = 'absolute';
+        container.style.left = '-9999px';
+        container.style.top = '0';
+        container.style.width = '800px'; 
+        document.body.appendChild(container);
+
         const opt = {
             margin:       [15, 15, 20, 15],
             filename:     title.replace(/\s+/g,'_') + ".pdf",
             image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
+            html2canvas:  { scale: 2, useCORS: true, windowWidth: 800 },
             jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
             pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
         };
 
-        html2pdf().set(opt).from(container).save();
+        // Chờ MathJax xử lý xong công thức trước khi gọi thư viện in PDF
+        if (window.MathJax && MathJax.typesetPromise) {
+            MathJax.typesetPromise([container]).then(() => {
+                setTimeout(() => { // Đợi một chút để trình duyệt load xong font MathJax
+                    html2pdf().set(opt).from(container).save().then(() => document.body.removeChild(container));
+                }, 500);
+            }).catch(() => {
+                html2pdf().set(opt).from(container).save().then(() => document.body.removeChild(container));
+            });
+        } else {
+            html2pdf().set(opt).from(container).save().then(() => document.body.removeChild(container));
+        }
     },
 
     generateQuizHTML() {
