@@ -39,8 +39,8 @@
         /* CSS tự động phóng to/thu nhỏ TOÀN BỘ UI cân đối theo cả 2 chiều */
         @media (min-width: 1024px) {
             html {
-                /* Tính toán lấy tỷ lệ nhỏ nhất giữa chiều dọc và chiều ngang để nội dung LUÔN vừa vặn màn hình, không bị che khuất chân trang */
-                font-size: clamp(10px, min(calc(100vw / 93.75), calc(100vh / 55)), 20px) !important;
+                /* Đã tăng giới hạn tối thiểu lên 13px và điều chỉnh tỷ lệ chia nhỏ hơn (80 thay vì 93.75, 45 thay vì 55) để các phần tử to, rõ ràng hơn */
+                font-size: clamp(13px, min(calc(100vw / 80), calc(100vh / 45)), 18px) !important;
             }
         }
     </style>
