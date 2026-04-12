@@ -19,7 +19,6 @@
     <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/scroll-behaviour.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
 
     <script>
         window.MathJax = { 
@@ -85,7 +84,7 @@
         </div>
 
         <div id="mobileMenu" class="lg:hidden hidden border-t border-slate-200 bg-slate-50 absolute top-full left-0 w-full shadow-2xl transition-all duration-200 flex-col p-3 gap-3 z-50">
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
                 <button class="btn btn-outline w-full" onclick="app.openFullGuide(); app.toggleMenu()"><i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-blue-500"></i>Hướng dẫn</button>
                 <button class="btn btn-outline w-full" onclick="app.newProject(); app.toggleMenu()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
                 <button class="btn btn-outline w-full" onclick="app.saveProject(); app.toggleMenu()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
@@ -233,7 +232,7 @@
     </div>
 
     <input type="file" id="fileLoader" class="hidden">
-    <input type="file" id="txtLoader" accept=".txt,.json,.doc,.docx" class="hidden" onchange="app.importQuestions(event)">
+    <input type="file" id="txtLoader" accept=".txt,.json,.docx,.doc" class="hidden" onchange="app.importQuestions(event)">
     <script>
         window.addEventListener('touchmove', function() {}, {passive: false});
         mobileDragDrop.polyfill({ dragImageTranslateOverride: mobileDragDrop.scrollBehaviourDragImageTranslateOverride });
