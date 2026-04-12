@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mobile-drag-drop@2.3.0-rc.2/scroll-behaviour.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
 
     <script>
         window.MathJax = { 
@@ -66,9 +67,8 @@
             <div class="hidden lg:flex items-center gap-2 flex-1 justify-end">
                 <button class="btn btn-outline" onclick="app.openFullGuide()"><i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-blue-500"></i>Hướng dẫn</button>
                 <button class="btn btn-outline" onclick="app.newProject()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
-                <button class="btn btn-outline" onclick="app.loadProject()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
                 <button class="btn btn-outline" onclick="app.saveProject()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
-                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập TXT</button>
+                <button class="btn btn-outline" onclick="document.getElementById('txtLoader').click()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập câu hỏi</button>
                 
                 <div class="w-px h-8 bg-slate-200 mx-1 shrink-0"></div>
                 
@@ -88,9 +88,8 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-3">
                 <button class="btn btn-outline w-full" onclick="app.openFullGuide(); app.toggleMenu()"><i data-lucide="book-open" class="w-4 h-4 mr-1.5 text-blue-500"></i>Hướng dẫn</button>
                 <button class="btn btn-outline w-full" onclick="app.newProject(); app.toggleMenu()"><i data-lucide="file-plus" class="w-4 h-4 mr-1.5"></i>Tạo mới</button>
-                <button class="btn btn-outline w-full" onclick="app.loadProject(); app.toggleMenu()"><i data-lucide="folder-open" class="w-4 h-4 mr-1.5"></i>Mở file</button>
                 <button class="btn btn-outline w-full" onclick="app.saveProject(); app.toggleMenu()"><i data-lucide="save" class="w-4 h-4 mr-1.5"></i>Lưu lại</button>
-                <button class="btn btn-outline w-full" onclick="document.getElementById('txtLoader').click(); app.toggleMenu()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập TXT</button>
+                <button class="btn btn-outline w-full" onclick="document.getElementById('txtLoader').click(); app.toggleMenu()"><i data-lucide="upload" class="w-4 h-4 mr-1.5"></i>Nhập câu hỏi</button>
             </div>
             <div class="h-px w-full bg-slate-200 my-0"></div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
@@ -234,7 +233,7 @@
     </div>
 
     <input type="file" id="fileLoader" class="hidden">
-    <input type="file" id="txtLoader" accept=".txt" class="hidden" onchange="app.importTXT(event)">
+    <input type="file" id="txtLoader" accept=".txt,.json,.doc,.docx" class="hidden" onchange="app.importQuestions(event)">
     <script>
         window.addEventListener('touchmove', function() {}, {passive: false});
         mobileDragDrop.polyfill({ dragImageTranslateOverride: mobileDragDrop.scrollBehaviourDragImageTranslateOverride });
